@@ -76,10 +76,10 @@ function SkillBar({ label, value }: { label: string; value: number }) {
           0%
         </span>
       </div>
-      <span className="bg-border mt-3 block h-[3px] w-full overflow-hidden rounded-full">
+      <span className="bg-border mt-3 block h-0.75 w-full overflow-hidden rounded-full">
         <span
           ref={barRef}
-          className="from-ember to-ember/40 block h-full w-0 rounded-full bg-gradient-to-r"
+          className="from-ember to-ember/40 block h-full w-0 rounded-full bg-linear-to-r"
         />
       </span>
     </div>

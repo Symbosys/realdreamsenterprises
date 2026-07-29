@@ -59,7 +59,7 @@ function GalleryPage() {
           ))}
         </div>
 
-        <div className="mt-10 grid auto-rows-[220px] grid-cols-2 gap-4 lg:grid-cols-4">
+        <div className="mt-10 grid auto-rows-55 grid-cols-2 gap-4 lg:grid-cols-4">
           {items.map((g, i) => (
             <Reveal
               key={g.title}
@@ -68,9 +68,9 @@ function GalleryPage() {
             >
               <motion.figure
                 whileHover={{ scale: 1.015 }}
-                className="border-border from-steel/25 via-card to-ember/10 group relative h-full overflow-hidden rounded-sm border bg-gradient-to-br"
+                className="border-border from-steel/25 via-card to-ember/10 group relative h-full overflow-hidden rounded-sm border bg-linear-to-br"
               >
-                <figcaption className="from-background/95 absolute inset-x-0 bottom-0 bg-gradient-to-t to-transparent p-5">
+                <figcaption className="from-background/95 absolute inset-x-0 bottom-0 bg-linear-to-t to-transparent p-5">
                   <div className="font-display text-lg font-bold">{g.title}</div>
                   <div className="text-muted-foreground text-[10px] tracking-[0.22em] uppercase">
                     {g.sector} · {g.city}

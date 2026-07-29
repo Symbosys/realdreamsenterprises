@@ -117,7 +117,7 @@ function ProductsPage() {
                 className="h-full"
               >
                 <Glass className="hover:shadow-elevate flex h-full flex-col p-6 transition-shadow">
-                  <div className="from-steel/25 to-ember/15 mb-5 h-28 rounded-sm bg-gradient-to-br" />
+                  <div className="from-steel/25 to-ember/15 mb-5 h-28 rounded-sm bg-linear-to-br" />
                   <p className="eyebrow">{p.category}</p>
                   <h3 className="mt-2 text-xl">{p.name}</h3>
                   <p className="text-muted-foreground mt-2 text-sm">{p.tag}</p>
@@ -164,7 +164,7 @@ function ProductsPage() {
       <section className="px-6 pb-20 md:px-12">
         <SectionHeading eyebrow="Rotating platform" title="The showroom turntable" />
         <div className="mt-10 grid gap-8 lg:grid-cols-[1.15fr_1fr]">
-          <div className="border-border bg-card/40 relative h-[58vh] min-h-[400px] rounded-sm border">
+          <div className="border-border bg-card/40 relative h-[58vh] min-h-100 rounded-sm border">
             <SceneMount className="absolute inset-0" label="Loading model">
               <ProductScene
                 product={spotlight.scene as ProductId}
@@ -227,7 +227,7 @@ function ProductsPage() {
             const p = PRODUCTS[idx];
             return (
               <div key={side} className="bg-card">
-                <div className="relative h-[42vh] min-h-[300px]">
+                <div className="relative h-[42vh] min-h-75">
                   <SceneMount className="absolute inset-0" label="Loading model">
                     <ProductScene
                       product={p.scene as ProductId}

@@ -51,7 +51,7 @@ function ProductDetail() {
   return (
     <main className="bg-background text-foreground">
       <section className="grid gap-0 pt-24 lg:grid-cols-[1.1fr_1fr]">
-        <div className="relative h-[70vh] min-h-[440px]">
+        <div className="relative h-[70vh] min-h-110">
           <SceneMount className="absolute inset-0" label="Loading model">
             <ProductScene product={product.scene as ProductId} mode={mode} hotspots={product.hotspots} />
           </SceneMount>

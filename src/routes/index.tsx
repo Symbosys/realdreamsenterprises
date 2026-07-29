@@ -159,7 +159,7 @@ function Index() {
         <SceneMount className="absolute inset-0" label="Rendering site">
           <HeroScene />
         </SceneMount>
-        <div className="from-background/95 via-background/20 pointer-events-none absolute inset-0 bg-gradient-to-t to-transparent" />
+        <div className="from-background/95 via-background/20 pointer-events-none absolute inset-0 bg-linear-to-t to-transparent" />
         <div className="pointer-events-none absolute inset-0 flex flex-col justify-end px-6 pb-20 md:px-12 md:pb-24">
           <p className="eyebrow mb-4">Construction materials · Engineering solutions</p>
           <h1 className="max-w-4xl text-5xl leading-[0.92] md:text-8xl">
@@ -205,7 +205,7 @@ function Index() {
         <p className="eyebrow">Experience 03</p>
         <h2 className="mt-3 text-3xl md:text-5xl">The catalogue, in your hands</h2>
         <div className="mt-10 grid gap-10 lg:grid-cols-[1.1fr_1fr]">
-          <div className="border-border bg-card/50 relative h-[62vh] min-h-[420px] rounded-sm border">
+          <div className="border-border bg-card/50 relative h-[62vh] min-h-105 rounded-sm border">
             <SceneMount className="absolute inset-0" label="Loading model">
               <ProductScene product={product} mode={mode} hotspots={active.hotspots} />
             </SceneMount>
