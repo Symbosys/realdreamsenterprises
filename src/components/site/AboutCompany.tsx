@@ -138,13 +138,13 @@ export function AboutCompany() {
           {/* Right Image Showcase Column (5 cols) */}
           <div data-anim="img" className="lg:col-span-5">
             <div className="relative rounded-2xl border border-border/80 bg-card/50 p-3 shadow-xl backdrop-blur-md">
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-card">
+              <div className="relative aspect-4/3 w-full overflow-hidden rounded-xl bg-card">
                 <img
                   src="/images/tmt_steel_manufacturing.png"
                   alt="TMT Steel Manufacturing Plant"
                   className="h-full w-full object-cover transition-transform duration-500 hover:scale-103"
                 />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+                <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-background/80 via-transparent to-transparent" />
               </div>
 
               {/* Simple Clean Experience Badge */}
