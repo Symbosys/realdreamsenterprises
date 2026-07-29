@@ -3,10 +3,19 @@ export const NAV = [
   { to: "/products", label: "Products" },
   { to: "/gallery", label: "Gallery" },
   { to: "/blog", label: "Insights" },
-  { to: "/careers", label: "Careers" },
-  { to: "/faq", label: "FAQ" },
   { to: "/contact", label: "Contact" },
 ] as const;
+
+export const SITE_CONTACT = {
+  companyName: "Stambh Steel",
+  fullName: "Real Dreams Enterprises / Stambh Steel Works",
+  phone: "651-3511561",
+  phoneRaw: "6513511561",
+  email: "steelcrafttrading@gmail.com",
+  address: "Stambh Steel Works, Hinjawadi Phase II, Pune 411057",
+  hours: "Mon–Sat, 09:00–19:00 IST. Site emergencies answered 24/7.",
+} as const;
+
 
 export type SceneKind = "tmt" | "rod" | "stambh" | "structural";
 
@@ -369,23 +378,6 @@ export const GALLERY = [
 ];
 
 export const GALLERY_SECTORS = ["All", "Commercial", "Residential", "Infrastructure", "Industrial"];
-
-export const JOBS = [
-  { title: "Metallurgical Engineer", dept: "Quality", place: "Pune Mill", type: "Full-time" },
-  { title: "Structural Design Engineer", dept: "Engineering", place: "Pune HQ", type: "Full-time" },
-  { title: "Logistics Planner", dept: "Supply Chain", place: "Nagpur Depot", type: "Full-time" },
-  { title: "Site Technical Advisor", dept: "Field Services", place: "Travelling", type: "Full-time" },
-  { title: "Sustainability Analyst", dept: "Strategy", place: "Pune HQ", type: "Contract" },
-  { title: "Crane Operations Lead", dept: "Warehousing", place: "Mundra", type: "Full-time" },
-];
-
-export const HIRING_STEPS = [
-  { step: "Apply", body: "One form, no cover letter theatre." },
-  { step: "Screen", body: "A 20-minute call about what you have built." },
-  { step: "Technical", body: "A real problem from a live project." },
-  { step: "Site visit", body: "See the mill before you decide." },
-  { step: "Offer", body: "Written within five working days." },
-];
 
 export const FAQS = [
   {

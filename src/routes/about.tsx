@@ -110,7 +110,7 @@ function AboutPage() {
         <SceneMount className="absolute inset-0" label="Drafting">
           <BlueprintScene />
         </SceneMount>
-        <div className="from-background/90 via-background/40 to-background/90 absolute inset-0 bg-gradient-to-b" />
+        <div className="from-background/90 via-background/40 to-background/90 absolute inset-0 bg-linear-to-b" />
         <div className="absolute inset-0 flex items-center px-6 md:px-12">
           <div className="grid w-full gap-6 md:grid-cols-2">
             {[
@@ -141,7 +141,7 @@ function AboutPage() {
           {LEADERSHIP.map((p, i) => (
             <Reveal key={p.name} delay={i * 0.06}>
               <Glass className="group h-full p-7 transition-transform duration-500 hover:-translate-y-1">
-                <div className="from-steel/30 to-ember/20 mb-6 h-24 w-24 rounded-sm bg-gradient-to-br" />
+                <div className="from-steel/30 to-ember/20 mb-6 h-24 w-24 rounded-sm bg-linear-to-br" />
                 <div className="font-display text-lg font-bold">{p.name}</div>
                 <div className="text-ember text-[11px] tracking-[0.2em] uppercase">{p.role}</div>
                 <p className="text-muted-foreground mt-3 text-sm">{p.note}</p>
@@ -157,7 +157,7 @@ function AboutPage() {
           <SceneMount className="absolute inset-0" label="Opening the warehouse">
             <WarehouseScene progress={warehouse.progress} />
           </SceneMount>
-          <div className="from-background/85 absolute inset-0 bg-gradient-to-r via-transparent to-transparent" />
+          <div className="from-background/85 absolute inset-0 bg-linear-to-r via-transparent to-transparent" />
           <div className="absolute inset-0 flex items-center px-6 md:px-12">
             <div className="max-w-sm">
               <p className="eyebrow">Infrastructure</p>

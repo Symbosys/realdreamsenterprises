@@ -39,7 +39,7 @@ function BlogPost() {
         <SceneMount className="absolute inset-0" label="Drafting">
           <BlueprintScene />
         </SceneMount>
-        <div className="from-background via-background/30 pointer-events-none absolute inset-0 bg-gradient-to-t to-transparent" />
+        <div className="from-background via-background/30 pointer-events-none absolute inset-0 bg-linear-to-t to-transparent" />
         <div className="absolute inset-0 flex flex-col justify-end px-6 pb-14 md:px-12">
           <p className="eyebrow">{post.category} · {post.readMinutes} min read</p>
           <h1 className="mt-4 max-w-4xl text-4xl md:text-6xl">{post.title}</h1>

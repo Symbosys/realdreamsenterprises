@@ -27,7 +27,7 @@ function NotFoundComponent() {
         <SceneMount className="absolute inset-0" label="Sending the site robot">
           <RobotScene />
         </SceneMount>
-        <div className="from-background via-background/25 pointer-events-none absolute inset-0 bg-gradient-to-t to-transparent" />
+        <div className="from-background via-background/25 pointer-events-none absolute inset-0 bg-linear-to-t to-transparent" />
         <div className="absolute inset-0 flex flex-col justify-end px-6 pb-20 md:px-12">
           <p className="eyebrow mb-4">Error 404 · Structure incomplete</p>
           <h1 className="max-w-3xl text-5xl leading-[0.95] md:text-7xl">
