@@ -12,7 +12,7 @@ export const SITE_CONTACT = {
   phone: "651-3511561",
   phoneRaw: "6513511561",
   email: "steelcrafttrading@gmail.com",
-  address: "Stambh Steel Works, Hinjawadi Phase II, Pune 411057",
+  address: "2nd Floor, Reena Tower, Behind Rajdhani Manya Tower, Piska More, Ranchi",
   hours: "Mon–Sat, 09:00–19:00 IST. Site emergencies answered 24/7.",
 } as const;
 

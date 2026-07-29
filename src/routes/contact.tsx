@@ -204,6 +204,34 @@ function ContactPage() {
         </div>
       </section>
 
+      {/* Google Map Section */}
+      <section className="border-t border-border/60 bg-card/10 px-6 py-16 md:px-12">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-8 text-center sm:text-left">
+            <span className="text-ember eyebrow flex items-center gap-2 justify-center sm:justify-start">
+              <MapPin className="h-4 w-4 text-ember" /> Location & Directions
+            </span>
+            <h2 className="font-display mt-2 text-2xl font-extrabold tracking-tight sm:text-3xl md:text-4xl">
+              Visit Our Office in <span className="text-ember-gradient">Ranchi</span>
+            </h2>
+            <p className="text-muted-foreground mt-2 text-sm">
+              {SITE_CONTACT.address}
+            </p>
+          </div>
+
+          <div className="overflow-hidden rounded-2xl border border-border/80 bg-card p-2 shadow-2xl backdrop-blur-md">
+            <iframe
+              title="Real Dream Enterprises Location Map"
+              src="https://www.google.com/maps/embed?pb=!1m12!1m8!1m3!1d1831.4122798689225!2d85.36615348346713!3d23.35836980059374!3m2!1i1024!2i768!4f13.1!2m1!1sReal%20Dream%20Enterprises%202nd%20Floor%2C%20Reena%20Tower%2C%20Behind%20Rajdhani%20Manya%20Tower%2C%20Piska%20More%2C%20Ranchi!5e0!3m2!1sen!2sus!4v1785322523366!5m2!1sen!2sus"
+              className="h-[450px] w-full rounded-xl border-0"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* Integrated FAQ Section */}
       <section className="border-t border-border/60 bg-card/20 px-6 py-24 md:px-12">
         <div className="mx-auto max-w-4xl">
