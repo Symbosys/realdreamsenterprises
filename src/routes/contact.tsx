@@ -219,11 +219,12 @@ function ContactPage() {
             </p>
           </div>
 
-          <div className="overflow-hidden rounded-2xl border border-border/80 bg-card p-2 shadow-2xl backdrop-blur-md">
+          <div className="relative overflow-hidden rounded-2xl border border-border/80 bg-card p-2 shadow-2xl backdrop-blur-md">
             <iframe
               title="Real Dream Enterprises Location Map"
               src="https://www.google.com/maps/embed?pb=!1m12!1m8!1m3!1d1831.4122798689225!2d85.36615348346713!3d23.35836980059374!3m2!1i1024!2i768!4f13.1!2m1!1sReal%20Dream%20Enterprises%202nd%20Floor%2C%20Reena%20Tower%2C%20Behind%20Rajdhani%20Manya%20Tower%2C%20Piska%20More%2C%20Ranchi!5e0!3m2!1sen!2sus!4v1785322523366!5m2!1sen!2sus"
-              className="h-[450px] w-full rounded-xl border-0"
+              className="h-[450px] w-full rounded-xl border-0 transition-all duration-500"
+              style={{ filter: "invert(90%) hue-rotate(180deg) brightness(88%) contrast(90%)" }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="strict-origin-when-cross-origin"
