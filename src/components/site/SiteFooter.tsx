@@ -72,9 +72,9 @@ export function SiteFooter() {
             whileInView={{ opacity: 1, letterSpacing: "0.25em" }}
             viewport={{ once: true }}
             transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display mt-4 text-3xl font-black uppercase md:text-5xl lg:text-6xl tracking-widest text-foreground drop-shadow-lg"
+            className="mt-4"
           >
-            Stambh<span className="text-ember">.</span>
+            <img src="/logo/logo.png" alt="Real Dreams Enterprises logo" className="mx-auto h-32 w-auto object-contain md:h-36" />
           </motion.div>
 
           <p className="text-muted-foreground mt-2 text-xs tracking-[0.3em] uppercase md:text-sm">
@@ -135,11 +135,12 @@ export function SiteFooter() {
       <div className="relative px-6 pt-16 pb-12 md:px-12">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-12">
-            
+
             {/* Col 1: Brand & Certification Seals (4 cols) */}
             <div className="lg:col-span-4">
-              <Link to="/" className="font-display text-2xl font-black tracking-widest uppercase">
-                Stambh<span className="text-ember">.</span>
+              <Link to="/" className="inline-flex items-center">
+                <img src="/logo/logo.png" alt="Real Dreams Enterprises logo" className="h-20 w-auto object-contain" />
+                <span className="sr-only">Real Dreams Enterprises</span>
               </Link>
               <p className="text-muted-foreground mt-4 text-xs leading-relaxed max-w-sm">
                 Engineered Thermo-Mechanically Treated (TMT) rebar, heavy structural sections, and specialized bright steel. Certified for seismic zones III to V with traceable mill test reports.
