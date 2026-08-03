@@ -54,10 +54,10 @@ export function SiteHeader() {
             className="border-border flex h-9 w-9 flex-col items-center justify-center gap-1 rounded-sm border lg:hidden"
           >
             <span
-              className={`bg-foreground h-px w-4 transition-transform ${open ? "translate-y-[3px] rotate-45" : ""}`}
+              className={`bg-foreground h-px w-4 transition-transform ${open ? "translate-y-0.75 rotate-45" : ""}`}
             />
             <span
-              className={`bg-foreground h-px w-4 transition-transform ${open ? "-translate-y-[3px] -rotate-45" : ""}`}
+              className={`bg-foreground h-px w-4 transition-transform ${open ? "-translate-y-0.75 -rotate-45" : ""}`}
             />
           </button>
         </div>
