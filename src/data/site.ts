@@ -2,7 +2,6 @@ export const NAV = [
   { to: "/about", label: "About" },
   { to: "/products", label: "Products" },
   { to: "/gallery", label: "Gallery" },
-  { to: "/blog", label: "Insights" },
   { to: "/contact", label: "Contact" },
 ] as const;
 
@@ -29,6 +28,7 @@ export type Product = {
   grade: string;
   stock: "In stock" | "Made to order" | "Limited";
   quality: number;
+  image: string;
   specs: [string, string][];
   hotspots: { label: string; position: [number, number, number] }[];
   applications: { title: string; body: string }[];
@@ -47,6 +47,7 @@ export const PRODUCTS: Product[] = [
     grade: "Fe 550D",
     stock: "In stock",
     quality: 98,
+    image: "/images/tmt_bars.png",
     specs: [
       ["Yield strength", "500–600 N/mm²"],
       ["Elongation", "≥ 16%"],
@@ -84,6 +85,7 @@ export const PRODUCTS: Product[] = [
     grade: "EN8 / C45",
     stock: "In stock",
     quality: 94,
+    image: "/images/steel_rods.png",
     specs: [
       ["Tolerance", "h9 / h11"],
       ["Surface", "Ra ≤ 0.8 µm"],
@@ -117,6 +119,7 @@ export const PRODUCTS: Product[] = [
     grade: "S355 / E350",
     stock: "Made to order",
     quality: 96,
+    image: "/images/stambh_column.png",
     specs: [
       ["Axial capacity", "Up to 2,400 kN"],
       ["Base plate", "Grouted anchor set"],
@@ -153,6 +156,7 @@ export const PRODUCTS: Product[] = [
     grade: "E250 – E450",
     stock: "Limited",
     quality: 97,
+    image: "/images/structural_steel.png",
     specs: [
       ["Grades", "E250 – E450"],
       ["Section depth", "100mm – 900mm"],

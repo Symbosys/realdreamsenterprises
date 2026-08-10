@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { lazy, useMemo, useState } from "react";
 import { motion } from "motion/react";
+import { ArrowRight, Box, ShieldCheck } from "lucide-react";
 import { SceneMount } from "@/components/SceneMount";
 import { useSectionProgress } from "@/hooks/use-section-progress";
 import { Glass, PageHero, SectionHeading } from "@/components/site/Primitives";
@@ -89,10 +90,10 @@ function ProductsPage() {
             <button
               key={c}
               onClick={() => setCategory(c)}
-              className={`rounded-sm border px-4 py-2 text-[11px] font-semibold tracking-[0.18em] uppercase transition-colors ${
+              className={`rounded-xs border px-4 py-2 text-[11px] font-semibold tracking-[0.18em] uppercase transition-all duration-200 ${
                 category === c
-                  ? "border-ember text-ember"
-                  : "border-border text-muted-foreground hover:text-foreground"
+                  ? "border-ember text-ember bg-ember/10 shadow-[0_0_15px_rgba(235,94,40,0.15)]"
+                  : "border-border text-muted-foreground hover:border-border/80 hover:text-foreground"
               }`}
             >
               {c}
@@ -103,7 +104,7 @@ function ProductsPage() {
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search products"
             aria-label="Search products"
-            className="border-border bg-card/50 focus:border-ember ml-auto w-full max-w-xs rounded-sm border px-4 py-2 text-sm outline-none transition-colors"
+            className="border-border bg-card/50 focus:border-ember focus:ring-1 focus:ring-ember ml-auto w-full max-w-xs rounded-xs border px-4 py-2 text-sm outline-none transition-all"
           />
         </div>
 
@@ -111,46 +112,100 @@ function ProductsPage() {
           {filtered.map((p, i) => (
             <Reveal key={p.slug} delay={i * 0.05}>
               <motion.div
-                whileHover={{ y: -8, rotateX: 4, rotateY: -4 }}
-                transition={{ type: "spring", stiffness: 200, damping: 18 }}
-                style={{ transformPerspective: 800 }}
-                className="h-full"
+                whileHover={{ y: -6 }}
+                transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                className="group h-full"
               >
-                <Glass className="hover:shadow-elevate flex h-full flex-col p-6 transition-shadow">
-                  <div className="from-steel/25 to-ember/15 mb-5 h-28 rounded-sm bg-linear-to-br" />
-                  <p className="eyebrow">{p.category}</p>
-                  <h3 className="mt-2 text-xl">{p.name}</h3>
-                  <p className="text-muted-foreground mt-2 text-sm">{p.tag}</p>
-                  <dl className="text-muted-foreground mt-4 space-y-1 text-[11px] tracking-[0.14em] uppercase">
-                    <div className="flex justify-between">
-                      <dt>Grade</dt>
-                      <dd className="text-foreground">{p.grade}</dd>
-                    </div>
-                    <div className="flex justify-between">
-                      <dt>Stock</dt>
-                      <dd className="text-ember">{p.stock}</dd>
-                    </div>
-                  </dl>
-                  <div className="bg-border mt-4 h-1 w-full overflow-hidden rounded-full">
-                    <motion.span
-                      className="bg-ember block h-full"
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${p.quality}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+                <div className="border-border/70 bg-card/70 hover:border-ember/60 hover:shadow-[0_16px_36px_-10px_rgba(235,94,40,0.22)] relative flex h-full flex-col overflow-hidden rounded-md border p-5 backdrop-blur-xl transition-all duration-300">
+                  {/* Image Container with Badges */}
+                  <div className="relative aspect-4/3 w-full overflow-hidden rounded-xs bg-muted/40">
+                    <img
+                      src={p.image}
+                      alt={p.name}
+                      className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-108"
                     />
+                    <div className="from-background/90 via-background/20 pointer-events-none absolute inset-0 bg-linear-to-t to-transparent opacity-85 transition-opacity group-hover:opacity-60" />
+
+                    {/* Category badge top-left */}
+                    <div className="absolute top-2.5 left-2.5">
+                      <span className="border-border/80 bg-background/85 text-foreground shadow-xs rounded-xs border px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase backdrop-blur-md">
+                        {p.category}
+                      </span>
+                    </div>
+
+                    {/* Stock status badge top-right */}
+                    <div className="absolute top-2.5 right-2.5">
+                      <span
+                        className={`inline-flex items-center gap-1.5 rounded-xs border px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase backdrop-blur-md ${
+                          p.stock === "In stock"
+                            ? "border-emerald-500/40 bg-emerald-950/70 text-emerald-400"
+                            : p.stock === "Limited"
+                            ? "border-amber-500/40 bg-amber-950/70 text-amber-400"
+                            : "border-ember/40 bg-ember/15 text-ember"
+                        }`}
+                      >
+                        <span
+                          className={`h-1.5 w-1.5 rounded-full ${
+                            p.stock === "In stock"
+                              ? "bg-emerald-400 animate-pulse"
+                              : p.stock === "Limited"
+                              ? "bg-amber-400"
+                              : "bg-ember"
+                          }`}
+                        />
+                        {p.stock}
+                      </span>
+                    </div>
                   </div>
-                  <span className="text-muted-foreground mt-1 text-[10px] tracking-[0.2em] uppercase">
-                    Material quality index {p.quality}
-                  </span>
-                  <Link
-                    to="/products/$slug"
-                    params={{ slug: p.slug }}
-                    className="border-border hover:border-ember hover:text-ember mt-6 inline-flex justify-center rounded-sm border px-4 py-2 text-[10px] font-bold tracking-[0.25em] uppercase transition-colors"
-                  >
-                    Inspect in 3D
-                  </Link>
-                </Glass>
+
+                  {/* Body Content */}
+                  <div className="mt-4 flex flex-1 flex-col justify-between">
+                    <div>
+                      <div className="flex items-baseline justify-between gap-2">
+                        <h3 className="font-display group-hover:text-ember text-xl font-bold transition-colors">
+                          {p.name}
+                        </h3>
+                        <span className="border-ember/40 text-ember bg-ember/10 font-mono rounded-xs border px-1.5 py-0.5 text-[11px] font-semibold">
+                          {p.grade}
+                        </span>
+                      </div>
+                      <p className="text-muted-foreground mt-1 text-xs font-medium">{p.tag}</p>
+                      <p className="text-muted-foreground/90 mt-2.5 line-clamp-2 text-xs leading-relaxed">
+                        {p.blurb}
+                      </p>
+                    </div>
+
+                    <div className="mt-5 border-t border-border/60 pt-4">
+                      {/* Quality meter */}
+                      <div className="flex items-center justify-between text-[10px] tracking-wider uppercase">
+                        <span className="text-muted-foreground font-medium flex items-center gap-1">
+                          <ShieldCheck className="h-3 w-3 text-ember" />
+                          Quality Index
+                        </span>
+                        <span className="text-ember font-bold">{p.quality}%</span>
+                      </div>
+                      <div className="bg-secondary/60 mt-1.5 h-1.5 w-full overflow-hidden rounded-full p-0.5">
+                        <motion.div
+                          className="bg-ember h-full rounded-full"
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${p.quality}%` }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 1, ease: "easeOut" }}
+                        />
+                      </div>
+
+                      {/* Action Link */}
+                      <Link
+                        to="/products/$slug"
+                        params={{ slug: p.slug }}
+                        className="group/btn border-border/80 hover:border-ember bg-secondary/40 hover:bg-ember hover:text-primary-foreground mt-4 flex w-full items-center justify-center gap-2 rounded-xs border py-2.5 text-[10px] font-bold tracking-widest uppercase transition-all duration-300"
+                      >
+                        <span>Inspect in 3D</span>
+                        <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover/btn:translate-x-1" />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
               </motion.div>
             </Reveal>
           ))}

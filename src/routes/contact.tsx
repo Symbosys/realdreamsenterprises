@@ -1,9 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { lazy, useState } from "react";
+import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import type { CampusZone } from "@/components/three/CampusScene";
-import { SceneMount } from "@/components/SceneMount";
-import { Glass, PageHero, SectionHeading } from "@/components/site/Primitives";
+import { Glass, SectionHeading } from "@/components/site/Primitives";
 import { Reveal } from "@/components/site/Reveal";
 import { SITE_CONTACT, FAQS } from "@/data/site";
 import {
@@ -17,9 +15,9 @@ import {
   HelpCircle,
   Plus,
   Minus,
+  MessageSquare,
+  Zap,
 } from "lucide-react";
-
-const CampusScene = lazy(() => import("@/components/three/CampusScene"));
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -45,26 +43,66 @@ export const Route = createFileRoute("/contact")({
 
 function ContactPage() {
   const [sent, setSent] = useState(false);
-  const [zone] = useState<CampusZone>("office");
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   return (
     <main className="bg-background text-foreground">
-      <PageHero
-        eyebrow="Contact & FAQ · Direct Desk"
-        title={
-          <>
+      {/* Clean & Professional Header */}
+      <section className="relative overflow-hidden border-b border-border/60 bg-linear-to-b from-background via-card/30 to-background pt-32 pb-16 md:pt-36 md:pb-20 px-6 md:px-12">
+        {/* Subtle radial ambient background glow */}
+        <div className="pointer-events-none absolute -top-24 left-1/2 h-96 w-[600px] -translate-x-1/2 rounded-full bg-ember/10 blur-3xl" />
+
+        <div className="relative z-10 mx-auto max-w-5xl text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="inline-flex items-center gap-2 rounded-full border border-ember/30 bg-ember/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-ember backdrop-blur-md"
+          >
+            <MessageSquare className="h-3.5 w-3.5" />
+            <span>Contact & FAQ · Direct Engineering Desk</span>
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="font-display mt-6 text-4xl font-extrabold tracking-tight md:text-6xl lg:text-7xl"
+          >
             Tell us what you're <span className="text-ember-gradient">building</span>
-          </>
-        }
-        lead="Quotes within one working day. Speak directly with our metallurgical and sales engineering desk."
-        height="h-[76vh]"
-        scene={
-          <SceneMount className="absolute inset-0" label="Mapping the campus">
-            <CampusScene active={zone} />
-          </SceneMount>
-        }
-      />
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="text-muted-foreground mx-auto mt-6 max-w-2xl text-base md:text-lg leading-relaxed"
+          >
+            Get quotes within one working day. Speak directly with our metallurgical experts and sales engineering desk.
+          </motion.p>
+
+          {/* Quick trust pills */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-8 flex flex-wrap items-center justify-center gap-3 md:gap-6"
+          >
+            <div className="flex items-center gap-2 rounded-md border border-border/60 bg-card/50 px-3.5 py-2 text-xs font-medium text-foreground backdrop-blur-md">
+              <Zap className="h-3.5 w-3.5 text-ember" />
+              <span>Quotes in 24 Hours</span>
+            </div>
+            <div className="flex items-center gap-2 rounded-md border border-border/60 bg-card/50 px-3.5 py-2 text-xs font-medium text-foreground backdrop-blur-md">
+              <Phone className="h-3.5 w-3.5 text-ember" />
+              <span>Direct Phone Desk</span>
+            </div>
+            <div className="flex items-center gap-2 rounded-md border border-border/60 bg-card/50 px-3.5 py-2 text-xs font-medium text-foreground backdrop-blur-md">
+              <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
+              <span>24/7 Site Emergency Support</span>
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
       {/* Direct Contact Banner */}
       <section className="border-border/60 bg-card/30 border-y px-6 py-10 md:px-12 backdrop-blur-md">
