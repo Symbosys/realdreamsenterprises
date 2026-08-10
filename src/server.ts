@@ -46,6 +46,21 @@ function isH3SwallowedErrorBody(body: string): boolean {
 
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
+    const url = new URL(request.url);
+    if (url.pathname === "/api/hellow") {
+      return new Response(JSON.stringify({ message: "hellow world api" }), {
+        status: 200,
+        headers: { "content-type": "application/json; charset=utf-8" },
+      });
+    }
+    if (url.pathname === "/api/login" && request.method === "POST") {
+      const { email, password } = await request.json();
+      return new Response(JSON.stringify({ message: "Login successfull", data: {email, password} }), {
+        status: 200,
+        headers: { "content-type": "application/json; charset=utf-8" },
+      });
+    }
+
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);

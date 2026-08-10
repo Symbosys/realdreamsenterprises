@@ -271,7 +271,8 @@ function Index() {
       {/* About the company */}
       <AboutCompany />
 
-      {/* City */}
+      {/* City (Original 3D Scene commented out) */}
+      {/*
       <section id="city" ref={city.ref} className="relative h-[420vh]">
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <SceneMount className="absolute inset-0" label="Launching drone">
@@ -292,6 +293,37 @@ function Index() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+      */}
+
+      {/* New City Section with Video Background */}
+      <section id="city" className="relative h-screen w-full overflow-hidden">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 h-full w-full object-cover"
+        >
+          <source src="/video/city.mp4" type="video/mp4" />
+        </video>
+        <div className="from-background/90 via-background/50 to-background/90 pointer-events-none absolute inset-0 bg-linear-to-t" />
+        <div className="relative z-10 flex h-full flex-col justify-between p-6 md:p-12">
+          <div>
+            <p className="eyebrow">Experience 04</p>
+            <h2 className="mt-3 max-w-lg text-3xl md:text-5xl">
+              A city is a material decision, repeated
+            </h2>
+          </div>
+          <div className="grid max-w-3xl grid-cols-2 gap-4 md:grid-cols-3">
+            {SECTORS.map((s) => (
+              <div key={s.t} className="border-border/60 border-t pt-3">
+                <div className="text-sm font-semibold">{s.t}</div>
+                <div className="text-muted-foreground text-xs">{s.d}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
