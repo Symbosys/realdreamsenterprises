@@ -74,7 +74,7 @@ export function SiteFooter() {
             transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
             className="mt-4"
           >
-            <img src="/logo/logo.png" alt="Real Dreams Enterprises logo" className="mx-auto h-32 w-auto object-contain md:h-36" />
+            <img src="/logo/logo.png" alt="Real Dreams Enterprises logo" className="mx-auto h-48 w-auto object-contain md:h-60" />
           </motion.div>
 
           <p className="text-muted-foreground mt-2 text-xs tracking-[0.3em] uppercase md:text-sm">
@@ -139,7 +139,7 @@ export function SiteFooter() {
             {/* Col 1: Brand & Certification Seals (4 cols) */}
             <div className="lg:col-span-4">
               <Link to="/" className="inline-flex items-center">
-                <img src="/logo/logo.png" alt="Real Dreams Enterprises logo" className="h-20 w-auto object-contain" />
+                <img src="/logo/logo.png" alt="Real Dreams Enterprises logo" className="h-28 w-auto object-contain md:h-32" />
                 <span className="sr-only">Real Dreams Enterprises</span>
               </Link>
               <p className="text-muted-foreground mt-4 text-xs leading-relaxed max-w-sm">
