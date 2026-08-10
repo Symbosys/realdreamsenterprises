@@ -50,7 +50,7 @@ function ContactPage() {
       {/* Clean & Professional Header */}
       <section className="relative overflow-hidden border-b border-border/60 bg-linear-to-b from-background via-card/30 to-background pt-32 pb-16 md:pt-36 md:pb-20 px-6 md:px-12">
         {/* Subtle radial ambient background glow */}
-        <div className="pointer-events-none absolute -top-24 left-1/2 h-96 w-[600px] -translate-x-1/2 rounded-full bg-ember/10 blur-3xl" />
+        <div className="pointer-events-none absolute -top-24 left-1/2 h-96 w-150 -translate-x-1/2 rounded-full bg-ember/10 blur-3xl" />
 
         <div className="relative z-10 mx-auto max-w-5xl text-center">
           <motion.div
