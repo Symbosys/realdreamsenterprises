@@ -130,8 +130,8 @@ function Index() {
             alt="Steel manufacturing plant"
             className="h-full w-full object-cover opacity-35 scale-102 transition-transform duration-1000"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-background/30" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-background/40 to-background" />
+          <div className="absolute inset-0 bg-linear-to-t from-background via-background/60 to-background/30" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,var(--tw-gradient-stops))] from-transparent via-background/40 to-background" />
         </div>
         
         <div className="relative z-10 px-6 pb-20 md:px-12 md:pb-24 max-w-7xl mx-auto w-full">
@@ -182,7 +182,7 @@ function Index() {
                   alt={PRODUCTS.tmt.name}
                   className="h-full w-full object-contain p-6 transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent" />
+                <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-background/90 via-transparent to-transparent" />
                 
                 {/* Hotspot Badges Overlay */}
                 <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2">
