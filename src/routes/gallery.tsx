@@ -40,7 +40,7 @@ function GalleryPage() {
               alt="Project Gallery Background"
               className="h-full w-full object-cover opacity-25 scale-102 transition-transform duration-1000"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-background/30" />
+            <div className="absolute inset-0 bg-linear-to-t from-background via-background/60 to-background/30" />
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,var(--tw-gradient-stops))] from-transparent via-background/40 to-background" />
           </div>
         }
