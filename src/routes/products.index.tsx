@@ -221,7 +221,7 @@ function ProductsPage() {
                   alt={spotlight.name}
                   className="h-full w-full object-contain p-6 transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent" />
+                <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-background/90 via-transparent to-transparent" />
                 <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2">
                   {spotlight.hotspots.map((h) => (
                     <span
