@@ -1,12 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { lazy, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { motion } from "motion/react";
-import { SceneMount } from "@/components/SceneMount";
 import { PageHero, SectionHeading } from "@/components/site/Primitives";
 import { Reveal } from "@/components/site/Reveal";
 import { GALLERY, GALLERY_SECTORS } from "@/data/site";
-
-const CityScene = lazy(() => import("@/components/three/CityScene"));
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
@@ -37,9 +34,15 @@ function GalleryPage() {
         lead="Every project below shipped with traceable metallurgy and a delivery schedule that held."
         height="h-[70vh]"
         scene={
-          <SceneMount className="absolute inset-0" label="Building the skyline">
-            <CityScene progress={{ current: 0.6 }} />
-          </SceneMount>
+          <div className="absolute inset-0">
+            <img
+              src="/images/tmt_steel_manufacturing.png"
+              alt="Project Gallery Background"
+              className="h-full w-full object-cover opacity-25 scale-102 transition-transform duration-1000"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-background/30" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-background/40 to-background" />
+          </div>
         }
       />
 
@@ -84,3 +87,4 @@ function GalleryPage() {
     </main>
   );
 }
+

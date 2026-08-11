@@ -142,6 +142,11 @@ function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var m=window.matchMedia('(prefers-color-scheme: dark)').matches;if(m){document.documentElement.classList.add('dark');}else{document.documentElement.classList.remove('dark');}}catch(e){}})()`,
+          }}
+        />
         <HeadContent />
       </head>
       <body>
@@ -156,6 +161,28 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   useSmoothScroll();
 
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    const applyTheme = (e?: MediaQueryListEvent | MediaQueryList) => {
+      const isDark = (e ?? media).matches;
+      if (isDark) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    };
+
+    applyTheme();
+
+    if (media.addEventListener) {
+      media.addEventListener("change", applyTheme);
+      return () => media.removeEventListener("change", applyTheme);
+    } else if ("addListener" in media) {
+      (media as any).addListener(applyTheme);
+      return () => (media as any).removeListener(applyTheme);
+    }
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <SiteHeader />
@@ -167,3 +194,4 @@ function RootComponent() {
     </QueryClientProvider>
   );
 }
+

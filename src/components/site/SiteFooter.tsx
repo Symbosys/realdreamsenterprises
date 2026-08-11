@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { lazy, useState } from "react";
+import { useState } from "react";
 import { motion } from "motion/react";
-import { SceneMount } from "@/components/SceneMount";
 import { NAV, SITE_CONTACT } from "@/data/site";
 import {
   Phone,
@@ -15,8 +14,6 @@ import {
   CheckCircle2,
   Sparkles,
 } from "lucide-react";
-
-const SkylineNightScene = lazy(() => import("@/components/three/SkylineNightScene"));
 
 const SOCIALS = [
   { label: "LinkedIn", href: "#" },
@@ -39,15 +36,14 @@ export function SiteFooter() {
 
   return (
     <footer className="relative mt-16 overflow-hidden bg-background text-foreground border-t border-border/40">
-      {/* 3D Night Skyline Banner Header */}
-      <div className="relative h-[55vh] min-h-95 w-full overflow-hidden">
-        <SceneMount className="absolute inset-0" label="Lighting the skyline">
-          <SkylineNightScene />
-        </SceneMount>
+      {/* Night Skyline Banner Header */}
+      <div className="relative h-[48vh] min-h-85 w-full overflow-hidden bg-background">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-ember/15 via-background to-background" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
 
         {/* Ambient Dark Gradient Overlays */}
-        <div className="from-background via-background/25 pointer-events-none absolute inset-0 bg-linear-to-t to-transparent" />
-        <div className="from-background/90 via-transparent pointer-events-none absolute inset-0 bg-linear-to-b to-transparent" />
+        <div className="from-background via-background/25 pointer-events-none absolute inset-0 bg-gradient-to-t to-transparent" />
+        <div className="from-background/90 via-transparent pointer-events-none absolute inset-0 bg-gradient-to-b to-transparent" />
 
         {/* Hero Footer Branding */}
         <div className="pointer-events-none absolute inset-x-0 top-12 flex flex-col items-center px-6 text-center">
@@ -143,12 +139,12 @@ export function SiteFooter() {
                 <span className="sr-only">Real Dreams Enterprises</span>
               </Link>
               <p className="text-muted-foreground mt-4 text-xs leading-relaxed max-w-sm">
-                Engineered Thermo-Mechanically Treated (TMT) rebar, heavy structural sections, and specialized bright steel. Certified for seismic zones III to V with traceable mill test reports.
+                Sole authorized supplier and exporter of Government-Authorized Rashmi TMT Bars across all 24 districts of Jharkhand. Approved for all government tenders, PWD projects, NHAI highways, and high-rise construction at the most affordable rates.
               </p>
 
               {/* Quality Badges */}
               <div className="mt-6 flex flex-wrap gap-2">
-                {["ISO 9001:2015", "BIS IS 1786", "EN 10025", "EPD Certified"].map((badge) => (
+                {["Govt Authorized (SOR)", "BIS IS 1786", "Jharkhand Supplier", "Most Affordable"].map((badge) => (
                   <span
                     key={badge}
                     className="border-border/60 bg-card/60 text-muted-foreground inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1 text-[10px] font-semibold tracking-wider uppercase"

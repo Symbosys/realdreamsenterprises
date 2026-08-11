@@ -5,20 +5,20 @@ import { ShieldCheck, Award, Factory, CheckCircle2, ArrowRight } from "lucide-re
 
 const PILLARS = [
   {
-    title: "Thermo-Mechanically Treated",
-    desc: "Quenched martensitic rim with ductile core for high yield strength & elongation.",
+    title: "Exclusive Jharkhand Supplier",
+    desc: "Real Dreams Enterprises is the sole authorized supplier & exporter of Rashmi TMT Bars across all 24 districts of Jharkhand.",
   },
   {
-    title: "Certified Mill Standard",
-    desc: "100% heat-traceable Mill Test Certificates conforming to IS 1786 standards.",
+    title: "Government Authorized & SOR Approved",
+    desc: "100% Government approved & SOR letter certified for PWD, CPWD, NHAI, Railways, and all government tenders.",
   },
   {
-    title: "Seismic Zone Detailing",
-    desc: "Fe 550D & Fe 600 D-grade elongation for seismic endurance in zones III to V.",
+    title: "Most Affordable Direct Pricing",
+    desc: "Guaranteed most affordable direct mill pricing for high-yield Rashmi TMT steel in the market.",
   },
   {
-    title: "Rapid Dispatch Network",
-    desc: "Over 1.4 million tonnes annual capacity with 48 to 72 hour site delivery.",
+    title: "German Quenching Metallurgy",
+    desc: "Fe 550D / Fe 600 thermo-mechanically treated rebar with high ductility core & corrosion resistance.",
   },
 ];
 
@@ -94,11 +94,11 @@ export function AboutCompany() {
             <p className="eyebrow text-ember">About Company</p>
             
             <h2 className="font-display text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl md:text-5xl leading-tight">
-              We are the best <span className="text-ember-gradient">TMT bar</span> company
+              Government Authorized <span className="text-ember-gradient">Rashmi TMT Bars</span>
             </h2>
 
             <p className="text-muted-foreground text-base leading-relaxed max-w-2xl">
-              Leading TMT bar manufacturer, known for unmatched quality, reliability, and innovative metallurgical solutions to meet all modern high-rise and infrastructure construction requirements.
+              Real Dreams Enterprises is the sole authorized supplier and exporter of Rashmi TMT Bars across all 24 districts of Jharkhand. We supply popular, government-authorized, SOR-letter verified Rashmi TMT steel at the most affordable rates for all government tenders, PWD projects, highways, and commercial construction.
             </p>
 
             {/* Clean Feature Pillars Grid */}
