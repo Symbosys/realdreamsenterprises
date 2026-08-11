@@ -16,8 +16,8 @@ export function HomeClientsMarquee() {
       {/* Marquee Track 1 (Forward Infinite Scroll - IMAGE ONLY DEFAULT, NAME ON HOVER) */}
       <div className="relative w-full overflow-hidden py-4">
         {/* Left & Right Gradient Fades */}
-        <div className="pointer-events-none absolute left-0 top-0 bottom-0 z-10 w-28 bg-gradient-to-r from-background via-background/80 to-transparent" />
-        <div className="pointer-events-none absolute right-0 top-0 bottom-0 z-10 w-28 bg-gradient-to-l from-background via-background/80 to-transparent" />
+        <div className="pointer-events-none absolute left-0 top-0 bottom-0 z-10 w-28 bg-linear-to-r from-background via-background/80 to-transparent" />
+        <div className="pointer-events-none absolute right-0 top-0 bottom-0 z-10 w-28 bg-linear-to-l from-background via-background/80 to-transparent" />
 
         <div className="animate-marquee flex gap-6">
           {marqueeItems.map((item, idx) => (
@@ -29,7 +29,7 @@ export function HomeClientsMarquee() {
               <img
                 src={item.logo}
                 alt={item.name}
-                className="max-h-12 w-auto max-w-[160px] object-contain transition-all duration-300 group-hover:scale-105"
+                className="max-h-12 w-auto max-w-40 object-contain transition-all duration-300 group-hover:scale-105"
               />
 
               {/* Name Display on Hover Overlay */}
@@ -46,8 +46,8 @@ export function HomeClientsMarquee() {
       {/* Marquee Track 2 (Reverse Infinite Scroll - IMAGE ONLY DEFAULT, NAME ON HOVER) */}
       <div className="relative w-full overflow-hidden py-4 mt-2">
         {/* Left & Right Gradient Fades */}
-        <div className="pointer-events-none absolute left-0 top-0 bottom-0 z-10 w-28 bg-gradient-to-r from-background via-background/80 to-transparent" />
-        <div className="pointer-events-none absolute right-0 top-0 bottom-0 z-10 w-28 bg-gradient-to-l from-background via-background/80 to-transparent" />
+        <div className="pointer-events-none absolute left-0 top-0 bottom-0 z-10 w-28 bg-linear-to-r from-background via-background/80 to-transparent" />
+        <div className="pointer-events-none absolute right-0 top-0 bottom-0 z-10 w-28 bg-linear-to-l from-background via-background/80 to-transparent" />
 
         <div className="animate-marquee-reverse flex gap-6">
           {marqueeItems.map((item, idx) => (
@@ -59,7 +59,7 @@ export function HomeClientsMarquee() {
               <img
                 src={item.logo}
                 alt={item.name}
-                className="max-h-12 w-auto max-w-[160px] object-contain transition-all duration-300 group-hover:scale-105"
+                className="max-h-12 w-auto max-w-40 object-contain transition-all duration-300 group-hover:scale-105"
               />
 
               {/* Name Display on Hover Overlay */}
