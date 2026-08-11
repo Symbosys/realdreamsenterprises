@@ -38,12 +38,12 @@ export function SiteFooter() {
     <footer className="relative mt-16 overflow-hidden bg-background text-foreground border-t border-border/40">
       {/* Night Skyline Banner Header */}
       <div className="relative h-[48vh] min-h-85 w-full overflow-hidden bg-background">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-ember/15 via-background to-background" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-ember/15 via-background to-background" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px]" />
 
         {/* Ambient Dark Gradient Overlays */}
-        <div className="from-background via-background/25 pointer-events-none absolute inset-0 bg-gradient-to-t to-transparent" />
-        <div className="from-background/90 via-transparent pointer-events-none absolute inset-0 bg-gradient-to-b to-transparent" />
+        <div className="from-background via-background/25 pointer-events-none absolute inset-0 bg-linear-to-t to-transparent" />
+        <div className="from-background/90 via-transparent pointer-events-none absolute inset-0 bg-linear-to-b to-transparent" />
 
         {/* Hero Footer Branding */}
         <div className="pointer-events-none absolute inset-x-0 top-12 flex flex-col items-center px-6 text-center">

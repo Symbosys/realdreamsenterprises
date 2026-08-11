@@ -108,7 +108,7 @@ export function SorLetterSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                   download="SOR_LETTER_RASHMI_TMT.pdf"
-                  className="group inline-flex items-center gap-4 rounded-full border border-[#d4af37] bg-gradient-to-r from-[#b8860b] via-[#d4af37] to-[#b8860b] p-1.5 pr-6 text-white font-black text-xs tracking-wider uppercase shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+                  className="group inline-flex items-center gap-4 rounded-full border border-[#d4af37] bg-linear-to-r from-[#b8860b] via-[#d4af37] to-[#b8860b] p-1.5 pr-6 text-white font-black text-xs tracking-wider uppercase shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
                 >
                   <span className="flex h-11 w-11 items-center justify-center rounded-full bg-black/20 text-white group-hover:bg-black/30 transition-colors">
                     <Download className="w-5 h-5" />
@@ -131,7 +131,7 @@ export function SorLetterSection() {
                   <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-56 h-10 bg-amber-500/25 blur-xl rounded-full" />
                   
                   {/* PDF Document Container Frame */}
-                  <div className="relative bg-white dark:bg-slate-900 border-4 border-[#d4af37] rounded-xl shadow-2xl w-full max-w-[340px] h-[480px] overflow-hidden transition-transform duration-500 group-hover:scale-102">
+                  <div className="relative bg-white dark:bg-slate-900 border-4 border-[#d4af37] rounded-xl shadow-2xl w-full max-w-85 h-120 overflow-hidden transition-transform duration-500 group-hover:scale-102">
                     
                     {/* Live Browser PDF Viewer */}
                     <object
