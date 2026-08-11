@@ -5,7 +5,7 @@ export function GovtAuthorizedSection() {
   return (
     <section className="relative py-24 px-6 md:px-12 bg-background/50 border-t border-border/40 overflow-hidden">
       {/* Background Subtle Gradient & Frame Accent */}
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-amber-500/5 via-transparent to-transparent" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,var(--tw-gradient-stops))] from-amber-500/5 via-transparent to-transparent" />
 
       <div className="mx-auto max-w-7xl">
         {/* Main Grid: Left Details & Right 3D Emblem Badge */}
@@ -32,7 +32,7 @@ export function GovtAuthorizedSection() {
 
             <Reveal delay={0.2}>
               {/* Highlight Block quote with Gold Left Border */}
-              <div className="mt-6 border-l-4 border-[#c99a43] bg-card/60 p-5 rounded-r-xl shadow-sm border border-border/40 backdrop-blur-md max-w-2xl">
+              <div className="mt-6 border-l-4 border-[#c99a43] bg-card/60 p-5 rounded-r-xl shadow-sm border backdrop-blur-md max-w-2xl">
                 <p className="font-display font-bold text-foreground text-sm md:text-base leading-snug">
                   Across Jharkhand, we are a trusted supplier/exporter of Rashmi TMT bars.
                 </p>
@@ -48,7 +48,7 @@ export function GovtAuthorizedSection() {
                 <img
                   src="/images/govt_authorized_supplier_badge.png"
                   alt="Government Authorized Supplier Badge"
-                  className="relative max-h-[380px] w-auto object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-105"
+                  className="relative max-h-95 w-auto object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
             </Reveal>
@@ -66,7 +66,7 @@ export function GovtAuthorizedSection() {
               <h3 className="font-display font-extrabold text-foreground text-base tracking-wider uppercase">
                 AUTHORIZED
               </h3>
-              <p className="text-muted-foreground text-xs leading-relaxed mt-2 max-w-[200px] mx-auto">
+              <p className="text-muted-foreground text-xs leading-relaxed mt-2 max-w-50 mx-auto">
                 We are officially authorized supplier.
               </p>
             </div>
@@ -79,7 +79,7 @@ export function GovtAuthorizedSection() {
               <h3 className="font-display font-extrabold text-foreground text-base tracking-wider uppercase">
                 VERIFIED
               </h3>
-              <p className="text-muted-foreground text-xs leading-relaxed mt-2 max-w-[200px] mx-auto">
+              <p className="text-muted-foreground text-xs leading-relaxed mt-2 max-w-50 mx-auto">
                 Our authorization is verified and valid.
               </p>
             </div>
@@ -92,7 +92,7 @@ export function GovtAuthorizedSection() {
               <h3 className="font-display font-extrabold text-foreground text-base tracking-wider uppercase">
                 COMPLIANT
               </h3>
-              <p className="text-muted-foreground text-xs leading-relaxed mt-2 max-w-[200px] mx-auto">
+              <p className="text-muted-foreground text-xs leading-relaxed mt-2 max-w-50 mx-auto">
                 We follow all government norms and guidelines.
               </p>
             </div>
@@ -105,7 +105,7 @@ export function GovtAuthorizedSection() {
               <h3 className="font-display font-extrabold text-foreground text-base tracking-wider uppercase">
                 TRUSTED
               </h3>
-              <p className="text-muted-foreground text-xs leading-relaxed mt-2 max-w-[200px] mx-auto">
+              <p className="text-muted-foreground text-xs leading-relaxed mt-2 max-w-50 mx-auto">
                 Trusted by builders, contractors & industries.
               </p>
             </div>

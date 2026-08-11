@@ -34,7 +34,7 @@ export function ExclusiveJharkhandExporter() {
   return (
     <section className="relative py-28 px-6 md:px-12 bg-background border-t border-border/40 overflow-hidden">
       {/* Background Ambient Glow Effects */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-ember/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-175 h-125 bg-ember/10 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,var(--tw-gradient-stops))] from-ember/5 via-transparent to-transparent pointer-events-none" />
 
       <div className="relative z-10 mx-auto max-w-7xl">
