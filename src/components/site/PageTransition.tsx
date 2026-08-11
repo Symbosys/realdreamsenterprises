@@ -19,7 +19,7 @@ export function PageTransition({ children }: { children: ReactNode }) {
             exit={{ scaleY: 0 }}
             transition={{ duration: 0.45, ease: [0.7, 0, 0.2, 1] }}
             style={{ transformOrigin: "bottom" }}
-            className="from-background/95 pointer-events-none fixed inset-0 z-[60] bg-gradient-to-b to-transparent"
+            className="from-background/95 pointer-events-none fixed inset-0 z-60 bg-linear-to-b to-transparent"
           >
             <div className="absolute bottom-8 left-1/2 flex -translate-x-1/2 items-center gap-3">
               <span className="bg-ember h-1.5 w-1.5 animate-pulse rounded-full" />

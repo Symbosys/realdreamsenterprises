@@ -140,10 +140,10 @@ export function LivePricingSection() {
                 <img
                   src="/images/tmt_bars.png"
                   alt="Rashmi and JSW TMT Steel Bars"
-                  className="w-full h-[260px] sm:h-[300px] object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-65 sm:h-75 object-cover transition-transform duration-700 group-hover:scale-105"
                 />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-6">
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent flex items-end p-6">
                   <div className="text-white space-y-1">
                     <span className="bg-amber-500/30 border border-amber-400/60 px-3 py-1 rounded-full text-[10px] font-black tracking-widest uppercase text-amber-300">
                       RASHMI & JSW CERTIFIED STEEL
@@ -195,7 +195,7 @@ export function LivePricingSection() {
                     onClick={() => setSelectedBrand("RASHMI")}
                     className={`w-full relative flex items-center justify-between p-4 rounded-xl border transition-all duration-300 ${
                       selectedBrand === "RASHMI"
-                        ? "border-[#b8860b] bg-gradient-to-r from-[#b8860b] via-[#d4af37] to-[#b8860b] text-white shadow-lg scale-102"
+                        ? "border-[#b8860b] bg-linear-to-r from-[#b8860b] via-[#d4af37] to-[#b8860b] text-white shadow-lg scale-102"
                         : "border-slate-200 dark:border-border bg-slate-50/60 dark:bg-secondary/40 text-slate-900 dark:text-foreground hover:border-[#b8860b]/50"
                     }`}
                   >
@@ -215,7 +215,7 @@ export function LivePricingSection() {
                     onClick={() => setSelectedBrand("JSW")}
                     className={`w-full relative flex items-center justify-between p-4 rounded-xl border transition-all duration-300 ${
                       selectedBrand === "JSW"
-                        ? "border-blue-600 bg-gradient-to-r from-blue-700 via-blue-600 to-indigo-700 text-white shadow-lg scale-102"
+                        ? "border-blue-600 bg-linear-to-r from-blue-700 via-blue-600 to-indigo-700 text-white shadow-lg scale-102"
                         : "border-slate-200 dark:border-border bg-slate-50/60 dark:bg-secondary/40 text-slate-900 dark:text-foreground hover:border-blue-500/50"
                     }`}
                   >
