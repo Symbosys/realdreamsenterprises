@@ -53,7 +53,7 @@ export function AboutClientsSection() {
                 <img
                   src={client.logo}
                   alt={client.name}
-                  className="max-h-20 w-auto max-w-[180px] object-contain transition-transform duration-300 group-hover:scale-105"
+                  className="max-h-20 w-auto max-w-45 object-contain transition-transform duration-300 group-hover:scale-105"
                 />
 
                 {/* Smooth Name Overlay Display on Hover */}
