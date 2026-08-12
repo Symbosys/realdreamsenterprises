@@ -8,6 +8,7 @@ import { WhyChooseUs } from "@/components/site/WhyChooseUs";
 import { GovtAuthorizedSection } from "@/components/site/GovtAuthorizedSection";
 import { SorLetterSection } from "@/components/site/SorLetterSection";
 import { LivePricingSection } from "@/components/site/LivePricingSection";
+import { useGetWebConfig, parseJsonConfig } from "@/api/webconfig.api";
 
 export type ProductId = "tmt" | "rod" | "stambh" | "structural";
 
@@ -111,7 +112,7 @@ const SECTORS = [
   { t: "Warehousing", d: "Clear-span portal sheds at logistics scale." },
 ];
 
-const MILESTONES = [
+const FALLBACK_MILESTONES = [
   { year: "1994", label: "Founded" },
   { year: "2003", label: "First Rolling Mill" },
   { year: "2011", label: "ISO 9001" },
@@ -119,7 +120,21 @@ const MILESTONES = [
   { year: "2026", label: "Green Steel" },
 ];
 
+const FALLBACK_STATS = [
+  ["1.4M t", "Annual capacity"],
+  ["2,800+", "Projects delivered"],
+  ["ISO 9001", "Quality certified"],
+  ["18", "States served"],
+];
+
 function Index() {
+  const { data: webConfig } = useGetWebConfig();
+
+  const milestones = parseJsonConfig<{ year: string; label: string }[]>(webConfig, "milestones.hero", FALLBACK_MILESTONES);
+  const statsRaw = parseJsonConfig<{ value: string; label: string }[]>(webConfig, "stats", []);
+  const stats: [string, string][] = statsRaw.length > 0
+    ? statsRaw.map((s) => [s.value, s.label] as [string, string])
+    : FALLBACK_STATS as [string, string][];
   return (
     <main className="bg-background text-foreground relative">
       {/* Hero */}
@@ -277,7 +292,7 @@ function Index() {
 
           {/* Timeline Milestones Track */}
           <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
-            {MILESTONES.map((m) => (
+            {milestones.map((m) => (
               <div
                 key={m.year}
                 className="border-border/70 bg-card/40 hover:border-ember/50 hover:bg-card/70 relative rounded-xl border p-6 transition-all duration-300"
@@ -290,12 +305,7 @@ function Index() {
 
           {/* Key Stats Counter Grid */}
           <div className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border md:grid-cols-4">
-            {[
-              ["1.4M t", "Annual capacity"],
-              ["2,800+", "Projects delivered"],
-              ["ISO 9001", "Quality certified"],
-              ["18", "States served"],
-            ].map(([v, k]) => (
+            {stats.map(([v, k]) => (
               <div key={k} className="bg-card p-6 md:p-8">
                 <div className="font-display text-3xl font-extrabold md:text-4xl text-foreground">{v}</div>
                 <div className="text-muted-foreground mt-2 text-[11px] tracking-[0.2em] uppercase font-bold">
@@ -311,7 +321,7 @@ function Index() {
       <GovtAuthorizedSection />
 
       {/* Official Recognition - SOR Letter Section */}
-      <SorLetterSection />
+      {/* <SorLetterSection /> */}
 
       {/* Live Pricing of TMT Bars (Rashmi & JSW) Section */}
       <LivePricingSection />

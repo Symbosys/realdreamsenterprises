@@ -32,3 +32,4 @@ dist-ssr
 *.sw?
 
 todo.md
+/generated/prisma

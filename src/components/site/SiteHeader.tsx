@@ -8,6 +8,10 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
+  if (pathname.startsWith("/admin")) {
+    return null;
+  }
+
   useEffect(() => setOpen(false), [pathname]);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);

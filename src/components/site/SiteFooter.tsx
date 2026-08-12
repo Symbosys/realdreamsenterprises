@@ -1,7 +1,8 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion } from "motion/react";
 import { NAV, SITE_CONTACT } from "@/data/site";
+import { useGetWebConfig, getConfigValue } from "@/api/webconfig.api";
 import {
   Phone,
   Mail,
@@ -15,14 +16,31 @@ import {
   Sparkles,
 } from "lucide-react";
 
-const SOCIALS = [
-  { label: "LinkedIn", href: "#" },
-  { label: "Twitter / X", href: "#" },
-  { label: "YouTube", href: "#" },
-  { label: "Instagram", href: "#" },
-];
-
 export function SiteFooter() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+
+  if (pathname.startsWith("/admin")) {
+    return null;
+  }
+
+  const { data: webConfig } = useGetWebConfig();
+
+  // Dynamic contact info with static fallbacks
+  const phone = getConfigValue(webConfig, "contact.phone", SITE_CONTACT.phone);
+  const email = getConfigValue(webConfig, "contact.email", SITE_CONTACT.email);
+  const address = getConfigValue(webConfig, "contact.address", SITE_CONTACT.address);
+  const companyName = getConfigValue(webConfig, "contact.companyName", SITE_CONTACT.companyName);
+  const hours = getConfigValue(webConfig, "contact.hours", SITE_CONTACT.hours);
+
+  // Dynamic social links
+  const socialLinks = [
+    { label: "LinkedIn", href: getConfigValue(webConfig, "social.linkedin", "") },
+    { label: "Twitter / X", href: getConfigValue(webConfig, "social.twitter", "") },
+    { label: "YouTube", href: getConfigValue(webConfig, "social.youtube", "") },
+    { label: "Instagram", href: getConfigValue(webConfig, "social.instagram", "") },
+    { label: "Facebook", href: getConfigValue(webConfig, "social.facebook", "") },
+  ].filter((s) => s.href && s.href.trim() !== "");
+
   const [subscribed, setSubscribed] = useState(false);
   const [inputEmail, setInputEmail] = useState("");
 
@@ -97,23 +115,23 @@ export function SiteFooter() {
 
             <div className="flex flex-wrap items-center gap-3 lg:col-span-6 lg:justify-end">
               <a
-                href={`tel:${SITE_CONTACT.phone}`}
+                href={`tel:${phone}`}
                 className="group border-border/80 bg-background/80 hover:border-ember hover:bg-ember/10 flex items-center gap-2.5 rounded-lg border px-4 py-3 text-xs font-bold tracking-wider uppercase transition-all"
               >
                 <div className="bg-ember/20 text-ember group-hover:bg-ember group-hover:text-primary-foreground flex h-7 w-7 items-center justify-center rounded-full transition-colors">
                   <Phone className="h-3.5 w-3.5" />
                 </div>
-                <span>{SITE_CONTACT.phone}</span>
+                <span>{phone}</span>
               </a>
 
               <a
-                href={`mailto:${SITE_CONTACT.email}`}
+                href={`mailto:${email}`}
                 className="group border-border/80 bg-background/80 hover:border-ember hover:bg-ember/10 flex items-center gap-2.5 rounded-lg border px-4 py-3 text-xs font-bold tracking-wider uppercase transition-all"
               >
                 <div className="bg-ember/20 text-ember group-hover:bg-ember group-hover:text-primary-foreground flex h-7 w-7 items-center justify-center rounded-full transition-colors">
                   <Mail className="h-3.5 w-3.5" />
                 </div>
-                <span>{SITE_CONTACT.email}</span>
+                <span>{email}</span>
               </a>
 
               <Link
@@ -180,7 +198,7 @@ export function SiteFooter() {
               <div className="space-y-4 text-xs">
                 {/* Phone Link */}
                 <a
-                  href={`tel:${SITE_CONTACT.phone}`}
+                  href={`tel:${phone}`}
                   className="group border-border/50 hover:border-ember bg-card/40 hover:bg-card flex items-start gap-3 rounded-lg border p-3 transition-all"
                 >
                   <div className="bg-ember/15 text-ember group-hover:bg-ember group-hover:text-primary-foreground rounded-md p-2 transition-colors">
@@ -191,14 +209,14 @@ export function SiteFooter() {
                       Sales & Hotline
                     </span>
                     <span className="font-display text-sm font-bold text-foreground group-hover:text-ember transition-colors">
-                      {SITE_CONTACT.phone}
+                      {phone}
                     </span>
                   </div>
                 </a>
 
                 {/* Email Link */}
                 <a
-                  href={`mailto:${SITE_CONTACT.email}`}
+                  href={`mailto:${email}`}
                   className="group border-border/50 hover:border-ember bg-card/40 hover:bg-card flex items-start gap-3 rounded-lg border p-3 transition-all"
                 >
                   <div className="bg-ember/15 text-ember group-hover:bg-ember group-hover:text-primary-foreground rounded-md p-2 transition-colors">
@@ -209,7 +227,7 @@ export function SiteFooter() {
                       Email Desk
                     </span>
                     <span className="font-display text-xs font-bold text-foreground group-hover:text-ember transition-colors truncate block">
-                      {SITE_CONTACT.email}
+                      {email}
                     </span>
                   </div>
                 </a>
@@ -218,7 +236,7 @@ export function SiteFooter() {
                 <div className="flex items-start gap-3 pt-1">
                   <MapPin className="h-4 w-4 text-ember shrink-0 mt-0.5" />
                   <span className="text-muted-foreground text-xs leading-relaxed">
-                    {SITE_CONTACT.address}
+                    {address}
                   </span>
                 </div>
               </div>
@@ -258,7 +276,7 @@ export function SiteFooter() {
 
               <div className="mt-6 flex items-center gap-2">
                 <Clock className="h-3.5 w-3.5 text-ember shrink-0" />
-                <span className="text-muted-foreground text-[11px]">{SITE_CONTACT.hours}</span>
+                <span className="text-muted-foreground text-[11px]">{hours}</span>
               </div>
             </div>
 
@@ -271,7 +289,7 @@ export function SiteFooter() {
           <div className="flex flex-col items-center justify-between gap-6 text-xs text-muted-foreground md:flex-row">
             <div className="flex flex-col items-center gap-1 text-center md:items-start md:text-left">
               <p className="font-medium">
-                © {new Date().getFullYear()} Real Dreams Enterprises / {SITE_CONTACT.companyName}. All rights reserved.
+                © {new Date().getFullYear()} Real Dreams Enterprises / {companyName}. All rights reserved.
               </p>
               <p className="text-[10px] text-muted-foreground/70">
                 Precision Steel Manufacturing & Global Export Desk
@@ -280,10 +298,12 @@ export function SiteFooter() {
 
             {/* Social Links */}
             <div className="flex items-center gap-4">
-              {SOCIALS.map((s) => (
+              {socialLinks.map((s) => (
                 <a
                   key={s.label}
                   href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="hover:text-ember transition-colors text-xs font-medium"
                 >
                   {s.label}

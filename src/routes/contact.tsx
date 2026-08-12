@@ -4,6 +4,8 @@ import { AnimatePresence, motion } from "motion/react";
 import { Glass, SectionHeading } from "@/components/site/Primitives";
 import { Reveal } from "@/components/site/Reveal";
 import { SITE_CONTACT, FAQS } from "@/data/site";
+import { useGetWebConfig, getConfigValue } from "@/api/webconfig.api";
+import { useSubmitEnquiry } from "@/api/enquiry.api";
 import {
   Phone,
   Mail,
@@ -17,18 +19,19 @@ import {
   Minus,
   MessageSquare,
   Zap,
+  AlertCircle,
 } from "lucide-react";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact & FAQ — Stambh Steel Works" },
+      { title: "Contact & FAQ — Real Dreams Enterprises" },
       {
         name: "description",
         content:
-          "Contact Stambh Steel: call 651-3511561 or email steelcrafttrading@gmail.com. Browse FAQs on TMT grades, mill test certificates, and delivery lead times.",
+          "Contact Real Dreams Enterprises: call 651-3511561 or email steelcrafttrading@gmail.com. Submit project enquiries for Rashmi TMT steel rates and SOR letters.",
       },
-      { property: "og:title", content: "Contact & FAQ — Stambh Steel" },
+      { property: "og:title", content: "Contact & FAQ — Real Dreams Enterprises" },
       {
         property: "og:description",
         content:
@@ -42,8 +45,53 @@ export const Route = createFileRoute("/contact")({
 });
 
 function ContactPage() {
-  const [sent, setSent] = useState(false);
+  const submitEnquiryMutation = useSubmitEnquiry();
+  const { data: webConfig } = useGetWebConfig();
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [submittedReference, setSubmittedReference] = useState<string | null>(null);
+
+  // Dynamic contact info with static fallbacks
+  const phone = getConfigValue(webConfig, "contact.phone", SITE_CONTACT.phone);
+  const email = getConfigValue(webConfig, "contact.email", SITE_CONTACT.email);
+  const address = getConfigValue(webConfig, "contact.address", SITE_CONTACT.address);
+  const fullName = getConfigValue(webConfig, "contact.fullName", SITE_CONTACT.fullName);
+  const hours = getConfigValue(webConfig, "contact.hours", SITE_CONTACT.hours);
+
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    projectLocation: "",
+    requirementType: "Rashmi TMT Bars (8-32mm)",
+    message: "",
+  });
+
+  const [formError, setFormError] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormError("");
+
+    if (!form.name || !form.email || !form.phone || !form.message) {
+      setFormError("Please fill in all required fields.");
+      return;
+    }
+
+    try {
+      const result = await submitEnquiryMutation.mutateAsync(form);
+      setSubmittedReference(result.enquiryNumber);
+      setForm({
+        name: "",
+        email: "",
+        phone: "",
+        projectLocation: "",
+        requirementType: "Rashmi TMT Bars (8-32mm)",
+        message: "",
+      });
+    } catch (err: any) {
+      setFormError(err.message || "Failed to submit enquiry. Please try again.");
+    }
+  };
 
   return (
     <main className="bg-background text-foreground">
@@ -108,7 +156,7 @@ function ContactPage() {
       <section className="border-border/60 bg-card/30 border-y px-6 py-10 md:px-12 backdrop-blur-md">
         <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-2">
           <a
-            href={`tel:${SITE_CONTACT.phone}`}
+            href={`tel:${phone}`}
             className="border-border/80 hover:border-ember hover:bg-card/70 group flex items-center justify-between rounded-lg border bg-card/50 p-6 transition-all duration-300 hover:shadow-lg"
           >
             <div className="flex items-center gap-4">
@@ -120,7 +168,7 @@ function ContactPage() {
                   Direct Phone Desk
                 </p>
                 <p className="font-display text-xl font-bold tracking-tight text-foreground md:text-2xl">
-                  {SITE_CONTACT.phone}
+                  {phone}
                 </p>
               </div>
             </div>
@@ -130,7 +178,7 @@ function ContactPage() {
           </a>
 
           <a
-            href={`mailto:${SITE_CONTACT.email}`}
+            href={`mailto:${email}`}
             className="border-border/80 hover:border-ember hover:bg-card/70 group flex items-center justify-between rounded-lg border bg-card/50 p-6 transition-all duration-300 hover:shadow-lg"
           >
             <div className="flex items-center gap-4">
@@ -142,7 +190,7 @@ function ContactPage() {
                   Official Email Support
                 </p>
                 <p className="font-display text-base font-bold tracking-tight text-foreground sm:text-lg">
-                  {SITE_CONTACT.email}
+                  {email}
                 </p>
               </div>
             </div>
@@ -157,71 +205,132 @@ function ContactPage() {
       <section className="grid gap-10 px-6 py-20 md:px-12 lg:grid-cols-2">
         <div>
           <SectionHeading eyebrow="Enquiry" title="Send a project brief" />
-          <form
-            className="mt-8 space-y-4"
-            onSubmit={(e) => {
-              e.preventDefault();
-              setSent(true);
-            }}
-          >
-            {[
-              { id: "name", label: "Full Name", type: "text", placeholder: "e.g. Rahul Sharma" },
-              {
-                id: "email",
-                label: "Work Email",
-                type: "email",
-                placeholder: "e.g. rahul@company.com",
-              },
-              { id: "phone", label: "Phone Number", type: "tel", placeholder: "e.g. 651-3511561" },
-              {
-                id: "project",
-                label: "Project Location / Tonnage",
-                type: "text",
-                placeholder: "e.g. Mumbai Commercial Tower / 250 MT",
-              },
-            ].map((f) => (
-              <div key={f.id}>
-                <label
-                  htmlFor={f.id}
-                  className="text-muted-foreground text-[10px] font-semibold tracking-[0.22em] uppercase"
-                >
-                  {f.label}
+
+          {submittedReference && (
+            <div className="mt-6 rounded-2xl border border-emerald-500/40 bg-emerald-500/10 p-6 space-y-2">
+              <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm">
+                <CheckCircle2 className="h-5 w-5" /> Enquiry Received Successfully!
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Your tracking reference number is: <span className="font-extrabold text-foreground">{submittedReference}</span>. Our Ranchi engineering desk will contact you shortly.
+              </p>
+            </div>
+          )}
+
+          {formError && (
+            <div className="mt-6 rounded-2xl border border-destructive/40 bg-destructive/10 p-4 text-xs font-bold text-destructive flex items-center gap-2">
+              <AlertCircle className="h-5 w-5" /> {formError}
+            </div>
+          )}
+
+          <form className="mt-8 space-y-4" onSubmit={handleSubmit}>
+            <div>
+              <label htmlFor="name" className="text-muted-foreground text-[10px] font-semibold tracking-[0.22em] uppercase">
+                Full Name *
+              </label>
+              <input
+                id="name"
+                type="text"
+                placeholder="e.g. Rahul Sharma"
+                required
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                className="border-border/70 bg-card/50 focus:border-ember focus:bg-card mt-1 w-full rounded-md border px-4 py-3 text-sm outline-none transition-colors"
+              />
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="email" className="text-muted-foreground text-[10px] font-semibold tracking-[0.22em] uppercase">
+                  Work Email *
                 </label>
                 <input
-                  id={f.id}
-                  type={f.type}
-                  placeholder={f.placeholder}
+                  id="email"
+                  type="email"
+                  placeholder="e.g. rahul@company.com"
                   required
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
                   className="border-border/70 bg-card/50 focus:border-ember focus:bg-card mt-1 w-full rounded-md border px-4 py-3 text-sm outline-none transition-colors"
                 />
               </div>
-            ))}
+
+              <div>
+                <label htmlFor="phone" className="text-muted-foreground text-[10px] font-semibold tracking-[0.22em] uppercase">
+                  Phone Number *
+                </label>
+                <input
+                  id="phone"
+                  type="tel"
+                  placeholder="e.g. +91 94311 02938"
+                  required
+                  value={form.phone}
+                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                  className="border-border/70 bg-card/50 focus:border-ember focus:bg-card mt-1 w-full rounded-md border px-4 py-3 text-sm outline-none transition-colors"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="projectLocation" className="text-muted-foreground text-[10px] font-semibold tracking-[0.22em] uppercase">
+                  Project Location / District
+                </label>
+                <input
+                  id="projectLocation"
+                  type="text"
+                  placeholder="e.g. Ranchi / Jamshedpur"
+                  value={form.projectLocation}
+                  onChange={(e) => setForm({ ...form, projectLocation: e.target.value })}
+                  className="border-border/70 bg-card/50 focus:border-ember focus:bg-card mt-1 w-full rounded-md border px-4 py-3 text-sm outline-none transition-colors"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="requirementType" className="text-muted-foreground text-[10px] font-semibold tracking-[0.22em] uppercase">
+                  Requirement Category
+                </label>
+                <select
+                  id="requirementType"
+                  value={form.requirementType}
+                  onChange={(e) => setForm({ ...form, requirementType: e.target.value })}
+                  className="border-border/70 bg-card/50 focus:border-ember focus:bg-card mt-1 w-full rounded-md border px-4 py-3 text-sm outline-none transition-colors text-foreground"
+                >
+                  <option value="Rashmi TMT Bars (8-32mm)">Rashmi TMT Bars (8-32mm)</option>
+                  <option value="JSW Neosteel TMT Bars">JSW Neosteel TMT Bars</option>
+                  <option value="Structural Steel & Beams">Structural Steel & Beams</option>
+                  <option value="Steel Rods & Bright Bars">Steel Rods & Bright Bars</option>
+                  <option value="Government Bulk Tender / SOR">Government Bulk Tender / SOR</option>
+                  <option value="General Price Quote">General Price Quote</option>
+                </select>
+              </div>
+            </div>
+
             <div>
-              <label
-                htmlFor="msg"
-                className="text-muted-foreground text-[10px] font-semibold tracking-[0.22em] uppercase"
-              >
-                Requirement & Specifications
+              <label htmlFor="msg" className="text-muted-foreground text-[10px] font-semibold tracking-[0.22em] uppercase">
+                Requirement Details & Specifications *
               </label>
               <textarea
                 id="msg"
                 rows={4}
-                placeholder="Mention required grades (Fe 550D, EN8, S355), delivery timeline, and bar sizes..."
+                placeholder="Mention required grades (Fe 550D, Fe 500D), estimated tonnage, delivery timeline..."
                 required
+                value={form.message}
+                onChange={(e) => setForm({ ...form, message: e.target.value })}
                 className="border-border/70 bg-card/50 focus:border-ember focus:bg-card mt-1 w-full rounded-md border px-4 py-3 text-sm outline-none transition-colors"
               />
             </div>
+
             <button
               type="submit"
-              className="bg-ember text-primary-foreground hover:shadow-ember flex items-center justify-center gap-2 rounded-md px-7 py-3.5 text-xs font-bold tracking-[0.25em] uppercase transition-all hover:scale-[1.02]"
+              disabled={submitEnquiryMutation.isPending}
+              className="bg-ember text-primary-foreground hover:shadow-ember flex items-center justify-center gap-2 rounded-md px-7 py-3.5 text-xs font-bold tracking-[0.25em] uppercase transition-all hover:scale-[1.02] cursor-pointer disabled:opacity-50"
             >
-              {sent ? (
-                <>
-                  <CheckCircle2 className="h-4 w-4" /> Received — We'll Call You Shortly
-                </>
+              {submitEnquiryMutation.isPending ? (
+                <span>Submitting Enquiry...</span>
               ) : (
                 <>
-                  <Send className="h-4 w-4" /> Send Enquiry
+                  <Send className="h-4 w-4" /> Send Enquiry Brief
                 </>
               )}
             </button>
@@ -236,8 +345,8 @@ function ContactPage() {
               </div>
               <div>
                 <p className="eyebrow text-ember">Headquarters & Works</p>
-                <p className="mt-1 font-display text-base font-bold">{SITE_CONTACT.fullName}</p>
-                <p className="text-muted-foreground mt-1 text-sm">{SITE_CONTACT.address}</p>
+                <p className="mt-1 font-display text-base font-bold">{fullName}</p>
+                <p className="text-muted-foreground mt-1 text-sm">{address}</p>
               </div>
             </div>
           </Glass>
@@ -250,10 +359,10 @@ function ContactPage() {
               <div className="w-full">
                 <p className="eyebrow text-ember">Sales & Support Desk</p>
                 <a
-                  href={`tel:${SITE_CONTACT.phone}`}
+                  href={`tel:${phone}`}
                   className="hover:text-ember mt-1 block font-display text-lg font-bold transition-colors"
                 >
-                  {SITE_CONTACT.phone}
+                  {phone}
                 </a>
                 <p className="text-muted-foreground mt-1 text-xs">
                   Direct line for price quotes, BBS processing, and order updates.
@@ -270,10 +379,10 @@ function ContactPage() {
               <div className="w-full">
                 <p className="eyebrow text-ember">Official Email Desk</p>
                 <a
-                  href={`mailto:${SITE_CONTACT.email}`}
+                  href={`mailto:${email}`}
                   className="hover:text-ember mt-1 block font-display text-base font-bold transition-colors"
                 >
-                  {SITE_CONTACT.email}
+                  {email}
                 </a>
                 <p className="text-muted-foreground mt-1 text-xs">
                   Send purchase orders, specs, drawings, and MTC requests anytime.
@@ -289,7 +398,7 @@ function ContactPage() {
               </div>
               <div>
                 <p className="eyebrow text-ember">Desk Hours</p>
-                <p className="mt-1 text-sm font-semibold">{SITE_CONTACT.hours}</p>
+                <p className="mt-1 text-sm font-semibold">{hours}</p>
                 <div className="mt-3 flex items-center gap-2 text-xs text-emerald-400">
                   <ShieldCheck className="h-4 w-4" /> 24/7 Site Emergency Support Active
                 </div>
@@ -309,7 +418,7 @@ function ContactPage() {
             <h2 className="font-display mt-2 text-2xl font-extrabold tracking-tight sm:text-3xl md:text-4xl">
               Visit Our Office in <span className="text-ember-gradient">Ranchi</span>
             </h2>
-            <p className="text-muted-foreground mt-2 text-sm">{SITE_CONTACT.address}</p>
+            <p className="text-muted-foreground mt-2 text-sm">{address}</p>
           </div>
 
           <div className="relative overflow-hidden rounded-2xl border border-border/80 bg-card p-2 shadow-2xl backdrop-blur-md">

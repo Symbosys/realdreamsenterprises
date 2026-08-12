@@ -1,0 +1,193 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model Admin {
+  id                Int               @id @default(autoincrement())
+  email             String            @unique
+  password          String
+  name              String
+  role              Role              @default(ADMIN)
+  isActive          Boolean           @default(true)
+  assignedEnquiries Enquiry[]         @relation("AssignedAdminEnquiries")
+  loggedFollowUps   EnquiryFollowUp[] @relation("AdminFollowUps")
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+}
+
+enum Role {
+  ADMIN
+  SUBADMIN
+}
+
+enum EnquiryStatus {
+  NEW
+  CONTACTED
+  IN_FOLLOWUP
+  PROPOSAL_SENT
+  WON
+  LOST
+}
+
+enum EnquiryPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum EnquirySource {
+  WEBSITE
+  DIRECT_CALL
+  WHATSAPP
+  REFERRAL
+}
+
+model MyClient {
+  id          Int      @id @default(autoincrement())
+  clientName  String
+  category    String   @default("Government & Infra")
+  location    String?
+  badge       String?
+  clientImage String
+  isActive    Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("my_clients")
+}
+
+model GalleryImage {
+  id          Int      @id @default(autoincrement())
+  title       String
+  category    String   @default("Stock & Warehouse")
+  imageUrl    String
+  caption     String?
+  isActive    Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("gallery_images")
+}
+
+model Brand {
+  id           Int           @id @default(autoincrement())
+  name         String
+  subtitle     String?
+  logoUrl      String?
+  themeColor   String?
+  isActive     Boolean       @default(true)
+  sortOrder    Int           @default(0)
+  pricingItems PricingItem[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@map("brands")
+}
+
+model PricingItem {
+  id              Int      @id @default(autoincrement())
+  brandId         Int
+  brand           Brand    @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  size            String
+  pricePerTon     Float
+  pricePerPiece   Float?
+  pricePerBundle  Float?
+  priceChange     String   @default("+ ₹ 0")
+  isUp            Boolean  @default(true)
+  lastUpdatedText String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("pricing_items")
+}
+
+model PricingNote {
+  id        Int      @id @default(autoincrement())
+  noteText  String
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("pricing_notes")
+}
+
+model ServingLocation {
+  id           Int      @id @default(autoincrement())
+  code         String   @unique
+  name         String
+  zone         String
+  state        String   @default("Jharkhand")
+  isHub        Boolean  @default(false)
+  activeSupply Boolean  @default(true)
+  leadTime     String   @default("24-48 Hours")
+  stockStatus  String   @default("Ready Stock")
+  sortOrder    Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("serving_locations")
+}
+
+model Enquiry {
+  id                Int               @id @default(autoincrement())
+  enquiryNumber     String            @unique
+  name              String
+  companyName       String?
+  email             String
+  phone             String
+  projectLocation   String?
+  requirementType   String?           @default("TMT Bars")
+  estimatedTonnage  String?
+  message           String            @db.Text
+  status            EnquiryStatus     @default(NEW)
+  priority          EnquiryPriority   @default(MEDIUM)
+  source            EnquirySource     @default(WEBSITE)
+  assignedToAdminId Int?
+  assignedAdmin     Admin?            @relation("AssignedAdminEnquiries", fields: [assignedToAdminId], references: [id], onDelete: SetNull)
+  nextFollowUpDate  DateTime?
+  followUps         EnquiryFollowUp[]
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  @@index([status])
+  @@index([priority])
+  @@index([nextFollowUpDate])
+  @@index([assignedToAdminId])
+  @@map("enquiries")
+}
+
+model EnquiryFollowUp {
+  id                    Int            @id @default(autoincrement())
+  enquiryId             Int
+  enquiry               Enquiry        @relation(fields: [enquiryId], references: [id], onDelete: Cascade)
+  adminId               Int?
+  admin                 Admin?         @relation("AdminFollowUps", fields: [adminId], references: [id], onDelete: SetNull)
+  notes                 String         @db.Text
+  status                EnquiryStatus?
+  scheduledFollowUpDate DateTime?
+  createdAt             DateTime       @default(now())
+
+  @@index([enquiryId])
+  @@map("enquiry_follow_ups")
+}
+
+model WebConfig {
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  value     String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("web_configs")
+}

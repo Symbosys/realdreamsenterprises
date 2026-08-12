@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { CLIENTS } from "@/data/clients";
 import { Glass } from "./Primitives";
 import { Reveal } from "./Reveal";
+import { useGetActiveClients } from "@/api/client.api";
 
 const CATEGORIES = ["All", "Government & Infra", "Industrial & Energy", "Commercial & Developers"] as const;
 
 export function AboutClientsSection() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const { data: clients = [], isLoading } = useGetActiveClients();
 
-  const filteredClients = CLIENTS.filter(
+  const filteredClients = clients.filter(
     (c) => selectedCategory === "All" || c.category === selectedCategory,
   );
 
@@ -33,7 +34,7 @@ export function AboutClientsSection() {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`rounded-lg border px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
+              className={`rounded-lg border px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
                 selectedCategory === cat
                   ? "border-ember bg-ember text-primary-foreground shadow-md scale-102"
                   : "border-border/80 bg-card/60 text-muted-foreground hover:border-ember/50 hover:text-foreground"
@@ -44,33 +45,47 @@ export function AboutClientsSection() {
           ))}
         </div>
 
-        {/* Client Credential Grid (IMAGE ONLY DEFAULT, NAME DISPLAY ON HOVER) */}
+        {/* Client Credential Grid */}
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {filteredClients.map((client, i) => (
-            <Reveal key={client.name} delay={i * 0.05}>
-              <Glass className="group relative flex h-40 items-center justify-center p-6 transition-all duration-300 hover:border-ember/70 hover:-translate-y-1 hover:shadow-xl overflow-hidden">
-                {/* Client Logo Image Only by Default */}
-                <img
-                  src={client.logo}
-                  alt={client.name}
-                  className="max-h-20 w-auto max-w-45 object-contain transition-transform duration-300 group-hover:scale-105"
-                />
+          {isLoading ? (
+            <div className="col-span-full py-12 text-center text-xs text-muted-foreground">
+              Loading client directory...
+            </div>
+          ) : filteredClients.length === 0 ? (
+            <div className="col-span-full py-12 text-center text-xs text-muted-foreground">
+              No clients found matching the selected category.
+            </div>
+          ) : (
+            filteredClients.map((client, i) => (
+              <Reveal key={client.id} delay={i * 0.05}>
+                <Glass className="group relative flex h-40 items-center justify-center p-6 transition-all duration-300 hover:border-ember/70 hover:-translate-y-1 hover:shadow-xl overflow-hidden">
+                  {/* Client Logo Image Only by Default */}
+                  <img
+                    src={client.clientImage}
+                    alt={client.clientName}
+                    className="max-h-20 w-auto max-w-45 object-contain transition-transform duration-300 group-hover:scale-105"
+                  />
 
-                {/* Smooth Name Overlay Display on Hover */}
-                <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center bg-background/92 px-4 py-3 text-center opacity-0 backdrop-blur-md transition-opacity duration-300 group-hover:opacity-100 border border-ember/60 shadow-lg">
-                  <span className="font-display text-sm font-extrabold text-foreground tracking-wide">
-                    {client.name}
-                  </span>
-                  <span className="text-[10px] font-bold text-ember uppercase tracking-widest mt-1">
-                    {client.badge}
-                  </span>
-                  <span className="text-[11px] text-muted-foreground mt-1 font-medium">
-                    {client.location}
-                  </span>
-                </div>
-              </Glass>
-            </Reveal>
-          ))}
+                  {/* Smooth Name Overlay Display on Hover */}
+                  <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center bg-background/92 px-4 py-3 text-center opacity-0 backdrop-blur-md transition-opacity duration-300 group-hover:opacity-100 border border-ember/60 shadow-lg">
+                    <span className="font-display text-sm font-extrabold text-foreground tracking-wide">
+                      {client.clientName}
+                    </span>
+                    {client.badge && (
+                      <span className="text-[10px] font-bold text-ember uppercase tracking-widest mt-1">
+                        {client.badge}
+                      </span>
+                    )}
+                    {client.location && (
+                      <span className="text-[11px] text-muted-foreground mt-1 font-medium">
+                        {client.location}
+                      </span>
+                    )}
+                  </div>
+                </Glass>
+              </Reveal>
+            ))
+          )}
         </div>
       </div>
     </section>

@@ -8,6 +8,10 @@ export function PageTransition({ children }: { children: ReactNode }) {
     select: (s) => ({ pathname: s.location.pathname, isLoading: s.status === "pending" }),
   });
 
+  if (pathname.startsWith("/admin")) {
+    return <>{children}</>;
+  }
+
   return (
     <>
       <AnimatePresence>

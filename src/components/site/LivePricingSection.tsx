@@ -15,49 +15,44 @@ import {
   FileText,
 } from "lucide-react";
 import { Reveal } from "./Reveal";
-
-type Brand = "RASHMI" | "JSW";
-
-interface PriceRow {
-  size: string;
-  price: string;
-  change: string;
-  isUp: boolean;
-  lastUpdated: string;
-}
-
-const PRICING_DATA: Record<Brand, PriceRow[]> = {
-  RASHMI: [
-    { size: "8 MM", price: "₹ 54,500", change: "+ ₹ 500", isUp: true, lastUpdated: "16 May 2024, 10:30 AM" },
-    { size: "10 MM", price: "₹ 54,000", change: "+ ₹ 400", isUp: true, lastUpdated: "16 May 2024, 10:30 AM" },
-    { size: "12 MM", price: "₹ 53,800", change: "+ ₹ 300", isUp: true, lastUpdated: "16 May 2024, 10:30 AM" },
-    { size: "16 MM", price: "₹ 53,500", change: "- ₹ 200", isUp: false, lastUpdated: "16 May 2024, 10:30 AM" },
-    { size: "20 MM", price: "₹ 53,200", change: "+ ₹ 200", isUp: true, lastUpdated: "16 May 2024, 10:30 AM" },
-    { size: "25 MM", price: "₹ 53,000", change: "+ ₹ 100", isUp: true, lastUpdated: "16 May 2024, 10:30 AM" },
-    { size: "32 MM", price: "₹ 52,600", change: "+ ₹ 300", isUp: true, lastUpdated: "16 May 2024, 10:30 AM" },
-  ],
-  JSW: [
-    { size: "8 MM", price: "₹ 57,800", change: "+ ₹ 400", isUp: true, lastUpdated: "16 May 2024, 10:30 AM" },
-    { size: "10 MM", price: "₹ 57,200", change: "+ ₹ 350", isUp: true, lastUpdated: "16 May 2024, 10:30 AM" },
-    { size: "12 MM", price: "₹ 56,900", change: "+ ₹ 250", isUp: true, lastUpdated: "16 May 2024, 10:30 AM" },
-    { size: "16 MM", price: "₹ 56,500", change: "- ₹ 150", isUp: false, lastUpdated: "16 May 2024, 10:30 AM" },
-    { size: "20 MM", price: "₹ 56,100", change: "+ ₹ 200", isUp: true, lastUpdated: "16 May 2024, 10:30 AM" },
-    { size: "25 MM", price: "₹ 55,800", change: "+ ₹ 100", isUp: true, lastUpdated: "16 May 2024, 10:30 AM" },
-    { size: "32 MM", price: "₹ 55,400", change: "+ ₹ 300", isUp: true, lastUpdated: "16 May 2024, 10:30 AM" },
-  ],
-};
+import { useGetLivePricing, BrandData } from "@/api/pricing.api";
 
 export function LivePricingSection() {
-  const [selectedBrand, setSelectedBrand] = useState<Brand>("RASHMI");
+  const { data: pricingData, isLoading, isRefetching, refetch } = useGetLivePricing();
+  const brands = pricingData?.brands || [];
+  const notes = pricingData?.notes || [];
+
+  const [selectedBrandId, setSelectedBrandId] = useState<number | null>(null);
   const [unit, setUnit] = useState<string>("Price / Ton");
   const [countdown, setCountdown] = useState<number>(45);
 
+  // Set initial selected brand when data loads
+  useEffect(() => {
+    if (brands.length > 0 && selectedBrandId === null) {
+      setSelectedBrandId(brands[0].id);
+    }
+  }, [brands, selectedBrandId]);
+
   useEffect(() => {
     const timer = setInterval(() => {
-      setCountdown((prev) => (prev <= 1 ? 45 : prev - 1));
+      setCountdown((prev) => {
+        if (prev <= 1) {
+          refetch();
+          return 45;
+        }
+        return prev - 1;
+      });
     }, 1000);
     return () => clearInterval(timer);
-  }, []);
+  }, [refetch]);
+
+  const currentBrand: BrandData | undefined =
+    brands.find((b) => b.id === selectedBrandId) || brands[0];
+
+  const formatPrice = (val?: number) => {
+    if (!val) return "₹ 0";
+    return `₹ ${val.toLocaleString("en-IN")}`;
+  };
 
   return (
     <section className="relative py-20 px-6 md:px-12 bg-[#faf8f5] dark:bg-background text-slate-900 dark:text-foreground border-t border-border/40 overflow-hidden transition-colors duration-300">
@@ -77,14 +72,16 @@ export function LivePricingSection() {
 
               <h2 className="mt-3 font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-foreground leading-[1.1]">
                 Live Pricing of <br />
-                TMT Bars <br />
-                <span className="text-[#b8860b] dark:text-amber-400">Rashmi & JSW</span>
+                TMT Steel Bars <br />
+                <span className="text-[#b8860b] dark:text-amber-400">
+                  {brands.map((b) => b.name).join(" & ") || "Rashmi & JSW"}
+                </span>
               </h2>
             </Reveal>
 
             <Reveal delay={0.1}>
               <p className="text-slate-600 dark:text-muted-foreground text-sm sm:text-base leading-relaxed max-w-xl font-medium">
-                Real-time pricing for Rashmi and JSW TMT bars. Prices are updated regularly to give you the most accurate and transparent rates.
+                Real-time pricing for authorized brand TMT bars across Jharkhand. Prices are updated regularly to give you the most accurate rates.
               </p>
             </Reveal>
 
@@ -138,15 +135,15 @@ export function LivePricingSection() {
             <Reveal delay={0.2}>
               <div className="relative group rounded-2xl overflow-hidden shadow-2xl border border-slate-200 dark:border-border/60 max-w-lg">
                 <img
-                  src="/images/tmt_bars.png"
-                  alt="Rashmi and JSW TMT Steel Bars"
+                  src={currentBrand?.logoUrl || "/images/tmt_bars.png"}
+                  alt={currentBrand?.name || "TMT Steel Bars"}
                   className="w-full h-65 sm:h-75 object-cover transition-transform duration-700 group-hover:scale-105"
                 />
 
                 <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent flex items-end p-6">
                   <div className="text-white space-y-1">
                     <span className="bg-amber-500/30 border border-amber-400/60 px-3 py-1 rounded-full text-[10px] font-black tracking-widest uppercase text-amber-300">
-                      RASHMI & JSW CERTIFIED STEEL
+                      {currentBrand?.name || "AUTHORIZED"} CERTIFIED STEEL
                     </span>
                     <h3 className="font-display text-xl font-bold">Direct Mill Pricing in Jharkhand</h3>
                   </div>
@@ -158,13 +155,15 @@ export function LivePricingSection() {
                     <Bell className="w-4 h-4 text-[#b8860b] dark:text-amber-400 shrink-0" />
                     <div>
                       <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Last Updated</p>
-                      <p className="font-display font-extrabold text-xs">16 May 2024, 10:30 AM</p>
+                      <p className="font-display font-extrabold text-xs">
+                        {currentBrand?.pricingItems[0]?.lastUpdatedText || "Just Now"}
+                      </p>
                     </div>
                   </div>
 
                   <div className="pt-2 border-t border-slate-200 dark:border-border/60 flex items-center justify-between text-[11px] font-bold text-amber-600 dark:text-amber-400">
                     <span className="flex items-center gap-1">
-                      <RefreshCw className="w-3 h-3 animate-spin" />
+                      <RefreshCw className={`w-3 h-3 ${isRefetching ? "animate-spin" : ""}`} />
                       Auto Refresh in
                     </span>
                     <span className="bg-amber-500/10 px-2 py-0.5 rounded font-black">{countdown}s</span>
@@ -190,45 +189,40 @@ export function LivePricingSection() {
                 </p>
 
                 <div className="space-y-3">
-                  {/* Brand 1: RASHMI */}
-                  <button
-                    onClick={() => setSelectedBrand("RASHMI")}
-                    className={`w-full relative flex items-center justify-between p-4 rounded-xl border transition-all duration-300 ${
-                      selectedBrand === "RASHMI"
-                        ? "border-[#b8860b] bg-linear-to-r from-[#b8860b] via-[#d4af37] to-[#b8860b] text-white shadow-lg scale-102"
-                        : "border-slate-200 dark:border-border bg-slate-50/60 dark:bg-secondary/40 text-slate-900 dark:text-foreground hover:border-[#b8860b]/50"
-                    }`}
-                  >
-                    <div>
-                      <span className="font-display font-black text-lg tracking-wider block">RASHMI</span>
-                      <span className="text-[10px] font-bold opacity-80 block tracking-widest uppercase">
-                        SME-TMT & FE 550D
-                      </span>
-                    </div>
-                    <div className="w-6 h-6 rounded-full border-2 border-current flex items-center justify-center">
-                      {selectedBrand === "RASHMI" && <CheckCircle2 className="w-4 h-4 fill-white text-[#b8860b]" />}
-                    </div>
-                  </button>
-
-                  {/* Brand 2: JSW */}
-                  <button
-                    onClick={() => setSelectedBrand("JSW")}
-                    className={`w-full relative flex items-center justify-between p-4 rounded-xl border transition-all duration-300 ${
-                      selectedBrand === "JSW"
-                        ? "border-blue-600 bg-linear-to-r from-blue-700 via-blue-600 to-indigo-700 text-white shadow-lg scale-102"
-                        : "border-slate-200 dark:border-border bg-slate-50/60 dark:bg-secondary/40 text-slate-900 dark:text-foreground hover:border-blue-500/50"
-                    }`}
-                  >
-                    <div>
-                      <span className="font-display font-black text-lg tracking-wider block">JSW TMT</span>
-                      <span className="text-[10px] font-bold opacity-80 block tracking-widest uppercase">
-                        NEOSTEEL · BETTER EVERYDAY
-                      </span>
-                    </div>
-                    <div className="w-6 h-6 rounded-full border-2 border-current flex items-center justify-center">
-                      {selectedBrand === "JSW" && <CheckCircle2 className="w-4 h-4 fill-white text-blue-600" />}
-                    </div>
-                  </button>
+                  {isLoading ? (
+                    <div className="p-4 text-center text-xs text-muted-foreground">Loading brands...</div>
+                  ) : brands.length === 0 ? (
+                    <div className="p-4 text-center text-xs text-muted-foreground">No active brands available.</div>
+                  ) : (
+                    brands.map((b) => {
+                      const isSelected = (currentBrand?.id === b.id);
+                      return (
+                        <button
+                          key={b.id}
+                          onClick={() => setSelectedBrandId(b.id)}
+                          className={`w-full relative flex items-center justify-between p-4 rounded-xl border transition-all duration-300 cursor-pointer ${
+                            isSelected
+                              ? "border-[#b8860b] bg-linear-to-r from-[#b8860b] via-[#d4af37] to-[#b8860b] text-white shadow-lg scale-102"
+                              : "border-slate-200 dark:border-border bg-slate-50/60 dark:bg-secondary/40 text-slate-900 dark:text-foreground hover:border-[#b8860b]/50"
+                          }`}
+                        >
+                          <div>
+                            <span className="font-display font-black text-lg tracking-wider block text-left">
+                              {b.name}
+                            </span>
+                            {b.subtitle && (
+                              <span className="text-[10px] font-bold opacity-80 block tracking-widest uppercase text-left">
+                                {b.subtitle}
+                              </span>
+                            )}
+                          </div>
+                          <div className="w-6 h-6 rounded-full border-2 border-current flex items-center justify-center shrink-0">
+                            {isSelected && <CheckCircle2 className="w-4 h-4 fill-white text-[#b8860b]" />}
+                          </div>
+                        </button>
+                      );
+                    })
+                  )}
                 </div>
               </div>
 
@@ -239,22 +233,19 @@ export function LivePricingSection() {
                 </p>
 
                 <ul className="space-y-3 text-xs text-slate-600 dark:text-muted-foreground font-medium">
-                  <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#b8860b] dark:text-amber-400 shrink-0 mt-0.5" />
-                    <span>Prices are inclusive of GST.</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#b8860b] dark:text-amber-400 shrink-0 mt-0.5" />
-                    <span>Transportation charges extra based on location.</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#b8860b] dark:text-amber-400 shrink-0 mt-0.5" />
-                    <span>Prices may vary by location across Jharkhand.</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#b8860b] dark:text-amber-400 shrink-0 mt-0.5" />
-                    <span>Contact us directly for special bulk order pricing.</span>
-                  </li>
+                  {notes.length === 0 ? (
+                    <li className="flex items-start gap-2.5">
+                      <CheckCircle2 className="w-4 h-4 text-[#b8860b] dark:text-amber-400 shrink-0 mt-0.5" />
+                      <span>Prices are inclusive of GST.</span>
+                    </li>
+                  ) : (
+                    notes.map((note) => (
+                      <li key={note.id} className="flex items-start gap-2.5">
+                        <CheckCircle2 className="w-4 h-4 text-[#b8860b] dark:text-amber-400 shrink-0 mt-0.5" />
+                        <span>{note.noteText}</span>
+                      </li>
+                    ))
+                  )}
                 </ul>
               </div>
 
@@ -270,7 +261,7 @@ export function LivePricingSection() {
                     LIVE RATE CARD
                   </span>
                   <h3 className="font-display font-black text-xl md:text-2xl text-slate-900 dark:text-foreground mt-0.5">
-                    {selectedBrand} TMT BAR PRICING
+                    {currentBrand?.name || "TMT BAR"} PRICING
                   </h3>
                 </div>
 
@@ -295,49 +286,66 @@ export function LivePricingSection() {
                   <thead>
                     <tr className="bg-slate-900 text-white dark:bg-slate-950 dark:text-slate-100 font-extrabold uppercase tracking-wider">
                       <th className="py-3.5 px-4 rounded-l-lg">SIZE (MM)</th>
-                      <th className="py-3.5 px-4">PRICE / TON (₹)</th>
+                      <th className="py-3.5 px-4">{unit.toUpperCase()} (₹)</th>
                       <th className="py-3.5 px-4">CHANGE</th>
                       <th className="py-3.5 px-4 text-center">TREND</th>
                       <th className="py-3.5 px-4 rounded-r-lg text-right">LAST UPDATED</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-200/80 dark:divide-border/60 font-semibold text-slate-800 dark:text-slate-200">
-                    {PRICING_DATA[selectedBrand].map((row) => (
-                      <tr
-                        key={row.size}
-                        className="hover:bg-slate-50 dark:hover:bg-accent/40 transition-colors duration-200"
-                      >
-                        <td className="py-4 px-4 font-display font-black text-sm text-slate-900 dark:text-foreground">
-                          {row.size}
-                        </td>
-                        <td className="py-4 px-4 font-display font-black text-sm text-slate-900 dark:text-foreground">
-                          {row.price}
-                        </td>
-                        <td
-                          className={`py-4 px-4 font-bold ${
-                            row.isUp
-                              ? "text-emerald-600 dark:text-emerald-400"
-                              : "text-rose-600 dark:text-rose-400"
-                          }`}
-                        >
-                          {row.change}
-                        </td>
-                        <td className="py-4 px-4 text-center">
-                          {row.isUp ? (
-                            <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full font-bold">
-                              <TrendingUp className="w-3.5 h-3.5" /> Up
-                            </span>
-                          ) : (
-                            <span className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded-full font-bold">
-                              <TrendingDown className="w-3.5 h-3.5" /> Down
-                            </span>
-                          )}
-                        </td>
-                        <td className="py-4 px-4 text-right text-slate-500 dark:text-muted-foreground text-[11px]">
-                          {row.lastUpdated}
+                    {!currentBrand || !currentBrand.pricingItems || currentBrand.pricingItems.length === 0 ? (
+                      <tr>
+                        <td colSpan={5} className="py-8 text-center text-muted-foreground">
+                          No rates configured for this brand.
                         </td>
                       </tr>
-                    ))}
+                    ) : (
+                      currentBrand.pricingItems.map((row) => {
+                        let displayedPrice = formatPrice(row.pricePerTon);
+                        if (unit === "Price / Piece") {
+                          displayedPrice = formatPrice(row.pricePerPiece || Math.round(row.pricePerTon / 80));
+                        } else if (unit === "Price / Bundle") {
+                          displayedPrice = formatPrice(row.pricePerBundle || Math.round(row.pricePerTon / 20));
+                        }
+
+                        return (
+                          <tr
+                            key={row.id}
+                            className="hover:bg-slate-50 dark:hover:bg-accent/40 transition-colors duration-200"
+                          >
+                            <td className="py-4 px-4 font-display font-black text-sm text-slate-900 dark:text-foreground">
+                              {row.size}
+                            </td>
+                            <td className="py-4 px-4 font-display font-black text-sm text-slate-900 dark:text-foreground">
+                              {displayedPrice}
+                            </td>
+                            <td
+                              className={`py-4 px-4 font-bold ${
+                                row.isUp
+                                  ? "text-emerald-600 dark:text-emerald-400"
+                                  : "text-rose-600 dark:text-rose-400"
+                              }`}
+                            >
+                              {row.priceChange}
+                            </td>
+                            <td className="py-4 px-4 text-center">
+                              {row.isUp ? (
+                                <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full font-bold">
+                                  <TrendingUp className="w-3.5 h-3.5" /> Up
+                                </span>
+                              ) : (
+                                <span className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded-full font-bold">
+                                  <TrendingDown className="w-3.5 h-3.5" /> Down
+                                </span>
+                              )}
+                            </td>
+                            <td className="py-4 px-4 text-right text-slate-500 dark:text-muted-foreground text-[11px]">
+                              {row.lastUpdatedText || "16 May 2024, 10:30 AM"}
+                            </td>
+                          </tr>
+                        );
+                      })
+                    )}
                   </tbody>
                 </table>
               </div>

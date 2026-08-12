@@ -3,7 +3,9 @@ import { useState } from "react";
 import { Glass, PageHero, SectionHeading, Counter } from "@/components/site/Primitives";
 import { Reveal } from "@/components/site/Reveal";
 import { AboutClientsSection } from "@/components/site/AboutClientsSection";
-import { CERTIFICATIONS, LEADERSHIP, MILESTONES, STATS } from "@/data/site";
+import { GallerySection } from "@/components/site/GallerySection";
+import { CERTIFICATIONS, LEADERSHIP, MILESTONES as FALLBACK_MILESTONES, STATS as FALLBACK_STATS } from "@/data/site";
+import { useGetWebConfig, parseJsonConfig } from "@/api/webconfig.api";
 import { Award, CheckCircle2, ShieldCheck, Truck, FileCheck, BadgePercent } from "lucide-react";
 
 export const Route = createFileRoute("/about")({
@@ -38,6 +40,10 @@ const ZONES = [
 
 function AboutPage() {
   const [zone, setZone] = useState(0);
+  const { data: webConfig } = useGetWebConfig();
+
+  const dynamicStats = parseJsonConfig<{ value: string; label: string }[]>(webConfig, "stats", FALLBACK_STATS);
+  const dynamicMilestones = parseJsonConfig<{ year: string; label: string; body: string }[]>(webConfig, "milestones.timeline", FALLBACK_MILESTONES);
 
   return (
     <main className="bg-background text-foreground relative">
@@ -75,7 +81,7 @@ function AboutPage() {
             </div>
           </div>
           <div className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border md:grid-cols-4">
-            {STATS.map((s) => (
+            {dynamicStats.map((s) => (
               <div key={s.label} className="bg-card p-6 md:p-8">
                 <Counter value={s.value} className="font-display text-3xl font-extrabold md:text-4xl text-foreground" />
                 <div className="text-muted-foreground mt-2 text-[11px] tracking-[0.2em] uppercase font-bold">
@@ -91,7 +97,7 @@ function AboutPage() {
         <div className="mx-auto max-w-7xl">
           <SectionHeading eyebrow="Milestones" title="Every step, with a date on it" />
           <div className="mt-12 grid gap-px overflow-hidden rounded-xl border border-border bg-border md:grid-cols-3">
-            {MILESTONES.map((m, i) => (
+            {dynamicMilestones.map((m, i) => (
               <Reveal key={m.year} delay={i * 0.04} className="bg-card p-7">
                 <div className="text-ember font-display text-xs font-bold tracking-[0.25em]">
                   {m.year}
@@ -340,6 +346,9 @@ function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* Dynamic Gallery Section */}
+      <GallerySection />
     </main>
   );
 }

@@ -1,36 +1,15 @@
 import { Link } from "@tanstack/react-router";
 import { ShieldCheck, Truck, Award, FileCheck, MapPin, ArrowRight, CheckCircle2 } from "lucide-react";
-import { Glass, SectionHeading } from "./Primitives";
+import { Glass } from "./Primitives";
 import { Reveal } from "./Reveal";
-
-const JHARKHAND_DISTRICTS = [
-  "Ranchi",
-  "Jamshedpur",
-  "Dhanbad",
-  "Bokaro",
-  "Hazaribagh",
-  "Deoghar",
-  "Giridih",
-  "Ramgarh",
-  "Chaibasa",
-  "Palamu",
-  "Dumka",
-  "Koderma",
-  "Khunti",
-  "Chatra",
-  "Garhwa",
-  "Gumla",
-  "Simdega",
-  "Latehar",
-  "Pakur",
-  "Jamtara",
-  "Sahebganj",
-  "Godda",
-  "Seraikela",
-  "Lohardaga",
-];
+import { useGetActiveLocations } from "@/api/location.api";
 
 export function ExclusiveJharkhandExporter() {
+  const { data: activeLocations = [], isLoading } = useGetActiveLocations();
+
+  const hubs = activeLocations.filter((loc) => loc.isHub);
+  const activeCount = activeLocations.length;
+
   return (
     <section className="relative py-28 px-6 md:px-12 bg-background border-t border-border/40 overflow-hidden">
       {/* Background Ambient Glow Effects */}
@@ -44,10 +23,10 @@ export function ExclusiveJharkhandExporter() {
             <Award className="h-4 w-4" /> 100% Exclusive Distributorship Rights
           </div>
           <h2 className="font-display text-3xl font-extrabold text-foreground sm:text-4xl md:text-5xl leading-tight">
-            Sole Supplier & Exporter of <span className="text-ember-gradient">Rashmi TMT Bars</span> Across All 24 Districts of Jharkhand
+            Sole Supplier & Exporter of <span className="text-ember-gradient">Rashmi TMT Bars</span> Across All {activeCount || 24} Districts of Jharkhand
           </h2>
           <p className="text-muted-foreground text-sm md:text-base leading-relaxed">
-            Real Dreams Enterprises is the only authorized supplier and exporter for Rashmi TMT & SME-TMT Bars in Jharkhand. We guarantee direct mill pricing, 100% government SOR letter certification, and site delivery to every single district across the state.
+            Real Dreams Enterprises is the only authorized supplier and exporter for Rashmi TMT & SME-TMT Bars in Jharkhand. We guarantee direct mill pricing, 100% government SOR letter certification, and site delivery to active districts across the state.
           </p>
         </div>
 
@@ -61,9 +40,9 @@ export function ExclusiveJharkhandExporter() {
               icon: ShieldCheck,
             },
             {
-              stat: "24 / 24",
+              stat: `${activeCount} / 24`,
               title: "Districts Covered",
-              desc: "Dedicated supply network delivering directly to project sites in all 24 districts of Jharkhand.",
+              desc: "Dedicated supply network delivering directly to project sites in active districts of Jharkhand.",
               icon: MapPin,
             },
             {
@@ -106,27 +85,46 @@ export function ExclusiveJharkhandExporter() {
                 <MapPin className="h-4 w-4" /> Statewide Network
               </div>
               <h3 className="font-display text-xl md:text-2xl font-bold text-foreground mt-1">
-                Guaranteed Delivery Across All 24 Jharkhand Districts
+                Guaranteed Delivery Across Active Jharkhand Districts
               </h3>
             </div>
             <div className="flex items-center gap-3">
               <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-[11px] font-semibold text-emerald-500">
-                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" /> Live Express Delivery Active
+                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" /> Live Express Delivery Active ({activeCount} Districts)
               </span>
             </div>
           </div>
 
+          {/* Central Hubs Callout Badges */}
+          {hubs.length > 0 && (
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <span className="text-xs font-extrabold uppercase text-ember tracking-wider">Primary Dispatch Hubs:</span>
+              {hubs.map((hub) => (
+                <span key={hub.id} className="inline-flex items-center gap-1 bg-ember/15 border border-ember/30 px-3 py-1 rounded-full text-xs font-extrabold text-ember">
+                  <MapPin className="h-3.5 w-3.5" /> {hub.name} Hub ({hub.leadTime})
+                </span>
+              ))}
+            </div>
+          )}
+
           {/* District Badges Grid */}
           <div className="mt-8 flex flex-wrap gap-2.5">
-            {JHARKHAND_DISTRICTS.map((district) => (
-              <div
-                key={district}
-                className="group border border-border/70 bg-background/80 hover:border-ember/60 hover:bg-card/90 flex items-center gap-2 rounded-lg px-3.5 py-2 text-xs font-bold text-foreground transition-all duration-200 hover:scale-105 shadow-xs"
-              >
-                <CheckCircle2 className="h-3.5 w-3.5 text-ember shrink-0 group-hover:scale-110 transition-transform" />
-                <span>{district}</span>
-              </div>
-            ))}
+            {isLoading ? (
+              <p className="text-xs text-muted-foreground">Loading active serving locations...</p>
+            ) : activeLocations.length === 0 ? (
+              <p className="text-xs text-muted-foreground">No active locations configured.</p>
+            ) : (
+              activeLocations.map((loc) => (
+                <div
+                  key={loc.id}
+                  className="group border border-border/70 bg-background/80 hover:border-ember/60 hover:bg-card/90 flex items-center gap-2 rounded-lg px-3.5 py-2 text-xs font-bold text-foreground transition-all duration-200 hover:scale-105 shadow-xs"
+                >
+                  <CheckCircle2 className="h-3.5 w-3.5 text-ember shrink-0 group-hover:scale-110 transition-transform" />
+                  <span>{loc.name}</span>
+                  {loc.isHub && <span className="text-[9px] font-black uppercase text-amber-400 bg-amber-500/10 px-1.5 py-0.5 rounded">Hub</span>}
+                </div>
+              ))
+            )}
           </div>
 
           {/* Call to Action Bar */}
