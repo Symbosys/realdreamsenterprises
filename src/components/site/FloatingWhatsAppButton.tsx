@@ -14,8 +14,8 @@ export function FloatingWhatsAppButton() {
   // Render skeleton pulse state while webConfig is loading
   if (isLoading) {
     return (
-      <div className="fixed bottom-6 right-6 z-50 flex items-center">
-        <div className="h-14 w-14 rounded-full bg-emerald-500/40 animate-pulse border-2 border-white/20 shadow-xl flex items-center justify-center">
+      <div className="fixed bottom-6 right-6 z-50 flex items-center pointer-events-none">
+        <div className="h-14 w-14 rounded-full bg-emerald-500/40 animate-pulse border-2 border-white/20 shadow-xl flex items-center justify-center pointer-events-auto">
           <div className="h-6 w-6 rounded-full bg-white/40 animate-ping" />
         </div>
       </div>
@@ -45,7 +45,7 @@ export function FloatingWhatsAppButton() {
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex items-center group">
+    <div className="fixed bottom-6 right-6 z-50 flex items-center group pointer-events-none">
       {/* Tooltip Label */}
       <span className="mr-3 hidden md:block opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-slate-900/90 text-white text-xs font-extrabold tracking-wider uppercase px-3 py-1.5 rounded-lg shadow-lg backdrop-blur-md border border-white/10 whitespace-nowrap">
         Chat on WhatsApp
@@ -57,7 +57,7 @@ export function FloatingWhatsAppButton() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat with us on WhatsApp"
-        className="relative flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500 text-white shadow-2xl transition-all duration-300 hover:scale-110 hover:bg-emerald-600 active:scale-95 border-2 border-white/30 cursor-pointer"
+        className="pointer-events-auto relative flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500 text-white shadow-2xl transition-all duration-300 hover:scale-110 hover:bg-emerald-600 active:scale-95 border-2 border-white/30 cursor-pointer"
       >
         {/* Pulse ring animation */}
         <span className="absolute -inset-1 rounded-full bg-emerald-500/40 animate-ping pointer-events-none opacity-75" />

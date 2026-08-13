@@ -345,11 +345,10 @@ function AdminPricingPage() {
                 <button
                   type="button"
                   onClick={() => setSelectedBrandId(b.id)}
-                  className={`flex items-center gap-2.5 px-4 py-2 rounded-lg text-xs font-extrabold transition-all cursor-pointer ${
-                    isSelected
+                  className={`flex items-center gap-2.5 px-4 py-2 rounded-lg text-xs font-extrabold transition-all cursor-pointer ${isSelected
                       ? "bg-ember text-white shadow-md shadow-ember/20"
                       : "bg-muted/40 text-muted-foreground hover:text-foreground border border-border/60"
-                  }`}
+                    }`}
                 >
                   {b.logoUrl && (
                     <img src={b.logoUrl} alt={b.name} className="h-4 w-4 object-cover rounded" />
@@ -453,11 +452,10 @@ function AdminPricingPage() {
                       </td>
                       <td className="py-3.5 px-4 text-center">
                         <span
-                          className={`inline-flex items-center gap-1 text-[10px] font-bold px-2.5 py-1 rounded transition-colors ${
-                            item.isUp
+                          className={`inline-flex items-center gap-1 text-[10px] font-bold px-2.5 py-1 rounded transition-colors ${item.isUp
                               ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30"
                               : "bg-rose-500/10 text-rose-400 border border-rose-500/30"
-                          }`}
+                            }`}
                         >
                           {item.isUp ? (
                             <>

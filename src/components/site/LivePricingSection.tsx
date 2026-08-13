@@ -198,11 +198,10 @@ export function LivePricingSection() {
                         <button
                           key={b.id}
                           onClick={() => setSelectedBrandId(b.id)}
-                          className={`w-full relative flex items-center justify-between p-4 rounded-xl border transition-all duration-300 cursor-pointer ${
-                            isSelected
+                          className={`w-full relative flex items-center justify-between p-4 rounded-xl border transition-all duration-300 cursor-pointer ${isSelected
                               ? "border-[#b8860b] bg-linear-to-r from-[#b8860b] via-[#d4af37] to-[#b8860b] text-white shadow-lg scale-102"
                               : "border-slate-200 dark:border-border bg-slate-50/60 dark:bg-secondary/40 text-slate-900 dark:text-foreground hover:border-[#b8860b]/50"
-                          }`}
+                            }`}
                         >
                           <div>
                             <span className="font-display font-black text-lg tracking-wider block text-left">
@@ -326,11 +325,10 @@ export function LivePricingSection() {
                               {displayedPrice}
                             </td>
                             <td
-                              className={`py-4 px-4 font-bold ${
-                                row.isUp
+                              className={`py-4 px-4 font-bold ${row.isUp
                                   ? "text-emerald-600 dark:text-emerald-400"
                                   : "text-rose-600 dark:text-rose-400"
-                              }`}
+                                }`}
                             >
                               {row.priceChange}
                             </td>
@@ -362,7 +360,7 @@ export function LivePricingSection() {
         {/* Bottom Banner Bar: Bulk Quote & 4 Guarantee Badges */}
         <Reveal delay={0.4}>
           <div className="mt-12 bg-white dark:bg-card border border-slate-200 dark:border-border rounded-2xl p-6 md:p-8 shadow-lg grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            
+
             {/* Left Bulk Call Out */}
             <div className="lg:col-span-6 flex flex-col sm:flex-row items-center gap-4">
               <div className="p-3.5 rounded-2xl bg-[#b8860b] text-white shrink-0 shadow-md">
@@ -387,7 +385,7 @@ export function LivePricingSection() {
 
             {/* Right 4 Guarantee Badges */}
             <div className="lg:col-span-6 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t lg:border-t-0 lg:border-l border-slate-200 dark:border-border pt-6 lg:pt-0 lg:pl-6">
-              
+
               {/* 1 */}
               <div className="flex items-center gap-2.5">
                 <FileText className="w-5 h-5 text-[#b8860b] dark:text-amber-400 shrink-0" />

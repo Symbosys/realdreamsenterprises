@@ -10,10 +10,14 @@ import {
   Clock,
   ArrowUpRight,
   ShieldCheck,
-  ArrowUp,
   Send,
   CheckCircle2,
   Sparkles,
+  Linkedin,
+  Twitter,
+  Youtube,
+  Instagram,
+  Facebook,
 } from "lucide-react";
 
 export function SiteFooter() {
@@ -33,14 +37,14 @@ export function SiteFooter() {
   const companyName = getConfigValue(webConfig, "contact.companyName", SITE_CONTACT.companyName);
   const hours = getConfigValue(webConfig, "contact.hours", SITE_CONTACT.hours);
 
-  // Dynamic social links
+  // Dynamic social links - render ONLY those added in webConfig
   const socialLinks = [
-    { label: "LinkedIn", href: getConfigValue(webConfig, "social.linkedin", "") },
-    { label: "Twitter / X", href: getConfigValue(webConfig, "social.twitter", "") },
-    { label: "YouTube", href: getConfigValue(webConfig, "social.youtube", "") },
-    { label: "Instagram", href: getConfigValue(webConfig, "social.instagram", "") },
-    { label: "Facebook", href: getConfigValue(webConfig, "social.facebook", "") },
-  ].filter((s) => s.href && s.href.trim() !== "");
+    { label: "LinkedIn", href: getConfigValue(webConfig, "social.linkedin", ""), icon: Linkedin },
+    { label: "Twitter / X", href: getConfigValue(webConfig, "social.twitter", ""), icon: Twitter },
+    { label: "YouTube", href: getConfigValue(webConfig, "social.youtube", ""), icon: Youtube },
+    { label: "Instagram", href: getConfigValue(webConfig, "social.instagram", ""), icon: Instagram },
+    { label: "Facebook", href: getConfigValue(webConfig, "social.facebook", ""), icon: Facebook },
+  ].filter((s) => s.href && s.href.trim() !== "" && s.href.trim() !== "#");
 
   const [subscribed, setSubscribed] = useState(false);
   const [inputEmail, setInputEmail] = useState("");
@@ -103,7 +107,7 @@ export function SiteFooter() {
       <div className="relative z-10 -mt-16 px-6 md:px-12">
         <div className="mx-auto max-w-6xl rounded-xl border border-border/80 bg-card/85 p-6 shadow-2xl backdrop-blur-xl md:p-8">
           <div className="grid gap-6 lg:grid-cols-12 lg:items-center">
-            <div className="lg:col-span-6">
+            <div className="lg:col-span-5">
               <span className="text-ember eyebrow flex items-center gap-2">
                 <Sparkles className="h-3.5 w-3.5" /> High Tonnage & Project Quotes
               </span>
@@ -115,12 +119,12 @@ export function SiteFooter() {
               </p>
             </div>
 
-            <div className="flex flex-wrap items-center gap-3 lg:col-span-6 lg:justify-end">
+            <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 lg:col-span-7 lg:justify-end">
               <a
                 href={`tel:${phone}`}
-                className="group border-border/80 bg-background/80 hover:border-ember hover:bg-ember/10 flex items-center gap-2.5 rounded-lg border px-4 py-3 text-xs font-bold tracking-wider uppercase transition-all"
+                className="group border-border/80 bg-background/80 hover:border-ember hover:bg-ember/10 flex items-center gap-2 rounded-lg border px-3.5 py-2.5 text-xs font-bold tracking-wider uppercase transition-all shrink-0"
               >
-                <div className="bg-ember/20 text-ember group-hover:bg-ember group-hover:text-primary-foreground flex h-7 w-7 items-center justify-center rounded-full transition-colors">
+                <div className="bg-ember/20 text-ember group-hover:bg-ember group-hover:text-primary-foreground flex h-7 w-7 items-center justify-center rounded-full transition-colors shrink-0">
                   <Phone className="h-3.5 w-3.5" />
                 </div>
                 <span>{phone}</span>
@@ -128,17 +132,17 @@ export function SiteFooter() {
 
               <a
                 href={`mailto:${email}`}
-                className="group border-border/80 bg-background/80 hover:border-ember hover:bg-ember/10 flex items-center gap-2.5 rounded-lg border px-4 py-3 text-xs font-bold tracking-wider uppercase transition-all"
+                className="group border-border/80 bg-background/80 hover:border-ember hover:bg-ember/10 flex items-center gap-2 rounded-lg border px-3.5 py-2.5 text-xs font-bold transition-all shrink-0"
               >
-                <div className="bg-ember/20 text-ember group-hover:bg-ember group-hover:text-primary-foreground flex h-7 w-7 items-center justify-center rounded-full transition-colors">
+                <div className="bg-ember/20 text-ember group-hover:bg-ember group-hover:text-primary-foreground flex h-7 w-7 items-center justify-center rounded-full transition-colors shrink-0">
                   <Mail className="h-3.5 w-3.5" />
                 </div>
-                <span>{email}</span>
+                <span className="lowercase font-semibold">{email}</span>
               </a>
 
               <Link
                 to="/contact"
-                className="bg-ember text-primary-foreground hover:shadow-ember flex items-center gap-2 rounded-lg px-5 py-3 text-xs font-bold tracking-widest uppercase transition-all hover:scale-105"
+                className="bg-ember text-primary-foreground hover:shadow-ember flex items-center gap-2 rounded-lg px-4 py-2.5 text-xs font-bold tracking-wider uppercase transition-all hover:scale-105 shrink-0"
               >
                 Get Quote <ArrowUpRight className="h-4 w-4" />
               </Link>
@@ -320,6 +324,32 @@ export function SiteFooter() {
                 <Clock className="h-3.5 w-3.5 text-ember shrink-0" />
                 <span className="text-muted-foreground text-[11px]">{hours}</span>
               </div>
+
+              {/* Social Media Links (Icon + Name) - Only rendered if added in webConfig */}
+              {socialLinks.length > 0 ? (
+                <div className="mt-6 pt-4 border-t border-border/40">
+                  <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider mb-2.5">
+                    Follow Us
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {socialLinks.map((s) => {
+                      const Icon = s.icon;
+                      return (
+                        <a
+                          key={s.label}
+                          href={s.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="border-border/60 bg-card/40 hover:border-ember hover:text-ember text-muted-foreground inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-xs font-semibold transition-all hover:bg-card"
+                        >
+                          <Icon className="h-3.5 w-3.5 text-ember" />
+                          <span>{s.label}</span>
+                        </a>
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : null}
             </div>
 
           </div>
@@ -327,7 +357,7 @@ export function SiteFooter() {
           {/* Divider */}
           <div className="rule-line my-10" />
 
-          {/* Bottom Bar: Copyright, Socials, Scroll To Top */}
+          {/* Bottom Bar: Copyright, Social Icons, Scroll To Top */}
           <div className="flex flex-col items-center justify-between gap-6 text-xs text-muted-foreground md:flex-row">
             <div className="flex flex-col items-center gap-1 text-center md:items-start md:text-left">
               <p className="font-medium">
@@ -338,29 +368,38 @@ export function SiteFooter() {
               </p>
             </div>
 
-            {/* Social Links */}
-            <div className="flex items-center gap-4">
-              {socialLinks.map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-ember transition-colors text-xs font-medium"
-                >
-                  {s.label}
-                </a>
-              ))}
-            </div>
+            {/* Social Links (Icons only) - Only rendered if added in webConfig */}
+            {socialLinks.length > 0 ? (
+              <div className="flex items-center gap-2.5">
+                {socialLinks.map((s) => {
+                  const Icon = s.icon;
+                  return (
+                    <a
+                      key={s.label}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={s.label}
+                      title={s.label}
+                      className="border-border/70 bg-card/40 hover:border-ember hover:text-ember flex h-8 w-8 items-center justify-center rounded-lg border text-muted-foreground transition-all hover:bg-card hover:scale-110"
+                    >
+                      <Icon className="h-3.5 w-3.5" />
+                    </a>
+                  );
+                })}
+              </div>
+            ) : null}
 
-            {/* Back to top button */}
-            <button
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="border-border/70 bg-card/40 hover:border-ember hover:text-ember group flex items-center gap-2 rounded-lg border px-4 py-2 text-xs font-semibold transition-all hover:bg-card"
+            {/* Developed by Symbosys link */}
+            <a
+              href="https://www.symbosys.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="border-border/70 bg-card/40 hover:border-ember hover:text-ember group flex items-center gap-1.5 rounded-lg border px-4 py-2 text-xs font-semibold transition-all hover:bg-card mr-14 sm:mr-16 md:mr-0"
             >
-              <span>Back to top</span>
-              <ArrowUp className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-1" />
-            </button>
+              <span>Developed by <span className="font-bold text-foreground group-hover:text-ember transition-colors">Symbosys</span></span>
+              <ArrowUpRight className="h-3.5 w-3.5 opacity-70 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
           </div>
         </div>
       </div>
