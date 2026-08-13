@@ -11,7 +11,9 @@ export const SITE_CONTACT = {
   phone: "651-3511561",
   phoneRaw: "6513511561",
   email: "steelcrafttrading@gmail.com",
-  address: "2nd Floor, Reena Tower, Behind Rajdhani Manya Tower, Piska More, Ranchi, Jharkhand",
+  regdAddress: "H.No. E-1/3, Ground Floor, Lajpat Nagar-1 (South Delhi), New Delhi - 110024",
+  stateAddress: "5th Floor, Mangal Tower, Kantatoli, Ranchi - 834001",
+  address: "5th Floor, Mangal Tower, Kantatoli, Ranchi - 834001",
   hours: "Mon–Sat, 09:00–19:00 IST. Project & tender inquiries answered 24/7.",
 } as const;
 

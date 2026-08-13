@@ -190,7 +190,16 @@ export function LivePricingSection() {
 
                 <div className="space-y-3">
                   {isLoading ? (
-                    <div className="p-4 text-center text-xs text-muted-foreground">Loading brands...</div>
+                    <div className="space-y-2">
+                      <div className="h-14 rounded-xl bg-slate-200/60 dark:bg-muted/40 animate-pulse flex items-center justify-between p-4">
+                        <div className="h-4 w-24 bg-slate-300 dark:bg-muted rounded" />
+                        <div className="h-4 w-4 rounded-full bg-slate-300 dark:bg-muted" />
+                      </div>
+                      <div className="h-14 rounded-xl bg-slate-200/60 dark:bg-muted/40 animate-pulse flex items-center justify-between p-4">
+                        <div className="h-4 w-28 bg-slate-300 dark:bg-muted rounded" />
+                        <div className="h-4 w-4 rounded-full bg-slate-300 dark:bg-muted" />
+                      </div>
+                    </div>
                   ) : brands.length === 0 ? (
                     <div className="p-4 text-center text-xs text-muted-foreground">No active brands available.</div>
                   ) : (
@@ -293,7 +302,17 @@ export function LivePricingSection() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-200/80 dark:divide-border/60 font-semibold text-slate-800 dark:text-slate-200">
-                    {!currentBrand || !currentBrand.pricingItems || currentBrand.pricingItems.length === 0 ? (
+                    {isLoading ? (
+                      Array.from({ length: 5 }).map((_, i) => (
+                        <tr key={i} className="animate-pulse">
+                          <td className="py-4 px-4"><div className="h-4 w-12 bg-slate-200 dark:bg-muted/50 rounded" /></td>
+                          <td className="py-4 px-4"><div className="h-4 w-20 bg-slate-200 dark:bg-muted/50 rounded" /></td>
+                          <td className="py-4 px-4"><div className="h-4 w-16 bg-slate-200 dark:bg-muted/50 rounded" /></td>
+                          <td className="py-4 px-4 text-center"><div className="h-5 w-14 bg-slate-200 dark:bg-muted/50 rounded-full mx-auto" /></td>
+                          <td className="py-4 px-4 text-right"><div className="h-4 w-24 bg-slate-200 dark:bg-muted/50 rounded ml-auto" /></td>
+                        </tr>
+                      ))
+                    ) : !currentBrand || !currentBrand.pricingItems || currentBrand.pricingItems.length === 0 ? (
                       <tr>
                         <td colSpan={5} className="py-8 text-center text-muted-foreground">
                           No rates configured for this brand.

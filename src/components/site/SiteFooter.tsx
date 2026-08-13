@@ -28,7 +28,8 @@ export function SiteFooter() {
   // Dynamic contact info with static fallbacks
   const phone = getConfigValue(webConfig, "contact.phone", SITE_CONTACT.phone);
   const email = getConfigValue(webConfig, "contact.email", SITE_CONTACT.email);
-  const address = getConfigValue(webConfig, "contact.address", SITE_CONTACT.address);
+  const regdAddress = getConfigValue(webConfig, "contact.regdAddress", SITE_CONTACT.regdAddress);
+  const stateAddress = getConfigValue(webConfig, "contact.stateAddress", SITE_CONTACT.stateAddress);
   const companyName = getConfigValue(webConfig, "contact.companyName", SITE_CONTACT.companyName);
   const hours = getConfigValue(webConfig, "contact.hours", SITE_CONTACT.hours);
 
@@ -232,12 +233,22 @@ export function SiteFooter() {
                   </div>
                 </a>
 
-                {/* Location */}
-                <div className="flex items-start gap-3 pt-1">
+                {/* Regd Location */}
+                <div className="flex items-start gap-2.5 pt-1">
                   <MapPin className="h-4 w-4 text-ember shrink-0 mt-0.5" />
-                  <span className="text-muted-foreground text-xs leading-relaxed">
-                    {address}
-                  </span>
+                  <div className="text-[11px] leading-relaxed">
+                    <span className="font-bold text-foreground block">Regd. Office:</span>
+                    <span className="text-muted-foreground">{regdAddress}</span>
+                  </div>
+                </div>
+
+                {/* State Location */}
+                <div className="flex items-start gap-2.5 pt-1">
+                  <MapPin className="h-4 w-4 text-ember shrink-0 mt-0.5" />
+                  <div className="text-[11px] leading-relaxed">
+                    <span className="font-bold text-foreground block">State Office (Ranchi):</span>
+                    <span className="text-muted-foreground">{stateAddress}</span>
+                  </div>
                 </div>
               </div>
             </div>

@@ -54,6 +54,8 @@ function ContactPage() {
   const phone = getConfigValue(webConfig, "contact.phone", SITE_CONTACT.phone);
   const email = getConfigValue(webConfig, "contact.email", SITE_CONTACT.email);
   const address = getConfigValue(webConfig, "contact.address", SITE_CONTACT.address);
+  const regdAddress = getConfigValue(webConfig, "contact.regdAddress", SITE_CONTACT.regdAddress);
+  const stateAddress = getConfigValue(webConfig, "contact.stateAddress", SITE_CONTACT.stateAddress);
   const fullName = getConfigValue(webConfig, "contact.fullName", SITE_CONTACT.fullName);
   const hours = getConfigValue(webConfig, "contact.hours", SITE_CONTACT.hours);
 
@@ -340,13 +342,24 @@ function ContactPage() {
         <div className="space-y-5">
           <Glass className="p-6 transition-all hover:border-ember/40">
             <div className="flex items-start gap-4">
-              <div className="bg-ember/15 text-ember rounded-md p-3">
+              <div className="bg-ember/15 text-ember rounded-md p-3 shrink-0">
                 <MapPin className="h-5 w-5" />
               </div>
               <div>
-                <p className="eyebrow text-ember">Headquarters & Works</p>
-                <p className="mt-1 font-display text-base font-bold">{fullName}</p>
-                <p className="text-muted-foreground mt-1 text-sm">{address}</p>
+                <p className="eyebrow text-ember font-bold text-xs uppercase tracking-wider">Regd. Office</p>
+                <p className="text-foreground mt-1 text-sm font-semibold leading-relaxed">{regdAddress}</p>
+              </div>
+            </div>
+          </Glass>
+
+          <Glass className="p-6 transition-all hover:border-ember/40">
+            <div className="flex items-start gap-4">
+              <div className="bg-ember/15 text-ember rounded-md p-3 shrink-0">
+                <MapPin className="h-5 w-5" />
+              </div>
+              <div>
+                <p className="eyebrow text-ember font-bold text-xs uppercase tracking-wider">State Office (Ranchi)</p>
+                <p className="text-foreground mt-1 text-sm font-semibold leading-relaxed">{stateAddress}</p>
               </div>
             </div>
           </Glass>

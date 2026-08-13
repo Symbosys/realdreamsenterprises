@@ -15,7 +15,8 @@ export async function getWebConfigByKey(key: string): Promise<string | null> {
 }
 
 export async function bulkUpsertWebConfig(entries: { key: string; value: string }[]) {
-  const results = await prisma.$transaction(
+  // Use Promise.all to run upserts concurrently and bypass transaction timeout limits in production
+  const results = await Promise.all(
     entries.map((entry) =>
       prisma.webConfig.upsert({
         where: { key: entry.key },

@@ -42,6 +42,8 @@ function AdminWebConfigPage() {
   const [contactEmail, setContactEmail] = useState("");
   const [salesEmail, setSalesEmail] = useState("");
   const [officeAddress, setOfficeAddress] = useState("");
+  const [regdAddress, setRegdAddress] = useState("");
+  const [stateAddress, setStateAddress] = useState("");
   const [hours, setHours] = useState("");
 
   // Social media
@@ -83,6 +85,8 @@ function AdminWebConfigPage() {
     setContactEmail(getConfigValue(config, "contact.email", ""));
     setSalesEmail(getConfigValue(config, "contact.salesEmail", ""));
     setOfficeAddress(getConfigValue(config, "contact.address", ""));
+    setRegdAddress(getConfigValue(config, "contact.regdAddress", "H.No. E-1/3, Ground Floor, Lajpat Nagar-1 (South Delhi), New Delhi - 110024"));
+    setStateAddress(getConfigValue(config, "contact.stateAddress", "5th Floor, Mangal Tower, Kantatoli, Ranchi - 834001"));
     setHours(getConfigValue(config, "contact.hours", ""));
 
     setLinkedin(getConfigValue(config, "social.linkedin", ""));
@@ -112,6 +116,8 @@ function AdminWebConfigPage() {
       { key: "contact.email", value: contactEmail },
       { key: "contact.salesEmail", value: salesEmail },
       { key: "contact.address", value: officeAddress },
+      { key: "contact.regdAddress", value: regdAddress },
+      { key: "contact.stateAddress", value: stateAddress },
       { key: "contact.hours", value: hours },
       { key: "social.linkedin", value: linkedin },
       { key: "social.twitter", value: twitter },
@@ -239,7 +245,10 @@ function AdminWebConfigPage() {
             <InputField label="Full Company Name" value={fullName} onChange={setFullName} icon={<Globe className="h-3.5 w-3.5" />} />
           </div>
           <div className="sm:col-span-2">
-            <InputField label="Office Address" value={officeAddress} onChange={setOfficeAddress} icon={<MapPin className="h-3.5 w-3.5" />} />
+            <InputField label="Registered Office Address (Regd. Office)" value={regdAddress} onChange={setRegdAddress} icon={<MapPin className="h-3.5 w-3.5" />} placeholder="H.No. E-1/3, Ground Floor, Lajpat Nagar-1 (South Delhi), New Delhi - 110024" />
+          </div>
+          <div className="sm:col-span-2">
+            <InputField label="State Office Address (Jharkhand)" value={stateAddress} onChange={setStateAddress} icon={<MapPin className="h-3.5 w-3.5" />} placeholder="5th Floor, Mangal Tower, Kantatoli, Ranchi - 834001" />
           </div>
         </div>
       </div>
