@@ -72,7 +72,12 @@ function AdminLoginPage() {
             <img
               src="/logo/logo.png"
               alt="Real Dreams Enterprises"
-              className="h-14 w-auto object-contain"
+              className="h-14 w-auto object-contain dark:hidden"
+            />
+            <img
+              src="/logo/logo-dark-mode.png"
+              alt="Real Dreams Enterprises"
+              className="h-14 w-auto object-contain hidden dark:block"
             />
           </div>
 

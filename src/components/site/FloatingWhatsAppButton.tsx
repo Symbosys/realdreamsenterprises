@@ -4,11 +4,22 @@ import { SITE_CONTACT } from "@/data/site";
 
 export function FloatingWhatsAppButton() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const { data: webConfig } = useGetWebConfig();
+  const { data: webConfig, isLoading } = useGetWebConfig();
 
   // Hide WhatsApp button inside admin portal
   if (pathname.startsWith("/admin")) {
     return null;
+  }
+
+  // Render skeleton pulse state while webConfig is loading
+  if (isLoading) {
+    return (
+      <div className="fixed bottom-6 right-6 z-50 flex items-center">
+        <div className="h-14 w-14 rounded-full bg-emerald-500/40 animate-pulse border-2 border-white/20 shadow-xl flex items-center justify-center">
+          <div className="h-6 w-6 rounded-full bg-white/40 animate-ping" />
+        </div>
+      </div>
+    );
   }
 
   // Get dynamic WhatsApp number / URL from admin WebConfig

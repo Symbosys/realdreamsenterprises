@@ -128,7 +128,7 @@ const FALLBACK_STATS = [
 ];
 
 function Index() {
-  const { data: webConfig } = useGetWebConfig();
+  const { data: webConfig, isLoading } = useGetWebConfig();
 
   const milestones = parseJsonConfig<{ year: string; label: string }[]>(webConfig, "milestones.hero", FALLBACK_MILESTONES);
   const statsRaw = parseJsonConfig<{ value: string; label: string }[]>(webConfig, "stats", []);
@@ -292,27 +292,45 @@ function Index() {
 
           {/* Timeline Milestones Track */}
           <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
-            {milestones.map((m) => (
-              <div
-                key={m.year}
-                className="border-border/70 bg-card/40 hover:border-ember/50 hover:bg-card/70 relative rounded-xl border p-6 transition-all duration-300"
-              >
-                <div className="text-ember font-display text-3xl font-extrabold">{m.year}</div>
-                <div className="mt-2 text-sm font-semibold text-foreground">{m.label}</div>
-              </div>
-            ))}
+            {isLoading ? (
+              Array.from({ length: 5 }).map((_, i) => (
+                <div key={i} className="border-border/70 bg-card/40 rounded-xl border p-6 animate-pulse space-y-2">
+                  <div className="h-7 w-16 bg-ember/20 rounded" />
+                  <div className="h-4 w-24 bg-muted/60 rounded" />
+                </div>
+              ))
+            ) : (
+              milestones.map((m) => (
+                <div
+                  key={m.year}
+                  className="border-border/70 bg-card/40 hover:border-ember/50 hover:bg-card/70 relative rounded-xl border p-6 transition-all duration-300"
+                >
+                  <div className="text-ember font-display text-3xl font-extrabold">{m.year}</div>
+                  <div className="mt-2 text-sm font-semibold text-foreground">{m.label}</div>
+                </div>
+              ))
+            )}
           </div>
 
           {/* Key Stats Counter Grid */}
           <div className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border md:grid-cols-4">
-            {stats.map(([v, k]) => (
-              <div key={k} className="bg-card p-6 md:p-8">
-                <div className="font-display text-3xl font-extrabold md:text-4xl text-foreground">{v}</div>
-                <div className="text-muted-foreground mt-2 text-[11px] tracking-[0.2em] uppercase font-bold">
-                  {k}
+            {isLoading ? (
+              Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className="bg-card p-6 md:p-8 animate-pulse space-y-2">
+                  <div className="h-9 w-24 bg-muted/60 rounded" />
+                  <div className="h-3 w-28 bg-muted/40 rounded" />
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              stats.map(([v, k]) => (
+                <div key={k} className="bg-card p-6 md:p-8">
+                  <div className="font-display text-3xl font-extrabold md:text-4xl text-foreground">{v}</div>
+                  <div className="text-muted-foreground mt-2 text-[11px] tracking-[0.2em] uppercase font-bold">
+                    {k}
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </section>

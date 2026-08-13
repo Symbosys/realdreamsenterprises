@@ -34,4 +34,6 @@ dist-ssr
 todo.md
 /generated/prisma
 
+.env
+
 /src/seed

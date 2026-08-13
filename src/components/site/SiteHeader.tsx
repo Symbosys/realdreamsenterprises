@@ -22,12 +22,14 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${scrolled || open ? "border-border/60 bg-background/80 border-b backdrop-blur-xl" : ""
-        }`}
+      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${
+        scrolled || open ? "border-border/60 bg-background/80 border-b backdrop-blur-xl" : ""
+      }`}
     >
       <div className="flex items-center justify-between px-6 py-1 md:px-12">
         <Link to="/" className="flex items-center gap-3">
-          <img src="/logo/logo.png" alt="Real Dreams Enterprises logo" className="h-20 md:h-24 w-auto object-contain" />
+          <img src="/logo/logo.png" alt="Real Dreams Enterprises logo" className="h-20 md:h-24 w-auto object-contain dark:hidden" />
+          <img src="/logo/logo-dark-mode.png" alt="Real Dreams Enterprises logo" className="h-20 md:h-24 w-auto object-contain hidden dark:block" />
           <span className="sr-only">Real Dreams Enterprises</span>
         </Link>
 

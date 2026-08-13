@@ -23,7 +23,7 @@ export function SiteFooter() {
     return null;
   }
 
-  const { data: webConfig } = useGetWebConfig();
+  const { data: webConfig, isLoading } = useGetWebConfig();
 
   // Dynamic contact info with static fallbacks
   const phone = getConfigValue(webConfig, "contact.phone", SITE_CONTACT.phone);
@@ -56,7 +56,7 @@ export function SiteFooter() {
   return (
     <footer className="relative mt-16 overflow-hidden bg-background text-foreground border-t border-border/40">
       {/* Night Skyline Banner Header */}
-      <div className="relative h-[48vh] min-h-85 w-full overflow-hidden bg-background">
+      <div className="relative min-h-[420px] w-full overflow-hidden bg-background flex flex-col justify-start pt-10 pb-20">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-ember/15 via-background to-background" />
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px]" />
 
@@ -65,7 +65,7 @@ export function SiteFooter() {
         <div className="from-background/90 via-transparent pointer-events-none absolute inset-0 bg-linear-to-b to-transparent" />
 
         {/* Hero Footer Branding */}
-        <div className="pointer-events-none absolute inset-x-0 top-12 flex flex-col items-center px-6 text-center">
+        <div className="relative z-0 flex flex-col items-center px-6 text-center pt-4 pb-16">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -89,7 +89,8 @@ export function SiteFooter() {
             transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
             className="mt-4"
           >
-            <img src="/logo/logo.png" alt="Real Dreams Enterprises logo" className="mx-auto h-48 w-auto object-contain md:h-60" />
+            <img src="/logo/logo.png" alt="Real Dreams Enterprises logo" className="mx-auto h-32 w-auto object-contain md:h-44 dark:hidden" />
+            <img src="/logo/logo-dark-mode.png" alt="Real Dreams Enterprises logo" className="mx-auto h-32 w-auto object-contain md:h-44 hidden dark:block" />
           </motion.div>
 
           <p className="text-muted-foreground mt-2 text-xs tracking-[0.3em] uppercase md:text-sm">
@@ -99,7 +100,7 @@ export function SiteFooter() {
       </div>
 
       {/* Quick Contact & Action Callout Bar */}
-      <div className="relative z-10 -mt-20 px-6 md:px-12">
+      <div className="relative z-10 -mt-16 px-6 md:px-12">
         <div className="mx-auto max-w-6xl rounded-xl border border-border/80 bg-card/85 p-6 shadow-2xl backdrop-blur-xl md:p-8">
           <div className="grid gap-6 lg:grid-cols-12 lg:items-center">
             <div className="lg:col-span-6">
@@ -154,7 +155,8 @@ export function SiteFooter() {
             {/* Col 1: Brand & Certification Seals (4 cols) */}
             <div className="lg:col-span-4">
               <Link to="/" className="inline-flex items-center">
-                <img src="/logo/logo.png" alt="Real Dreams Enterprises logo" className="h-28 w-auto object-contain md:h-32" />
+                <img src="/logo/logo.png" alt="Real Dreams Enterprises logo" className="h-28 w-auto object-contain md:h-32 dark:hidden" />
+                <img src="/logo/logo-dark-mode.png" alt="Real Dreams Enterprises logo" className="h-28 w-auto object-contain md:h-32 hidden dark:block" />
                 <span className="sr-only">Real Dreams Enterprises</span>
               </Link>
               <p className="text-muted-foreground mt-4 text-xs leading-relaxed max-w-sm">
@@ -197,59 +199,88 @@ export function SiteFooter() {
             <div className="lg:col-span-3">
               <p className="eyebrow text-ember mb-4">Direct Desk</p>
               <div className="space-y-4 text-xs">
-                {/* Phone Link */}
-                <a
-                  href={`tel:${phone}`}
-                  className="group border-border/50 hover:border-ember bg-card/40 hover:bg-card flex items-start gap-3 rounded-lg border p-3 transition-all"
-                >
-                  <div className="bg-ember/15 text-ember group-hover:bg-ember group-hover:text-primary-foreground rounded-md p-2 transition-colors">
-                    <Phone className="h-4 w-4" />
+                {isLoading ? (
+                  <div className="space-y-3">
+                    <div className="h-14 rounded-lg bg-card/40 border border-border/50 animate-pulse p-3 flex items-center gap-3">
+                      <div className="h-8 w-8 rounded bg-ember/20" />
+                      <div className="space-y-1">
+                        <div className="h-2 w-16 bg-muted/60 rounded" />
+                        <div className="h-3 w-28 bg-muted rounded" />
+                      </div>
+                    </div>
+                    <div className="h-14 rounded-lg bg-card/40 border border-border/50 animate-pulse p-3 flex items-center gap-3">
+                      <div className="h-8 w-8 rounded bg-ember/20" />
+                      <div className="space-y-1">
+                        <div className="h-2 w-16 bg-muted/60 rounded" />
+                        <div className="h-3 w-32 bg-muted rounded" />
+                      </div>
+                    </div>
+                    <div className="space-y-1.5 pt-1 animate-pulse">
+                      <div className="h-3 w-20 bg-muted/60 rounded" />
+                      <div className="h-3 w-full bg-muted/40 rounded" />
+                    </div>
+                    <div className="space-y-1.5 pt-1 animate-pulse">
+                      <div className="h-3 w-24 bg-muted/60 rounded" />
+                      <div className="h-3 w-full bg-muted/40 rounded" />
+                    </div>
                   </div>
-                  <div>
-                    <span className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider block">
-                      Sales & Hotline
-                    </span>
-                    <span className="font-display text-sm font-bold text-foreground group-hover:text-ember transition-colors">
-                      {phone}
-                    </span>
-                  </div>
-                </a>
+                ) : (
+                  <>
+                    {/* Phone Link */}
+                    <a
+                      href={`tel:${phone}`}
+                      className="group border-border/50 hover:border-ember bg-card/40 hover:bg-card flex items-start gap-3 rounded-lg border p-3 transition-all"
+                    >
+                      <div className="bg-ember/15 text-ember group-hover:bg-ember group-hover:text-primary-foreground rounded-md p-2 transition-colors">
+                        <Phone className="h-4 w-4" />
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider block">
+                          Sales & Hotline
+                        </span>
+                        <span className="font-display text-sm font-bold text-foreground group-hover:text-ember transition-colors">
+                          {phone}
+                        </span>
+                      </div>
+                    </a>
 
-                {/* Email Link */}
-                <a
-                  href={`mailto:${email}`}
-                  className="group border-border/50 hover:border-ember bg-card/40 hover:bg-card flex items-start gap-3 rounded-lg border p-3 transition-all"
-                >
-                  <div className="bg-ember/15 text-ember group-hover:bg-ember group-hover:text-primary-foreground rounded-md p-2 transition-colors">
-                    <Mail className="h-4 w-4" />
-                  </div>
-                  <div className="overflow-hidden">
-                    <span className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider block">
-                      Email Desk
-                    </span>
-                    <span className="font-display text-xs font-bold text-foreground group-hover:text-ember transition-colors truncate block">
-                      {email}
-                    </span>
-                  </div>
-                </a>
+                    {/* Email Link */}
+                    <a
+                      href={`mailto:${email}`}
+                      className="group border-border/50 hover:border-ember bg-card/40 hover:bg-card flex items-start gap-3 rounded-lg border p-3 transition-all"
+                    >
+                      <div className="bg-ember/15 text-ember group-hover:bg-ember group-hover:text-primary-foreground rounded-md p-2 transition-colors">
+                        <Mail className="h-4 w-4" />
+                      </div>
+                      <div className="overflow-hidden">
+                        <span className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider block">
+                          Email Desk
+                        </span>
+                        <span className="font-display text-xs font-bold text-foreground group-hover:text-ember transition-colors truncate block">
+                          {email}
+                        </span>
+                      </div>
+                    </a>
 
-                {/* Regd Location */}
-                <div className="flex items-start gap-2.5 pt-1">
-                  <MapPin className="h-4 w-4 text-ember shrink-0 mt-0.5" />
-                  <div className="text-[11px] leading-relaxed">
-                    <span className="font-bold text-foreground block">Regd. Office:</span>
-                    <span className="text-muted-foreground">{regdAddress}</span>
-                  </div>
-                </div>
+                    {/* Regd Location */}
+                    <div className="flex items-start gap-2.5 pt-1">
+                      <MapPin className="h-4 w-4 text-ember shrink-0 mt-0.5" />
+                      <div className="text-[11px] leading-relaxed">
+                        <span className="font-bold text-foreground block">Regd. Office:</span>
+                        <span className="text-muted-foreground">{regdAddress}</span>
+                      </div>
+                    </div>
 
-                {/* State Location */}
-                <div className="flex items-start gap-2.5 pt-1">
-                  <MapPin className="h-4 w-4 text-ember shrink-0 mt-0.5" />
-                  <div className="text-[11px] leading-relaxed">
-                    <span className="font-bold text-foreground block">State Office (Ranchi):</span>
-                    <span className="text-muted-foreground">{stateAddress}</span>
-                  </div>
-                </div>
+                    {/* State Location */}
+                    <div className="flex items-start gap-2.5 pt-1">
+                      <MapPin className="h-4 w-4 text-ember shrink-0 mt-0.5" />
+                      <div className="text-[11px] leading-relaxed">
+                        <span className="font-bold text-foreground block">State Office (Ranchi):</span>
+                        <span className="text-muted-foreground">{stateAddress}</span>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
 

@@ -180,7 +180,8 @@ function AdminLayout() {
             {sidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
           <div className="flex items-center gap-2">
-            <img src="/logo/logo.png" alt="Logo" className="h-7 w-auto object-contain" />
+            <img src="/logo/logo.png" alt="Logo" className="h-7 w-auto object-contain dark:hidden" />
+            <img src="/logo/logo-dark-mode.png" alt="Logo" className="h-7 w-auto object-contain hidden dark:block" />
             <span className="font-bold text-xs tracking-wider uppercase text-foreground">
               Admin Panel
             </span>
@@ -220,7 +221,12 @@ function AdminLayout() {
               <img
                 src="/logo/logo.png"
                 alt="Real Dreams Enterprises"
-                className="h-9 w-auto object-contain transition-transform group-hover:scale-105"
+                className="h-9 w-auto object-contain transition-transform group-hover:scale-105 dark:hidden"
+              />
+              <img
+                src="/logo/logo-dark-mode.png"
+                alt="Real Dreams Enterprises"
+                className="h-9 w-auto object-contain transition-transform group-hover:scale-105 hidden dark:block"
               />
             </div>
             <div>

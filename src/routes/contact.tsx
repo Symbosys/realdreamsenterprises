@@ -46,7 +46,7 @@ export const Route = createFileRoute("/contact")({
 
 function ContactPage() {
   const submitEnquiryMutation = useSubmitEnquiry();
-  const { data: webConfig } = useGetWebConfig();
+  const { data: webConfig, isLoading } = useGetWebConfig();
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [submittedReference, setSubmittedReference] = useState<string | null>(null);
 
@@ -340,69 +340,112 @@ function ContactPage() {
         </div>
 
         <div className="space-y-5">
-          <Glass className="p-6 transition-all hover:border-ember/40">
-            <div className="flex items-start gap-4">
-              <div className="bg-ember/15 text-ember rounded-md p-3 shrink-0">
-                <MapPin className="h-5 w-5" />
-              </div>
-              <div>
-                <p className="eyebrow text-ember font-bold text-xs uppercase tracking-wider">Regd. Office</p>
-                <p className="text-foreground mt-1 text-sm font-semibold leading-relaxed">{regdAddress}</p>
-              </div>
+          {isLoading ? (
+            <div className="space-y-5">
+              <Glass className="p-6 animate-pulse">
+                <div className="flex items-start gap-4">
+                  <div className="bg-ember/20 h-10 w-10 rounded-md shrink-0" />
+                  <div className="space-y-2 w-full">
+                    <div className="h-3 w-24 bg-muted/60 rounded" />
+                    <div className="h-4 w-full bg-muted/40 rounded" />
+                  </div>
+                </div>
+              </Glass>
+              <Glass className="p-6 animate-pulse">
+                <div className="flex items-start gap-4">
+                  <div className="bg-ember/20 h-10 w-10 rounded-md shrink-0" />
+                  <div className="space-y-2 w-full">
+                    <div className="h-3 w-28 bg-muted/60 rounded" />
+                    <div className="h-4 w-full bg-muted/40 rounded" />
+                  </div>
+                </div>
+              </Glass>
+              <Glass className="p-6 animate-pulse">
+                <div className="flex items-start gap-4">
+                  <div className="bg-ember/20 h-10 w-10 rounded-md shrink-0" />
+                  <div className="space-y-2 w-full">
+                    <div className="h-3 w-32 bg-muted/60 rounded" />
+                    <div className="h-6 w-36 bg-muted rounded" />
+                  </div>
+                </div>
+              </Glass>
+              <Glass className="p-6 animate-pulse">
+                <div className="flex items-start gap-4">
+                  <div className="bg-ember/20 h-10 w-10 rounded-md shrink-0" />
+                  <div className="space-y-2 w-full">
+                    <div className="h-3 w-28 bg-muted/60 rounded" />
+                    <div className="h-5 w-48 bg-muted rounded" />
+                  </div>
+                </div>
+              </Glass>
             </div>
-          </Glass>
+          ) : (
+            <>
+              <Glass className="p-6 transition-all hover:border-ember/40">
+                <div className="flex items-start gap-4">
+                  <div className="bg-ember/15 text-ember rounded-md p-3 shrink-0">
+                    <MapPin className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <p className="eyebrow text-ember font-bold text-xs uppercase tracking-wider">Regd. Office</p>
+                    <p className="text-foreground mt-1 text-sm font-semibold leading-relaxed">{regdAddress}</p>
+                  </div>
+                </div>
+              </Glass>
 
-          <Glass className="p-6 transition-all hover:border-ember/40">
-            <div className="flex items-start gap-4">
-              <div className="bg-ember/15 text-ember rounded-md p-3 shrink-0">
-                <MapPin className="h-5 w-5" />
-              </div>
-              <div>
-                <p className="eyebrow text-ember font-bold text-xs uppercase tracking-wider">State Office (Ranchi)</p>
-                <p className="text-foreground mt-1 text-sm font-semibold leading-relaxed">{stateAddress}</p>
-              </div>
-            </div>
-          </Glass>
+              <Glass className="p-6 transition-all hover:border-ember/40">
+                <div className="flex items-start gap-4">
+                  <div className="bg-ember/15 text-ember rounded-md p-3 shrink-0">
+                    <MapPin className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <p className="eyebrow text-ember font-bold text-xs uppercase tracking-wider">State Office (Ranchi)</p>
+                    <p className="text-foreground mt-1 text-sm font-semibold leading-relaxed">{stateAddress}</p>
+                  </div>
+                </div>
+              </Glass>
 
-          <Glass className="p-6 transition-all hover:border-ember/40">
-            <div className="flex items-start gap-4">
-              <div className="bg-ember/15 text-ember rounded-md p-3">
-                <Phone className="h-5 w-5" />
-              </div>
-              <div className="w-full">
-                <p className="eyebrow text-ember">Sales & Support Desk</p>
-                <a
-                  href={`tel:${phone}`}
-                  className="hover:text-ember mt-1 block font-display text-lg font-bold transition-colors"
-                >
-                  {phone}
-                </a>
-                <p className="text-muted-foreground mt-1 text-xs">
-                  Direct line for price quotes, BBS processing, and order updates.
-                </p>
-              </div>
-            </div>
-          </Glass>
+              <Glass className="p-6 transition-all hover:border-ember/40">
+                <div className="flex items-start gap-4">
+                  <div className="bg-ember/15 text-ember rounded-md p-3">
+                    <Phone className="h-5 w-5" />
+                  </div>
+                  <div className="w-full">
+                    <p className="eyebrow text-ember">Sales & Support Desk</p>
+                    <a
+                      href={`tel:${phone}`}
+                      className="hover:text-ember mt-1 block font-display text-lg font-bold transition-colors"
+                    >
+                      {phone}
+                    </a>
+                    <p className="text-muted-foreground mt-1 text-xs">
+                      Direct line for price quotes, BBS processing, and order updates.
+                    </p>
+                  </div>
+                </div>
+              </Glass>
 
-          <Glass className="p-6 transition-all hover:border-ember/40">
-            <div className="flex items-start gap-4">
-              <div className="bg-ember/15 text-ember rounded-md p-3">
-                <Mail className="h-5 w-5" />
-              </div>
-              <div className="w-full">
-                <p className="eyebrow text-ember">Official Email Desk</p>
-                <a
-                  href={`mailto:${email}`}
-                  className="hover:text-ember mt-1 block font-display text-base font-bold transition-colors"
-                >
-                  {email}
-                </a>
-                <p className="text-muted-foreground mt-1 text-xs">
-                  Send purchase orders, specs, drawings, and MTC requests anytime.
-                </p>
-              </div>
-            </div>
-          </Glass>
+              <Glass className="p-6 transition-all hover:border-ember/40">
+                <div className="flex items-start gap-4">
+                  <div className="bg-ember/15 text-ember rounded-md p-3">
+                    <Mail className="h-5 w-5" />
+                  </div>
+                  <div className="w-full">
+                    <p className="eyebrow text-ember">Official Email Desk</p>
+                    <a
+                      href={`mailto:${email}`}
+                      className="hover:text-ember mt-1 block font-display text-base font-bold transition-colors"
+                    >
+                      {email}
+                    </a>
+                    <p className="text-muted-foreground mt-1 text-xs">
+                      Send project specifications, BOQ spreadsheets, or SOR letter requests.
+                    </p>
+                  </div>
+                </div>
+              </Glass>
+            </>
+          )}
 
           <Glass className="p-6 transition-all hover:border-ember/40">
             <div className="flex items-start gap-4">

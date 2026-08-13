@@ -41,7 +41,7 @@ const ZONES = [
 
 function AboutPage() {
   const [zone, setZone] = useState(0);
-  const { data: webConfig } = useGetWebConfig();
+  const { data: webConfig, isLoading } = useGetWebConfig();
   const { data: dbTeamMembers = [] } = useGetActiveTeamMembers();
 
   const dynamicStats = parseJsonConfig<{ value: string; label: string }[]>(webConfig, "stats", FALLBACK_STATS);
@@ -91,14 +91,23 @@ function AboutPage() {
             </div>
           </div>
           <div className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border md:grid-cols-4">
-            {dynamicStats.map((s) => (
-              <div key={s.label} className="bg-card p-6 md:p-8">
-                <Counter value={s.value} className="font-display text-3xl font-extrabold md:text-4xl text-foreground" />
-                <div className="text-muted-foreground mt-2 text-[11px] tracking-[0.2em] uppercase font-bold">
-                  {s.label}
+            {isLoading ? (
+              Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className="bg-card p-6 md:p-8 animate-pulse space-y-2">
+                  <div className="h-9 w-24 bg-muted/60 rounded" />
+                  <div className="h-3 w-28 bg-muted/40 rounded" />
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              dynamicStats.map((s) => (
+                <div key={s.label} className="bg-card p-6 md:p-8">
+                  <Counter value={s.value} className="font-display text-3xl font-extrabold md:text-4xl text-foreground" />
+                  <div className="text-muted-foreground mt-2 text-[11px] tracking-[0.2em] uppercase font-bold">
+                    {s.label}
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </section>
@@ -107,15 +116,25 @@ function AboutPage() {
         <div className="mx-auto max-w-7xl">
           <SectionHeading eyebrow="Milestones" title="Every step, with a date on it" />
           <div className="mt-12 grid gap-px overflow-hidden rounded-xl border border-border bg-border md:grid-cols-3">
-            {dynamicMilestones.map((m, i) => (
-              <Reveal key={m.year} delay={i * 0.04} className="bg-card p-7">
-                <div className="text-ember font-display text-xs font-bold tracking-[0.25em]">
-                  {m.year}
+            {isLoading ? (
+              Array.from({ length: 6 }).map((_, i) => (
+                <div key={i} className="bg-card p-7 animate-pulse space-y-2">
+                  <div className="h-4 w-16 bg-ember/20 rounded" />
+                  <div className="h-5 w-32 bg-muted/60 rounded" />
+                  <div className="h-3 w-full bg-muted/40 rounded" />
                 </div>
-                <div className="mt-2 text-lg font-semibold">{m.label}</div>
-                <p className="text-muted-foreground mt-2 text-sm">{m.body}</p>
-              </Reveal>
-            ))}
+              ))
+            ) : (
+              dynamicMilestones.map((m, i) => (
+                <Reveal key={m.year} delay={i * 0.04} className="bg-card p-7">
+                  <div className="text-ember font-display text-xs font-bold tracking-[0.25em]">
+                    {m.year}
+                  </div>
+                  <div className="mt-2 text-lg font-semibold">{m.label}</div>
+                  <p className="text-muted-foreground mt-2 text-sm">{m.body}</p>
+                </Reveal>
+              ))
+            )}
           </div>
         </div>
       </section>
