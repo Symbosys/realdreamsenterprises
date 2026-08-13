@@ -235,7 +235,6 @@ function AdminPricingPage() {
           pricePerBundle: Number(editItemForm.pricePerBundle),
           priceChange: editItemForm.priceChange,
           isUp: editItemForm.isUp,
-          lastUpdatedText: new Date().toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" }),
         },
       });
 

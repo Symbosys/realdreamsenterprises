@@ -3,7 +3,6 @@ import {
   TrendingUp,
   TrendingDown,
   RefreshCw,
-  Bell,
   CheckCircle2,
   PhoneCall,
   ArrowRight,
@@ -149,24 +148,14 @@ export function LivePricingSection() {
                   </div>
                 </div>
 
-                {/* Floating "Last Updated" Card */}
-                <div className="absolute top-4 right-4 bg-white/95 dark:bg-slate-900/95 border border-amber-400/40 rounded-xl p-3.5 shadow-xl backdrop-blur-md text-slate-900 dark:text-foreground space-y-2">
-                  <div className="flex items-center gap-2">
-                    <Bell className="w-4 h-4 text-[#b8860b] dark:text-amber-400 shrink-0" />
+                {/* Floating Auto Refresh Card (removed Last Updated display) */}
+                <div className="absolute top-4 right-4 bg-white/95 dark:bg-slate-900/95 border border-amber-400/40 rounded-xl p-3.5 shadow-xl backdrop-blur-md text-slate-900 dark:text-foreground">
+                  <div className="flex items-center gap-3">
+                    <RefreshCw className={`w-4 h-4 text-[#b8860b] dark:text-amber-400 ${isRefetching ? "animate-spin" : ""}`} />
                     <div>
-                      <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Last Updated</p>
-                      <p className="font-display font-extrabold text-xs">
-                        {currentBrand?.pricingItems[0]?.lastUpdatedText || "Just Now"}
-                      </p>
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Auto Refresh</p>
+                      <p className="font-display font-extrabold text-xs">{countdown}s</p>
                     </div>
-                  </div>
-
-                  <div className="pt-2 border-t border-slate-200 dark:border-border/60 flex items-center justify-between text-[11px] font-bold text-amber-600 dark:text-amber-400">
-                    <span className="flex items-center gap-1">
-                      <RefreshCw className={`w-3 h-3 ${isRefetching ? "animate-spin" : ""}`} />
-                      Auto Refresh in
-                    </span>
-                    <span className="bg-amber-500/10 px-2 py-0.5 rounded font-black">{countdown}s</span>
                   </div>
                 </div>
               </div>
@@ -297,24 +286,22 @@ export function LivePricingSection() {
                       <th className="py-3.5 px-4 rounded-l-lg">SIZE (MM)</th>
                       <th className="py-3.5 px-4">{unit.toUpperCase()} (₹)</th>
                       <th className="py-3.5 px-4">CHANGE</th>
-                      <th className="py-3.5 px-4 text-center">TREND</th>
-                      <th className="py-3.5 px-4 rounded-r-lg text-right">LAST UPDATED</th>
+                      <th className="py-3.5 px-4 text-center rounded-r-lg">TREND</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-200/80 dark:divide-border/60 font-semibold text-slate-800 dark:text-slate-200">
                     {isLoading ? (
-                      Array.from({ length: 5 }).map((_, i) => (
+                      Array.from({ length: 4 }).map((_, i) => (
                         <tr key={i} className="animate-pulse">
                           <td className="py-4 px-4"><div className="h-4 w-12 bg-slate-200 dark:bg-muted/50 rounded" /></td>
                           <td className="py-4 px-4"><div className="h-4 w-20 bg-slate-200 dark:bg-muted/50 rounded" /></td>
                           <td className="py-4 px-4"><div className="h-4 w-16 bg-slate-200 dark:bg-muted/50 rounded" /></td>
                           <td className="py-4 px-4 text-center"><div className="h-5 w-14 bg-slate-200 dark:bg-muted/50 rounded-full mx-auto" /></td>
-                          <td className="py-4 px-4 text-right"><div className="h-4 w-24 bg-slate-200 dark:bg-muted/50 rounded ml-auto" /></td>
                         </tr>
                       ))
                     ) : !currentBrand || !currentBrand.pricingItems || currentBrand.pricingItems.length === 0 ? (
                       <tr>
-                        <td colSpan={5} className="py-8 text-center text-muted-foreground">
+                        <td colSpan={4} className="py-8 text-center text-muted-foreground">
                           No rates configured for this brand.
                         </td>
                       </tr>
@@ -358,9 +345,7 @@ export function LivePricingSection() {
                                 </span>
                               )}
                             </td>
-                            <td className="py-4 px-4 text-right text-slate-500 dark:text-muted-foreground text-[11px]">
-                              {row.lastUpdatedText || "16 May 2024, 10:30 AM"}
-                            </td>
+                            {/* Last Updated column removed */}
                           </tr>
                         );
                       })
