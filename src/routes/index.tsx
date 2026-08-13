@@ -15,17 +15,17 @@ export type ProductId = "tmt" | "rod" | "stambh" | "structural";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Stambh Steel — High-Grade Construction Materials & Engineering" },
+      { title: "Rashmi TMT & SME-TMT Bars — Exclusive Supplier in Jharkhand | Real Dreams Enterprises" },
       {
         name: "description",
         content:
-          "High-grade TMT bars, structural steel and engineering solutions — certified steel manufacturing, interactive product catalogue and smart-city infrastructure.",
+          "Sole authorized supplier of SME-TMT and Rashmi TMT Bars across all 24 districts of Jharkhand. Government-authorized, SOR letter certified, and most affordable.",
       },
-      { property: "og:title", content: "Stambh Steel — High-Grade Construction Materials & Engineering" },
+      { property: "og:title", content: "Rashmi TMT & SME-TMT Bars — Exclusive Supplier in Jharkhand | Real Dreams Enterprises" },
       {
         property: "og:description",
         content:
-          "High-grade TMT bars, structural steel and engineering solutions — certified steel manufacturing, interactive product catalogue and smart-city infrastructure.",
+          "HSole authorized supplier of SME-TMT and Rashmi TMT Bars across all 24 districts of Jharkhand. Government-authorized, SOR letter certified, and most affordable.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
