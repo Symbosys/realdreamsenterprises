@@ -1,4 +1,5 @@
 export const NAV = [
+  { to: "/products", label: "Products & Pricing" },
   { to: "/about", label: "About" },
   { to: "/gallery", label: "Gallery" },
   { to: "/contact", label: "Contact" },

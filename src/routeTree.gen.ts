@@ -25,6 +25,8 @@ import { Route as AdminLocationsRouteImport } from './routes/admin/locations'
 import { Route as AdminLoginRouteImport } from './routes/admin/login'
 import { Route as AdminPricingRouteImport } from './routes/admin/pricing'
 import { Route as AdminProductsRouteImport } from './routes/admin/products'
+import { Route as AdminTeamRouteImport } from './routes/admin/team'
+import { Route as AdminTestimonialsRouteImport } from './routes/admin/testimonials'
 import { Route as AdminWebconfigRouteImport } from './routes/admin/webconfig'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
@@ -111,6 +113,16 @@ const AdminProductsRoute = AdminProductsRouteImport.update({
   path: '/products',
   getParentRoute: () => AdminRouteRoute,
 } as any)
+const AdminTeamRoute = AdminTeamRouteImport.update({
+  id: '/team',
+  path: '/team',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminTestimonialsRoute = AdminTestimonialsRouteImport.update({
+  id: '/testimonials',
+  path: '/testimonials',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
 const AdminWebconfigRoute = AdminWebconfigRouteImport.update({
   id: '/webconfig',
   path: '/webconfig',
@@ -153,6 +165,8 @@ export interface FileRoutesByFullPath {
   '/admin/login': typeof AdminLoginRoute
   '/admin/pricing': typeof AdminPricingRoute
   '/admin/products': typeof AdminProductsRoute
+  '/admin/team': typeof AdminTeamRoute
+  '/admin/testimonials': typeof AdminTestimonialsRoute
   '/admin/webconfig': typeof AdminWebconfigRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/products/$slug': typeof ProductsSlugRoute
@@ -175,6 +189,8 @@ export interface FileRoutesByTo {
   '/admin/login': typeof AdminLoginRoute
   '/admin/pricing': typeof AdminPricingRoute
   '/admin/products': typeof AdminProductsRoute
+  '/admin/team': typeof AdminTeamRoute
+  '/admin/testimonials': typeof AdminTestimonialsRoute
   '/admin/webconfig': typeof AdminWebconfigRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/products/$slug': typeof ProductsSlugRoute
@@ -199,6 +215,8 @@ export interface FileRoutesById {
   '/admin/login': typeof AdminLoginRoute
   '/admin/pricing': typeof AdminPricingRoute
   '/admin/products': typeof AdminProductsRoute
+  '/admin/team': typeof AdminTeamRoute
+  '/admin/testimonials': typeof AdminTestimonialsRoute
   '/admin/webconfig': typeof AdminWebconfigRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/products/$slug': typeof ProductsSlugRoute
@@ -224,6 +242,8 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/pricing'
     | '/admin/products'
+    | '/admin/team'
+    | '/admin/testimonials'
     | '/admin/webconfig'
     | '/blog/$slug'
     | '/products/$slug'
@@ -246,6 +266,8 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/pricing'
     | '/admin/products'
+    | '/admin/team'
+    | '/admin/testimonials'
     | '/admin/webconfig'
     | '/blog/$slug'
     | '/products/$slug'
@@ -269,6 +291,8 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/pricing'
     | '/admin/products'
+    | '/admin/team'
+    | '/admin/testimonials'
     | '/admin/webconfig'
     | '/blog/$slug'
     | '/products/$slug'
@@ -404,6 +428,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminProductsRouteImport
       parentRoute: typeof AdminRouteRoute
     }
+    '/admin/team': {
+      id: '/admin/team'
+      path: '/team'
+      fullPath: '/admin/team'
+      preLoaderRoute: typeof AdminTeamRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/testimonials': {
+      id: '/admin/testimonials'
+      path: '/testimonials'
+      fullPath: '/admin/testimonials'
+      preLoaderRoute: typeof AdminTestimonialsRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
     '/admin/webconfig': {
       id: '/admin/webconfig'
       path: '/webconfig'
@@ -452,6 +490,8 @@ interface AdminRouteRouteChildren {
   AdminLoginRoute: typeof AdminLoginRoute
   AdminPricingRoute: typeof AdminPricingRoute
   AdminProductsRoute: typeof AdminProductsRoute
+  AdminTeamRoute: typeof AdminTeamRoute
+  AdminTestimonialsRoute: typeof AdminTestimonialsRoute
   AdminWebconfigRoute: typeof AdminWebconfigRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
@@ -466,6 +506,8 @@ const AdminRouteRouteChildren: AdminRouteRouteChildren = {
   AdminLoginRoute: AdminLoginRoute,
   AdminPricingRoute: AdminPricingRoute,
   AdminProductsRoute: AdminProductsRoute,
+  AdminTeamRoute: AdminTeamRoute,
+  AdminTestimonialsRoute: AdminTestimonialsRoute,
   AdminWebconfigRoute: AdminWebconfigRoute,
   AdminIndexRoute: AdminIndexRoute,
 }

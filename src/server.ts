@@ -47,6 +47,20 @@ import {
   deleteGalleryImage,
 } from "./actions/gallery.action";
 import { getAllWebConfig, bulkUpsertWebConfig } from "./actions/webconfig.action";
+import {
+  getActiveTestimonials,
+  getAllTestimonials,
+  createTestimonial,
+  updateTestimonial,
+  deleteTestimonial,
+} from "./actions/testimonial.action";
+import {
+  getActiveTeamMembers,
+  getAllTeamMembers,
+  createTeamMember,
+  updateTeamMember,
+  deleteTeamMember,
+} from "./actions/team.action";
 import { prisma } from "./config/prisma";
 import "./lib/error-capture";
 
@@ -566,6 +580,108 @@ export default {
           return jsonResponse(result);
         } catch (error: any) {
           return jsonResponse({ success: false, message: error.message || "Failed to delete gallery image" }, 500);
+        }
+      }
+    }
+
+    // --- TESTIMONIAL ENDPOINTS ---
+    if (url.pathname === "/api/testimonials/active" && request.method === "GET") {
+      try {
+        const data = await getActiveTestimonials();
+        return jsonResponse({ success: true, data });
+      } catch (error: any) {
+        return jsonResponse({ success: false, message: error.message || "Failed to fetch active testimonials" }, 500);
+      }
+    }
+
+    if (url.pathname === "/api/testimonials" && request.method === "GET") {
+      try {
+        const data = await getAllTestimonials();
+        return jsonResponse({ success: true, data });
+      } catch (error: any) {
+        return jsonResponse({ success: false, message: error.message || "Failed to fetch testimonials" }, 500);
+      }
+    }
+
+    if (url.pathname === "/api/testimonials" && request.method === "POST") {
+      try {
+        const body = await request.json();
+        const testimonial = await createTestimonial(body);
+        return jsonResponse({ success: true, message: "Testimonial created successfully", data: testimonial }, 201);
+      } catch (error: any) {
+        return jsonResponse({ success: false, message: error.message || "Failed to create testimonial" }, 400);
+      }
+    }
+
+    const testimonialIdMatch = url.pathname.match(/^\/api\/testimonials\/(\d+)$/);
+    if (testimonialIdMatch) {
+      const testimonialId = parseInt(testimonialIdMatch[1], 10);
+      if (request.method === "PUT" || request.method === "PATCH") {
+        try {
+          const body = await request.json();
+          const testimonial = await updateTestimonial(testimonialId, body);
+          return jsonResponse({ success: true, message: "Testimonial updated successfully", data: testimonial });
+        } catch (error: any) {
+          return jsonResponse({ success: false, message: error.message || "Failed to update testimonial" }, 400);
+        }
+      }
+      if (request.method === "DELETE") {
+        try {
+          const result = await deleteTestimonial(testimonialId);
+          return jsonResponse(result);
+        } catch (error: any) {
+          return jsonResponse({ success: false, message: error.message || "Failed to delete testimonial" }, 500);
+        }
+      }
+    }
+
+    // --- TEAM MEMBER ENDPOINTS ---
+    if (url.pathname === "/api/team-members/active" && request.method === "GET") {
+      try {
+        const data = await getActiveTeamMembers();
+        return jsonResponse({ success: true, data });
+      } catch (error: any) {
+        return jsonResponse({ success: false, message: error.message || "Failed to fetch active team members" }, 500);
+      }
+    }
+
+    if (url.pathname === "/api/team-members" && request.method === "GET") {
+      try {
+        const data = await getAllTeamMembers();
+        return jsonResponse({ success: true, data });
+      } catch (error: any) {
+        return jsonResponse({ success: false, message: error.message || "Failed to fetch team members" }, 500);
+      }
+    }
+
+    if (url.pathname === "/api/team-members" && request.method === "POST") {
+      try {
+        const body = await request.json();
+        const member = await createTeamMember(body);
+        return jsonResponse({ success: true, message: "Team member created successfully", data: member }, 201);
+      } catch (error: any) {
+        return jsonResponse({ success: false, message: error.message || "Failed to create team member" }, 400);
+      }
+    }
+
+    const teamMemberIdMatch = url.pathname.match(/^\/api\/team-members\/(\d+)$/);
+    if (teamMemberIdMatch) {
+      const memberId = parseInt(teamMemberIdMatch[1], 10);
+      if (request.method === "PUT" || request.method === "PATCH") {
+        try {
+          const body = await request.json();
+          const member = await updateTeamMember(memberId, body);
+          return jsonResponse({ success: true, message: "Team member updated successfully", data: member });
+        } catch (error: any) {
+          return jsonResponse({ success: false, message: error.message || "Failed to update team member" }, 400);
+        }
+      }
+      if (request.method === "DELETE") {
+        try {
+          const result = await deleteTeamMember(memberId);
+          return jsonResponse(result);
+        } catch (error: any) {
+          return jsonResponse({ success: false, message: error.message || "Failed to delete team member" }, 500);
         }
       }
     }

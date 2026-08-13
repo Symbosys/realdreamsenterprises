@@ -6,6 +6,7 @@ import { AboutClientsSection } from "@/components/site/AboutClientsSection";
 import { GallerySection } from "@/components/site/GallerySection";
 import { CERTIFICATIONS, LEADERSHIP, MILESTONES as FALLBACK_MILESTONES, STATS as FALLBACK_STATS } from "@/data/site";
 import { useGetWebConfig, parseJsonConfig } from "@/api/webconfig.api";
+import { useGetActiveTeamMembers } from "@/api/team.api";
 import { Award, CheckCircle2, ShieldCheck, Truck, FileCheck, BadgePercent } from "lucide-react";
 
 export const Route = createFileRoute("/about")({
@@ -41,9 +42,18 @@ const ZONES = [
 function AboutPage() {
   const [zone, setZone] = useState(0);
   const { data: webConfig } = useGetWebConfig();
+  const { data: dbTeamMembers = [] } = useGetActiveTeamMembers();
 
   const dynamicStats = parseJsonConfig<{ value: string; label: string }[]>(webConfig, "stats", FALLBACK_STATS);
   const dynamicMilestones = parseJsonConfig<{ year: string; label: string; body: string }[]>(webConfig, "milestones.timeline", FALLBACK_MILESTONES);
+
+  const teamMembers = dbTeamMembers.length > 0 ? dbTeamMembers : LEADERSHIP.map((l, i) => ({
+    id: i + 1,
+    name: l.name,
+    role: l.role,
+    bio: l.note,
+    imageUrl: null as string | null,
+  }));
 
   return (
     <main className="bg-background text-foreground relative">
@@ -219,13 +229,23 @@ function AboutPage() {
         <div className="mx-auto max-w-7xl">
           <SectionHeading eyebrow="Leadership" title="The people who sign the certificates" />
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {LEADERSHIP.map((p, i) => (
-              <Reveal key={p.name} delay={i * 0.06}>
+            {teamMembers.map((p, i) => (
+              <Reveal key={p.id || p.name} delay={i * 0.06}>
                 <Glass className="group h-full p-7 transition-transform duration-500 hover:-translate-y-1">
-                  <div className="from-steel/30 to-ember/20 mb-6 h-24 w-24 rounded-sm bg-linear-to-br" />
-                  <div className="font-display text-lg font-bold">{p.name}</div>
-                  <div className="text-ember text-[11px] tracking-[0.2em] uppercase">{p.role}</div>
-                  <p className="text-muted-foreground mt-3 text-sm">{p.note}</p>
+                  {p.imageUrl ? (
+                    <img
+                      src={p.imageUrl}
+                      alt={p.name}
+                      className="mb-6 h-24 w-24 rounded-full object-cover border border-border"
+                    />
+                  ) : (
+                    <div className="from-steel/30 to-ember/20 mb-6 h-24 w-24 rounded-sm bg-linear-to-br flex items-center justify-center font-display text-2xl font-black text-ember">
+                      {p.name.charAt(0)}
+                    </div>
+                  )}
+                  <div className="font-display text-lg font-bold text-foreground">{p.name}</div>
+                  <div className="text-ember text-[11px] tracking-[0.2em] uppercase font-bold mt-0.5">{p.role}</div>
+                  {p.bio && <p className="text-muted-foreground mt-3 text-sm leading-relaxed">{p.bio}</p>}
                 </Glass>
               </Reveal>
             ))}

@@ -16,6 +16,8 @@ import {
   LogOut,
   MessageSquare,
   Image,
+  MessageSquareQuote,
+  UserCog,
 } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
@@ -46,6 +48,18 @@ const NAV_ITEMS = [
     to: "/admin/clients",
     icon: Users,
     badge: "24 Active",
+  },
+  {
+    label: "Testimonials",
+    to: "/admin/testimonials",
+    icon: MessageSquareQuote,
+    badge: "Reviews",
+  },
+  {
+    label: "Our Team",
+    to: "/admin/team",
+    icon: UserCog,
+    badge: "Staff",
   },
   {
     label: "Media Gallery",

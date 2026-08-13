@@ -14,6 +14,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { PageTransition } from "@/components/site/PageTransition";
+import { FloatingWhatsAppButton } from "@/components/site/FloatingWhatsAppButton";
 import { SceneMount } from "@/components/SceneMount";
 import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
 import { lazy } from "react";
@@ -191,6 +192,7 @@ function RootComponent() {
         <Outlet />
       </PageTransition>
       <SiteFooter />
+      <FloatingWhatsAppButton />
     </QueryClientProvider>
   );
 }
