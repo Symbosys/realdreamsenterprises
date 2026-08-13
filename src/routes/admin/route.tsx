@@ -96,25 +96,68 @@ const NAV_ITEMS = [
 function AdminLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [adminUser, setAdminUser] = useState<{ name: string; email: string; role?: string } | null>(null);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const navigate = useNavigate();
 
+  const isLoginPage = pathname === "/admin/login";
+
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem("adminUser");
-      if (stored) {
-        setAdminUser(JSON.parse(stored));
-      }
-    } catch {
-      // ignore JSON parse error
+    if (isLoginPage) {
+      setIsCheckingAuth(false);
+      return;
     }
-  }, []);
+
+    try {
+      const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
+      const storedUser = typeof window !== "undefined" ? localStorage.getItem("adminUser") : null;
+
+      if (!token || !storedUser) {
+        setAdminUser(null);
+        setIsCheckingAuth(false);
+        navigate({ to: "/admin/login" });
+        return;
+      }
+
+      setAdminUser(JSON.parse(storedUser));
+    } catch {
+      setAdminUser(null);
+      navigate({ to: "/admin/login" });
+    } finally {
+      setIsCheckingAuth(false);
+    }
+  }, [pathname, isLoginPage, navigate]);
 
   const handleLogout = () => {
-    localStorage.removeItem("adminToken");
-    localStorage.removeItem("adminUser");
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("adminToken");
+      localStorage.removeItem("adminUser");
+    }
     navigate({ to: "/admin/login" });
   };
+
+  // If viewing login page, render cleanly without admin sidebar/header
+  if (isLoginPage) {
+    return <Outlet />;
+  }
+
+  // Loading state while verifying auth session
+  if (isCheckingAuth) {
+    return (
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
+        <div className="flex items-center gap-3 text-ember font-bold text-sm">
+          <div className="h-5 w-5 border-2 border-ember border-t-transparent rounded-full animate-spin" />
+          <span>Verifying Admin Authorization...</span>
+        </div>
+      </div>
+    );
+  }
+
+  // Fallback while navigating unauthenticated requests
+  const hasToken = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
+  if (!hasToken && !adminUser) {
+    return null;
+  }
 
   // Get current active section title
   const activeItem =
@@ -161,12 +204,13 @@ function AdminLayout() {
 
       {/* Sidebar Navigation */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-72 bg-card/95 border-r border-border/80 flex flex-col transition-transform duration-300 ease-in-out md:sticky md:top-0 md:h-screen md:translate-x-0 shrink-0 ${
+        data-lenis-prevent
+        className={`fixed inset-y-0 left-0 z-50 w-68 h-screen max-h-screen bg-card/95 border-r border-border/80 flex flex-col overflow-hidden transition-transform duration-300 ease-in-out md:sticky md:top-0 md:h-screen md:translate-x-0 shrink-0 ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
         }`}
       >
         {/* Sidebar Brand Header */}
-        <div className="p-6 border-b border-border/60 flex items-center justify-between shrink-0">
+        <div className="px-5 py-4 border-b border-border/60 flex items-center justify-between shrink-0">
           <Link
             to="/admin"
             className="flex items-center gap-3 group"
@@ -176,16 +220,16 @@ function AdminLayout() {
               <img
                 src="/logo/logo.png"
                 alt="Real Dreams Enterprises"
-                className="h-10 w-auto object-contain transition-transform group-hover:scale-105"
+                className="h-9 w-auto object-contain transition-transform group-hover:scale-105"
               />
             </div>
             <div>
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1">
                 <span className="font-display font-extrabold text-sm tracking-tight text-foreground">
                   Real Dreams
                 </span>
               </div>
-              <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-ember flex items-center gap-1">
+              <p className="text-[9px] font-bold tracking-[0.18em] uppercase text-ember flex items-center gap-1">
                 <ShieldCheck className="h-3 w-3 inline" /> Admin Control
               </p>
             </div>
@@ -194,13 +238,13 @@ function AdminLayout() {
             onClick={() => setSidebarOpen(false)}
             className="md:hidden text-muted-foreground hover:text-foreground p-1 cursor-pointer"
           >
-            <X className="h-5 w-5" />
+            <X className="h-4.5 w-4.5" />
           </button>
         </div>
 
         {/* Navigation Menu */}
-        <div className="flex-1 py-6 px-4 space-y-1 overflow-y-auto">
-          <p className="px-3 text-[10px] font-bold tracking-[0.25em] uppercase text-muted-foreground/70 mb-3">
+        <div data-lenis-prevent className="flex-1 min-h-0 py-4 px-3.5 space-y-1 overflow-y-auto">
+          <p className="px-3 text-[10px] font-bold tracking-[0.2em] uppercase text-muted-foreground/70 mb-2">
             Main Options
           </p>
 
@@ -216,9 +260,9 @@ function AdminLayout() {
                 key={item.to}
                 to={item.to}
                 onClick={() => setSidebarOpen(false)}
-                className={`flex items-center justify-between px-3.5 py-3 rounded-lg text-xs font-semibold tracking-wide transition-all ${
+                className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-semibold tracking-wide transition-all ${
                   isActive
-                    ? "bg-ember/15 text-ember border border-ember/30 shadow-sm"
+                    ? "bg-ember/15 text-ember border border-ember/30 shadow-xs"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted/50 border border-transparent"
                 }`}
               >
@@ -245,17 +289,17 @@ function AdminLayout() {
         </div>
 
         {/* Sidebar Footer Info */}
-        <div className="p-4 m-4 rounded-xl border border-border/60 bg-muted/30 flex flex-col gap-3 shrink-0">
+        <div className="p-3.5 m-3.5 rounded-xl border border-border/60 bg-muted/30 flex flex-col gap-2 shrink-0">
           <div className="flex items-center gap-2">
-            <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-[11px] font-medium text-foreground">System Status: Online</span>
+            <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-[11px] font-semibold text-foreground">System Status: Online</span>
           </div>
-          <p className="text-[10px] text-muted-foreground leading-relaxed">
+          <p className="text-[10px] text-muted-foreground leading-tight">
             Jharkhand Exclusive TMT & SME Steel Supply Network
           </p>
           <Link
             to="/"
-            className="mt-1 flex items-center justify-center gap-2 py-2 px-3 rounded-md border border-border/80 bg-card hover:border-ember hover:text-ember text-[11px] font-bold tracking-wider uppercase text-foreground transition-all"
+            className="mt-1 flex items-center justify-center gap-2 py-1.5 px-3 rounded-md border border-border/80 bg-card hover:border-ember hover:text-ember text-[10px] font-bold tracking-wider uppercase text-foreground transition-all"
           >
             <ArrowLeft className="h-3.5 w-3.5" /> Back to Main Site
           </Link>

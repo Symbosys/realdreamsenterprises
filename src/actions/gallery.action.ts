@@ -19,65 +19,19 @@ export interface UpdateGalleryInput {
   sortOrder?: number;
 }
 
-const INITIAL_GALLERY_IMAGES = [
-  {
-    title: "Rashmi TMT Steel Yard - Ranchi",
-    category: "Stock & Warehouse",
-    imageUrl: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1200&auto=format&fit=crop",
-    caption: "Primary stockyard holding over 5,000 MT of Fe 550D Rashmi TMT bars ready for site dispatch.",
-  },
-  {
-    title: "Structural Beams & Channels",
-    category: "Stock & Warehouse",
-    imageUrl: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=1200&auto=format&fit=crop",
-    caption: "High-grade ISMB structural steel beams and heavy channels for bridge projects.",
-  },
-  {
-    title: "Heavy Logistic Fleet",
-    category: "Delivery & Logistics",
-    imageUrl: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=1200&auto=format&fit=crop",
-    caption: "Trailer logistics fleet dispatched to Jamshedpur industrial sites within 24 hours.",
-  },
-  {
-    title: "PWD Road Infrastructure Supply",
-    category: "Site Projects",
-    imageUrl: "https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?q=80&w=1200&auto=format&fit=crop",
-    caption: "Direct steel supply for Ranchi Ring Road expansion project under PWD tender.",
-  },
-];
-
 export async function getActiveGalleryImages() {
-  let images = await prisma.galleryImage.findMany({
+  const images = await prisma.galleryImage.findMany({
     where: { isActive: true },
     orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
   });
-
-  if (images.length === 0) {
-    await prisma.galleryImage.createMany({
-      data: INITIAL_GALLERY_IMAGES,
-    });
-    images = await prisma.galleryImage.findMany({
-      where: { isActive: true },
-      orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
-    });
-  }
 
   return images;
 }
 
 export async function getAllGalleryImages() {
-  let images = await prisma.galleryImage.findMany({
+  const images = await prisma.galleryImage.findMany({
     orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
   });
-
-  if (images.length === 0) {
-    await prisma.galleryImage.createMany({
-      data: INITIAL_GALLERY_IMAGES,
-    });
-    images = await prisma.galleryImage.findMany({
-      orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
-    });
-  }
 
   return images;
 }

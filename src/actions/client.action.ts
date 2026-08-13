@@ -1,6 +1,5 @@
 import { prisma } from "@/config/prisma";
 import { deleteImageFromCloudinary } from "./upload.action";
-import { CLIENTS } from "@/data/clients";
 
 export interface CreateClientInput {
   clientName: string;
@@ -22,30 +21,8 @@ export interface UpdateClientInput {
   sortOrder?: number;
 }
 
-async function seedDefaultClientsIfEmpty() {
-  const count = await prisma.myClient.count();
-  if (count > 0) return;
-
-  for (let i = 0; i < CLIENTS.length; i++) {
-    const c = CLIENTS[i];
-    await prisma.myClient.create({
-      data: {
-        clientName: c.name,
-        category: c.category,
-        location: c.location,
-        badge: c.badge,
-        clientImage: c.logo,
-        isActive: true,
-        sortOrder: i + 1,
-      },
-    });
-  }
-}
-
 // Get active clients for public website
 export async function getActiveClients() {
-  await seedDefaultClientsIfEmpty();
-
   const clients = await prisma.myClient.findMany({
     where: { isActive: true },
     orderBy: { sortOrder: "asc" },
@@ -56,8 +33,6 @@ export async function getActiveClients() {
 
 // Get all clients for admin dashboard
 export async function getAllClients() {
-  await seedDefaultClientsIfEmpty();
-
   const clients = await prisma.myClient.findMany({
     orderBy: { sortOrder: "asc" },
   });

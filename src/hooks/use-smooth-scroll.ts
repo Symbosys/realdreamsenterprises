@@ -1,9 +1,15 @@
 import { useEffect } from "react";
+import { useLocation } from "@tanstack/react-router";
 
-/** Lenis-powered inertial scrolling, loaded only in the browser. */
+/** Lenis-powered inertial scrolling, loaded only in the browser for public website pages. */
 export function useSmoothScroll() {
+  const location = useLocation();
+
   useEffect(() => {
+    // Disable smooth wheel hijacking inside Admin Portal to ensure native sidebar & table mouse scrolling
+    if (location.pathname.startsWith("/admin")) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
     let raf = 0;
     let destroy: (() => void) | undefined;
     let cancelled = false;
@@ -26,5 +32,5 @@ export function useSmoothScroll() {
       cancelled = true;
       destroy?.();
     };
-  }, []);
+  }, [location.pathname]);
 }

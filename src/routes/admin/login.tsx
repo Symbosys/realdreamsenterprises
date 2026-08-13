@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ShieldCheck, Mail, Lock, LogIn, AlertCircle, ArrowLeft } from "lucide-react";
 import { useAdminLogin } from "@/api/admin.api";
 
@@ -13,6 +13,18 @@ function AdminLoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    try {
+      const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
+      const user = typeof window !== "undefined" ? localStorage.getItem("adminUser") : null;
+      if (token && user) {
+        navigate({ to: "/admin" });
+      }
+    } catch {
+      // ignore error
+    }
+  }, [navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -40,74 +40,8 @@ export interface UpdatePricingItemInput {
   lastUpdatedText?: string;
 }
 
-// Seed initial default brands & rates if DB is empty
-async function seedDefaultPricingIfEmpty() {
-  const brandCount = await prisma.brand.count();
-  if (brandCount > 0) return;
-
-  const rashmi = await prisma.brand.create({
-    data: {
-      name: "RASHMI",
-      subtitle: "SME-TMT & FE 550D",
-      logoUrl: "/images/tmt_bars.png",
-      themeColor: "amber",
-      sortOrder: 1,
-      pricingItems: {
-        create: [
-          { size: "8 MM", pricePerTon: 54500, pricePerPiece: 450, pricePerBundle: 2700, priceChange: "+ ₹ 500", isUp: true, lastUpdatedText: "16 May 2024, 10:30 AM" },
-          { size: "10 MM", pricePerTon: 54000, pricePerPiece: 680, pricePerBundle: 4080, priceChange: "+ ₹ 400", isUp: true, lastUpdatedText: "16 May 2024, 10:30 AM" },
-          { size: "12 MM", pricePerTon: 53800, pricePerPiece: 980, pricePerBundle: 5880, priceChange: "+ ₹ 300", isUp: true, lastUpdatedText: "16 May 2024, 10:30 AM" },
-          { size: "16 MM", pricePerTon: 53500, pricePerPiece: 1720, pricePerBundle: 6880, priceChange: "- ₹ 200", isUp: false, lastUpdatedText: "16 May 2024, 10:30 AM" },
-          { size: "20 MM", pricePerTon: 53200, pricePerPiece: 2680, pricePerBundle: 8040, priceChange: "+ ₹ 200", isUp: true, lastUpdatedText: "16 May 2024, 10:30 AM" },
-          { size: "25 MM", pricePerTon: 53000, pricePerPiece: 4180, pricePerBundle: 8360, priceChange: "+ ₹ 100", isUp: true, lastUpdatedText: "16 May 2024, 10:30 AM" },
-          { size: "32 MM", pricePerTon: 52600, pricePerPiece: 6860, pricePerBundle: 13720, priceChange: "+ ₹ 300", isUp: true, lastUpdatedText: "16 May 2024, 10:30 AM" },
-        ],
-      },
-    },
-  });
-
-  const jsw = await prisma.brand.create({
-    data: {
-      name: "JSW TMT",
-      subtitle: "NEOSTEEL · BETTER EVERYDAY",
-      logoUrl: "/images/tmt_bars.png",
-      themeColor: "blue",
-      sortOrder: 2,
-      pricingItems: {
-        create: [
-          { size: "8 MM", pricePerTon: 57800, pricePerPiece: 480, pricePerBundle: 2880, priceChange: "+ ₹ 400", isUp: true, lastUpdatedText: "16 May 2024, 10:30 AM" },
-          { size: "10 MM", pricePerTon: 57200, pricePerPiece: 720, pricePerBundle: 4320, priceChange: "+ ₹ 350", isUp: true, lastUpdatedText: "16 May 2024, 10:30 AM" },
-          { size: "12 MM", pricePerTon: 56900, pricePerPiece: 1040, pricePerBundle: 6240, priceChange: "+ ₹ 250", isUp: true, lastUpdatedText: "16 May 2024, 10:30 AM" },
-          { size: "16 MM", pricePerTon: 56500, pricePerPiece: 1820, pricePerBundle: 7280, priceChange: "- ₹ 150", isUp: false, lastUpdatedText: "16 May 2024, 10:30 AM" },
-          { size: "20 MM", pricePerTon: 56100, pricePerPiece: 2820, pricePerBundle: 8460, priceChange: "+ ₹ 200", isUp: true, lastUpdatedText: "16 May 2024, 10:30 AM" },
-          { size: "25 MM", pricePerTon: 55800, pricePerPiece: 4400, pricePerBundle: 8800, priceChange: "+ ₹ 100", isUp: true, lastUpdatedText: "16 May 2024, 10:30 AM" },
-          { size: "32 MM", pricePerTon: 55400, pricePerPiece: 7220, pricePerBundle: 14440, priceChange: "+ ₹ 300", isUp: true, lastUpdatedText: "16 May 2024, 10:30 AM" },
-        ],
-      },
-    },
-  });
-
-  const notes = [
-    "Prices are inclusive of GST.",
-    "Transportation charges extra based on location.",
-    "Prices may vary by location across Jharkhand.",
-    "Contact us directly for special bulk order pricing.",
-  ];
-
-  for (let i = 0; i < notes.length; i++) {
-    await prisma.pricingNote.create({
-      data: {
-        noteText: notes[i],
-        sortOrder: i + 1,
-      },
-    });
-  }
-}
-
 // Get public live pricing data
 export async function getLivePricingData() {
-  await seedDefaultPricingIfEmpty();
-
   const brands = await prisma.brand.findMany({
     where: { isActive: true },
     orderBy: { sortOrder: "asc" },
@@ -127,8 +61,6 @@ export async function getLivePricingData() {
 
 // Get all brands & items for admin
 export async function getAllBrandsWithPricing() {
-  await seedDefaultPricingIfEmpty();
-
   const brands = await prisma.brand.findMany({
     orderBy: { sortOrder: "asc" },
     include: {

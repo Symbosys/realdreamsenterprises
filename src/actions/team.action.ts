@@ -25,50 +25,7 @@ export interface UpdateTeamMemberInput {
   sortOrder?: number;
 }
 
-const DEFAULT_TEAM_MEMBERS = [
-  {
-    name: "V. Deshmukh",
-    role: "Managing Director",
-    bio: "Third-generation steel, first-generation software.",
-  },
-  {
-    name: "R. Kulkarni",
-    role: "Chief Metallurgist",
-    bio: "28 years across rolling and heat treatment.",
-  },
-  {
-    name: "A. Menon",
-    role: "Structural Lead",
-    bio: "Bridges, podiums and awkward transfer levels.",
-  },
-  {
-    name: "S. Iyer",
-    role: "Head of Sustainability",
-    bio: "Carbon accounting that survives an audit.",
-  },
-];
-
-async function seedDefaultTeamMembersIfEmpty() {
-  const count = await prisma.teamMember.count();
-  if (count > 0) return;
-
-  for (let i = 0; i < DEFAULT_TEAM_MEMBERS.length; i++) {
-    const t = DEFAULT_TEAM_MEMBERS[i];
-    await prisma.teamMember.create({
-      data: {
-        name: t.name,
-        role: t.role,
-        bio: t.bio,
-        isActive: true,
-        sortOrder: i + 1,
-      },
-    });
-  }
-}
-
 export async function getActiveTeamMembers() {
-  await seedDefaultTeamMembersIfEmpty();
-
   const members = await prisma.teamMember.findMany({
     where: { isActive: true },
     orderBy: { sortOrder: "asc" },
@@ -78,8 +35,6 @@ export async function getActiveTeamMembers() {
 }
 
 export async function getAllTeamMembers() {
-  await seedDefaultTeamMembersIfEmpty();
-
   const members = await prisma.teamMember.findMany({
     orderBy: { sortOrder: "asc" },
   });

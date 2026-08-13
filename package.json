@@ -10,7 +10,16 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "postinstall": "npx prisma generate"
+    "postinstall": "npx prisma generate",
+    "seed": "npx tsx src/seed/seed-all.ts",
+    "seed:admins": "npx tsx src/seed/seed-admins.ts",
+    "seed:clients": "npx tsx src/seed/seed-clients.ts",
+    "seed:gallery": "npx tsx src/seed/seed-gallery.ts",
+    "seed:locations": "npx tsx src/seed/seed-locations.ts",
+    "seed:pricing": "npx tsx src/seed/seed-pricing.ts",
+    "seed:team": "npx tsx src/seed/seed-team.ts",
+    "seed:testimonials": "npx tsx src/seed/seed-testimonials.ts",
+    "seed:webconfig": "npx tsx src/seed/seed-webconfig.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
