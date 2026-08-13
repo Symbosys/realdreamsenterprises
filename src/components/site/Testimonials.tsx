@@ -64,7 +64,7 @@ export function Testimonials() {
           {marqueeItems.map((item, idx) => (
             <div
               key={`t1-${item.id || item.name}-${idx}`}
-              className="group relative border border-border/70 bg-card/70 hover:border-ember/70 hover:bg-card flex w-[340px] sm:w-[400px] shrink-0 flex-col justify-between rounded-xl p-6 backdrop-blur-md transition-all duration-300 hover:scale-102 hover:shadow-xl"
+              className="group relative border border-border/70 bg-card/70 hover:border-ember/70 hover:bg-card flex w-85 sm:w-100 shrink-0 flex-col justify-between rounded-xl p-6 backdrop-blur-md transition-all duration-300 hover:scale-102 hover:shadow-xl"
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
@@ -116,7 +116,7 @@ export function Testimonials() {
           {marqueeItems.map((item, idx) => (
             <div
               key={`t2-${item.id || item.name}-${idx}`}
-              className="group relative border border-border/70 bg-card/70 hover:border-ember/70 hover:bg-card flex w-[340px] sm:w-[400px] shrink-0 flex-col justify-between rounded-xl p-6 backdrop-blur-md transition-all duration-300 hover:scale-102 hover:shadow-xl"
+              className="group relative border border-border/70 bg-card/70 hover:border-ember/70 hover:bg-card flex w-85 sm:w-100 shrink-0 flex-col justify-between rounded-xl p-6 backdrop-blur-md transition-all duration-300 hover:scale-102 hover:shadow-xl"
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
