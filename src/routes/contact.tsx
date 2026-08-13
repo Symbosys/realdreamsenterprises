@@ -157,49 +157,76 @@ function ContactPage() {
       {/* Direct Contact Banner */}
       <section className="border-border/60 bg-card/30 border-y px-6 py-10 md:px-12 backdrop-blur-md">
         <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-2">
-          <a
-            href={`tel:${phone}`}
-            className="border-border/80 hover:border-ember hover:bg-card/70 group flex items-center justify-between rounded-lg border bg-card/50 p-6 transition-all duration-300 hover:shadow-lg"
-          >
-            <div className="flex items-center gap-4">
-              <div className="bg-ember/15 text-ember group-hover:bg-ember group-hover:text-primary-foreground flex h-12 w-12 items-center justify-center rounded-full transition-colors">
-                <Phone className="h-6 w-6" />
+          {isLoading ? (
+            <>
+              <div className="border-border/80 flex items-center justify-between rounded-lg border bg-card/50 p-6 animate-pulse">
+                <div className="flex items-center gap-4">
+                  <div className="bg-ember/20 flex h-12 w-12 items-center justify-center rounded-full" />
+                  <div className="space-y-2">
+                    <div className="h-3 w-28 bg-muted/60 rounded" />
+                    <div className="h-6 w-36 bg-muted rounded" />
+                  </div>
+                </div>
+                <div className="h-7 w-20 bg-muted/40 rounded-full" />
               </div>
-              <div>
-                <p className="text-muted-foreground text-[10px] font-bold tracking-[0.2em] uppercase">
-                  Direct Phone Desk
-                </p>
-                <p className="font-display text-xl font-bold tracking-tight text-foreground md:text-2xl">
-                  {phone}
-                </p>
+              <div className="border-border/80 flex items-center justify-between rounded-lg border bg-card/50 p-6 animate-pulse">
+                <div className="flex items-center gap-4">
+                  <div className="bg-ember/20 flex h-12 w-12 items-center justify-center rounded-full" />
+                  <div className="space-y-2">
+                    <div className="h-3 w-32 bg-muted/60 rounded" />
+                    <div className="h-5 w-48 bg-muted rounded" />
+                  </div>
+                </div>
+                <div className="h-7 w-24 bg-muted/40 rounded-full" />
               </div>
-            </div>
-            <span className="border-border group-hover:border-ember group-hover:text-ember rounded-full border px-4 py-1.5 text-xs font-semibold uppercase tracking-wider transition-colors">
-              Call Now
-            </span>
-          </a>
+            </>
+          ) : (
+            <>
+              <a
+                href={`tel:${phone}`}
+                className="border-border/80 hover:border-ember hover:bg-card/70 group flex items-center justify-between rounded-lg border bg-card/50 p-6 transition-all duration-300 hover:shadow-lg"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="bg-ember/15 text-ember group-hover:bg-ember group-hover:text-primary-foreground flex h-12 w-12 items-center justify-center rounded-full transition-colors">
+                    <Phone className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <p className="text-muted-foreground text-[10px] font-bold tracking-[0.2em] uppercase">
+                      Direct Phone Desk
+                    </p>
+                    <p className="font-display text-xl font-bold tracking-tight text-foreground md:text-2xl">
+                      {phone}
+                    </p>
+                  </div>
+                </div>
+                <span className="border-border group-hover:border-ember group-hover:text-ember rounded-full border px-4 py-1.5 text-xs font-semibold uppercase tracking-wider transition-colors">
+                  Call Now
+                </span>
+              </a>
 
-          <a
-            href={`mailto:${email}`}
-            className="border-border/80 hover:border-ember hover:bg-card/70 group flex items-center justify-between rounded-lg border bg-card/50 p-6 transition-all duration-300 hover:shadow-lg"
-          >
-            <div className="flex items-center gap-4">
-              <div className="bg-ember/15 text-ember group-hover:bg-ember group-hover:text-primary-foreground flex h-12 w-12 items-center justify-center rounded-full transition-colors">
-                <Mail className="h-6 w-6" />
-              </div>
-              <div>
-                <p className="text-muted-foreground text-[10px] font-bold tracking-[0.2em] uppercase">
-                  Official Email Support
-                </p>
-                <p className="font-display text-base font-bold tracking-tight text-foreground sm:text-lg">
-                  {email}
-                </p>
-              </div>
-            </div>
-            <span className="border-border group-hover:border-ember group-hover:text-ember rounded-full border px-4 py-1.5 text-xs font-semibold uppercase tracking-wider transition-colors">
-              Send Email
-            </span>
-          </a>
+              <a
+                href={`mailto:${email}`}
+                className="border-border/80 hover:border-ember hover:bg-card/70 group flex items-center justify-between rounded-lg border bg-card/50 p-6 transition-all duration-300 hover:shadow-lg"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="bg-ember/15 text-ember group-hover:bg-ember group-hover:text-primary-foreground flex h-12 w-12 items-center justify-center rounded-full transition-colors">
+                    <Mail className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <p className="text-muted-foreground text-[10px] font-bold tracking-[0.2em] uppercase">
+                      Official Email Support
+                    </p>
+                    <p className="font-display text-base font-bold tracking-tight text-foreground sm:text-lg">
+                      {email}
+                    </p>
+                  </div>
+                </div>
+                <span className="border-border group-hover:border-ember group-hover:text-ember rounded-full border px-4 py-1.5 text-xs font-semibold uppercase tracking-wider transition-colors">
+                  Send Email
+                </span>
+              </a>
+            </>
+          )}
         </div>
       </section>
 
@@ -454,7 +481,11 @@ function ContactPage() {
               </div>
               <div>
                 <p className="eyebrow text-ember">Desk Hours</p>
-                <p className="mt-1 text-sm font-semibold">{hours}</p>
+                {isLoading ? (
+                  <div className="h-4 w-48 bg-muted/60 rounded animate-pulse mt-2" />
+                ) : (
+                  <p className="mt-1 text-sm font-semibold">{hours}</p>
+                )}
                 <div className="mt-3 flex items-center gap-2 text-xs text-emerald-400">
                   <ShieldCheck className="h-4 w-4" /> 24/7 Site Emergency Support Active
                 </div>
@@ -480,9 +511,8 @@ function ContactPage() {
           <div className="relative overflow-hidden rounded-2xl border border-border/80 bg-card p-2 shadow-2xl backdrop-blur-md">
             <iframe
               title="Real Dream Enterprises Location Map"
-              src="https://www.google.com/maps/embed?pb=!1m12!1m8!1m3!1d1831.4122798689225!2d85.36615348346713!3d23.35836980059374!3m2!1i1024!2i768!4f13.1!2m1!1sReal%20Dream%20Enterprises%202nd%20Floor%2C%20Reena%20Tower%2C%20Behind%20Rajdhani%20Manya%20Tower%2C%20Piska%20More%2C%20Ranchi!5e0!3m2!1sen!2sus!4v1785322523366!5m2!1sen!2sus"
+              src="https://www.google.com/maps/embed?pb=!3m2!1sen!2sin!4v1786606393282!5m2!1sen!2sin!6m8!1m7!1s21t4NU29ZxM9PndiMH8xdA!2m2!1d23.38235826218549!2d85.29564485712433!3f12.370699378279223!4f-4.201476866296034!5f0.4000000000000002"
               className="h-112.5 w-full rounded-xl border-0 transition-all duration-500"
-              style={{ filter: "invert(90%) hue-rotate(180deg) brightness(88%) contrast(90%)" }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="strict-origin-when-cross-origin"
