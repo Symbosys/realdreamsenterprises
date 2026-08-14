@@ -161,7 +161,7 @@ export function SiteFooter() {
               <Link to="/" className="inline-flex items-center">
                 <img src="/logo/logo.png" alt="Real Dreams Enterprises Limited logo" className="h-28 w-auto object-contain md:h-32 dark:hidden" />
                 <img src="/logo/logo-dark-mode.png" alt="Real Dreams Enterprises Limited logo" className="h-28 w-auto object-contain md:h-32 hidden dark:block" />
-                <span className="sr-only">Real Dreams Enterprises Limited Limited</span>
+                <span className="sr-only">Real Dreams Enterprises Limited</span>
               </Link>
               <p className="text-muted-foreground mt-4 text-xs leading-relaxed max-w-sm">
                 Sole authorized supplier and exporter of Government-Authorized Rashmi TMT Bars across all 24 districts of Jharkhand. Approved for all government tenders, PWD projects, NHAI highways, and high-rise construction at the most affordable rates.
