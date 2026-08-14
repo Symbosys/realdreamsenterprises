@@ -60,7 +60,7 @@ export function SiteFooter() {
   return (
     <footer className="relative mt-16 overflow-hidden bg-background text-foreground border-t border-border/40">
       {/* Night Skyline Banner Header */}
-      <div className="relative min-h-[420px] w-full overflow-hidden bg-background flex flex-col justify-start pt-10 pb-20">
+      <div className="relative min-h-105 w-full overflow-hidden bg-background flex flex-col justify-start pt-10 pb-20">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-ember/15 via-background to-background" />
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px]" />
 
@@ -82,7 +82,7 @@ export function SiteFooter() {
               <span className="relative inline-flex h-2 w-2 rounded-full bg-ember"></span>
             </span>
             <span className="text-muted-foreground text-[10px] font-bold tracking-[0.25em] uppercase">
-              Real Dreams Enterprises
+              Real Dreams Enterprises Limited Limited
             </span>
           </motion.div>
 
@@ -93,8 +93,8 @@ export function SiteFooter() {
             transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
             className="mt-4"
           >
-            <img src="/logo/logo.png" alt="Real Dreams Enterprises logo" className="mx-auto h-32 w-auto object-contain md:h-44 dark:hidden" />
-            <img src="/logo/logo-dark-mode.png" alt="Real Dreams Enterprises logo" className="mx-auto h-32 w-auto object-contain md:h-44 hidden dark:block" />
+            <img src="/logo/logo.png" alt="Real Dreams Enterprises Limited logo" className="mx-auto h-32 w-auto object-contain md:h-44 dark:hidden" />
+            <img src="/logo/logo-dark-mode.png" alt="Real Dreams Enterprises Limited logo" className="mx-auto h-32 w-auto object-contain md:h-44 hidden dark:block" />
           </motion.div>
 
           <p className="text-muted-foreground mt-2 text-xs tracking-[0.3em] uppercase md:text-sm">
@@ -159,9 +159,9 @@ export function SiteFooter() {
             {/* Col 1: Brand & Certification Seals (4 cols) */}
             <div className="lg:col-span-4">
               <Link to="/" className="inline-flex items-center">
-                <img src="/logo/logo.png" alt="Real Dreams Enterprises logo" className="h-28 w-auto object-contain md:h-32 dark:hidden" />
-                <img src="/logo/logo-dark-mode.png" alt="Real Dreams Enterprises logo" className="h-28 w-auto object-contain md:h-32 hidden dark:block" />
-                <span className="sr-only">Real Dreams Enterprises</span>
+                <img src="/logo/logo.png" alt="Real Dreams Enterprises Limited logo" className="h-28 w-auto object-contain md:h-32 dark:hidden" />
+                <img src="/logo/logo-dark-mode.png" alt="Real Dreams Enterprises Limited logo" className="h-28 w-auto object-contain md:h-32 hidden dark:block" />
+                <span className="sr-only">Real Dreams Enterprises Limited Limited</span>
               </Link>
               <p className="text-muted-foreground mt-4 text-xs leading-relaxed max-w-sm">
                 Sole authorized supplier and exporter of Government-Authorized Rashmi TMT Bars across all 24 districts of Jharkhand. Approved for all government tenders, PWD projects, NHAI highways, and high-rise construction at the most affordable rates.
@@ -361,7 +361,7 @@ export function SiteFooter() {
           <div className="flex flex-col items-center justify-between gap-6 text-xs text-muted-foreground md:flex-row">
             <div className="flex flex-col items-center gap-1 text-center md:items-start md:text-left">
               <p className="font-medium">
-                © {new Date().getFullYear()} Real Dreams Enterprises / {companyName}. All rights reserved.
+                © {new Date().getFullYear()}  Limited / {companyName}. All rights reserved.
               </p>
               <p className="text-[10px] text-muted-foreground/70">
                 Precision Steel Manufacturing & Global Export Desk

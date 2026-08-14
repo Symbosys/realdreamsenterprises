@@ -6,7 +6,7 @@ import { ShieldCheck, Award, Factory, CheckCircle2, ArrowRight } from "lucide-re
 const PILLARS = [
   {
     title: "Exclusive Jharkhand Supplier",
-    desc: "Real Dreams Enterprises is the sole authorized supplier & exporter of Rashmi TMT Bars across all 24 districts of Jharkhand.",
+    desc: "Real Dreams Enterprises Limited is the sole authorized supplier & exporter of Rashmi TMT Bars across all 24 districts of Jharkhand.",
   },
   {
     title: "Government Authorized & SOR Approved",
@@ -88,17 +88,17 @@ export function AboutCompany() {
     <section ref={root} id="about-company" className="relative px-6 py-20 md:px-12 bg-background text-foreground">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-12 lg:grid-cols-12 lg:items-center">
-          
+
           {/* Left Content Column (7 cols) */}
           <div data-anim="head" className="lg:col-span-7 space-y-5">
             <p className="eyebrow text-ember">About Company</p>
-            
+
             <h2 className="font-display text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl md:text-5xl leading-tight">
               Government Authorized <span className="text-ember-gradient">Rashmi TMT Bars</span>
             </h2>
 
             <p className="text-muted-foreground text-base leading-relaxed max-w-2xl">
-              Real Dreams Enterprises is the sole authorized supplier and exporter of Rashmi TMT Bars across all 24 districts of Jharkhand. We supply popular, government-authorized, SOR-letter verified Rashmi TMT steel at the most affordable rates for all government tenders, PWD projects, highways, and commercial construction.
+              Real Dreams Enterprises Limited is the sole authorized supplier and exporter of Rashmi TMT Bars across all 24 districts of Jharkhand. We supply popular, government-authorized, SOR-letter verified Rashmi TMT steel at the most affordable rates for all government tenders, PWD projects, highways, and commercial construction.
             </p>
 
             {/* Clean Feature Pillars Grid */}

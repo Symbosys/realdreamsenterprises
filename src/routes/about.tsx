@@ -176,7 +176,7 @@ function AboutPage() {
                 Sole Supplier of <span className="text-ember-gradient">SME-TMT & Rashmi TMT Bars</span> in Jharkhand
               </h2>
               <p className="text-muted-foreground mt-4 max-w-2xl text-base leading-relaxed">
-                Real Dreams Enterprises is the exclusive authorized supplier and exporter of SME-TMT & Rashmi TMT Bars across all 24 districts of Jharkhand. Fully verified with Government Schedule of Rates (SOR) approval letters for all PWD, CPWD, Railways, and government infrastructure tenders.
+                Real Dreams Enterprises Limited is the exclusive authorized supplier and exporter of SME-TMT & Rashmi TMT Bars across all 24 districts of Jharkhand. Fully verified with Government Schedule of Rates (SOR) approval letters for all PWD, CPWD, Railways, and government infrastructure tenders.
               </p>
             </div>
           </div>
@@ -286,9 +286,8 @@ function AboutPage() {
                     onMouseEnter={() => setZone(i)}
                     onFocus={() => setZone(i)}
                     onClick={() => setZone(i)}
-                    className={`border-border/50 border-b py-3.5 text-left transition-colors ${
-                      zone === i ? "text-foreground" : "text-muted-foreground hover:text-foreground"
-                    }`}
+                    className={`border-border/50 border-b py-3.5 text-left transition-colors ${zone === i ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                      }`}
                   >
                     <span className={`text-sm font-bold tracking-[0.12em] uppercase ${zone === i ? "text-ember" : ""}`}>
                       {z.t}

@@ -23,7 +23,7 @@ export function AboutClientsSection() {
               Our Esteemed <span className="text-ember-gradient">Government & Industry Clients</span>
             </h2>
             <p className="text-muted-foreground mt-4 max-w-2xl text-base leading-relaxed">
-              Real Dreams Enterprises is the trusted supplier of Rashmi TMT steel for major government departments, central public works, state infrastructure corporations, power plants, and premier real estate developers across Jharkhand.
+              Real Dreams Enterprises Limited is the trusted supplier of Rashmi TMT steel for major government departments, central public works, state infrastructure corporations, power plants, and premier real estate developers across Jharkhand.
             </p>
           </div>
         </div>
@@ -34,11 +34,10 @@ export function AboutClientsSection() {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`rounded-lg border px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
-                selectedCategory === cat
+              className={`rounded-lg border px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer ${selectedCategory === cat
                   ? "border-ember bg-ember text-primary-foreground shadow-md scale-102"
                   : "border-border/80 bg-card/60 text-muted-foreground hover:border-ember/50 hover:text-foreground"
-              }`}
+                }`}
             >
               {cat}
             </button>

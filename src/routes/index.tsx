@@ -15,13 +15,13 @@ export type ProductId = "tmt" | "rod" | "stambh" | "structural";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Rashmi TMT & SME-TMT Bars — Exclusive Supplier in Jharkhand | Real Dreams Enterprises" },
+      { title: "Rashmi TMT & SME-TMT Bars — Exclusive Supplier in Jharkhand | Real Dreams Enterprises Limited" },
       {
         name: "description",
         content:
           "Sole authorized supplier of SME-TMT and Rashmi TMT Bars across all 24 districts of Jharkhand. Government-authorized, SOR letter certified, and most affordable.",
       },
-      { property: "og:title", content: "Rashmi TMT & SME-TMT Bars — Exclusive Supplier in Jharkhand | Real Dreams Enterprises" },
+      { property: "og:title", content: "Rashmi TMT & SME-TMT Bars — Exclusive Supplier in Jharkhand | Real Dreams Enterprises Limited" },
       {
         property: "og:description",
         content:
@@ -148,7 +148,7 @@ function Index() {
           <div className="absolute inset-0 bg-linear-to-t from-background via-background/60 to-background/30" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,var(--tw-gradient-stops))] from-transparent via-background/40 to-background" />
         </div>
-        
+
         <div className="relative z-10 px-6 pb-20 md:px-12 md:pb-24 max-w-7xl mx-auto w-full">
           <p className="eyebrow mb-4 text-ember">Exclusive Supplier Across Jharkhand · Government Authorized & SOR Approved</p>
           <h1 className="max-w-4xl text-5xl leading-[0.92] md:text-8xl font-display font-extrabold tracking-tight">
@@ -198,7 +198,7 @@ function Index() {
                   className="h-full w-full object-contain p-6 transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-background/90 via-transparent to-transparent" />
-                
+
                 {/* Hotspot Badges Overlay */}
                 <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2">
                   {PRODUCTS.tmt.hotspots.map((h) => (

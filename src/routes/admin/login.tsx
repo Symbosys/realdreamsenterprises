@@ -57,7 +57,7 @@ function AdminLoginPage() {
     <div className="min-h-screen bg-background text-foreground flex items-center justify-center p-4 relative overflow-hidden">
       {/* Glow Effects */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-ember/15 rounded-full blur-3xl pointer-events-none" />
-      
+
       <div className="w-full max-w-md space-y-6 relative z-10">
         {/* Brand / Logo Header */}
         <div className="text-center space-y-3">
@@ -71,12 +71,12 @@ function AdminLoginPage() {
           <div className="flex justify-center">
             <img
               src="/logo/logo.png"
-              alt="Real Dreams Enterprises"
+              alt="Real Dreams Enterprises Limited"
               className="h-14 w-auto object-contain dark:hidden"
             />
             <img
               src="/logo/logo-dark-mode.png"
-              alt="Real Dreams Enterprises"
+              alt="Real Dreams Enterprises Limited"
               className="h-14 w-auto object-contain hidden dark:block"
             />
           </div>
@@ -89,7 +89,7 @@ function AdminLoginPage() {
               Admin Portal Login
             </h1>
             <p className="text-xs text-muted-foreground mt-1">
-              Real Dreams Enterprises Management Console
+              Real Dreams Enterprises Limited Management Console
             </p>
           </div>
         </div>

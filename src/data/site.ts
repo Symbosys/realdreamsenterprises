@@ -7,7 +7,7 @@ export const NAV = [
 
 export const SITE_CONTACT = {
   companyName: "Rashmi TMT Bars",
-  fullName: "Real Dreams Enterprises — Exclusive Supplier of Rashmi TMT Bars in Jharkhand",
+  fullName: "Real Dreams Enterprises Limited — Exclusive Supplier of Rashmi TMT Bars in Jharkhand",
   phone: "651-3511561",
   phoneRaw: "6513511561",
   email: "steelcrafttrading@gmail.com",

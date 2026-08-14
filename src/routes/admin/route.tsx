@@ -23,8 +23,8 @@ import {
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
-      { title: "Admin Portal — Real Dreams Enterprises" },
-      { name: "description", content: "Management console for Real Dreams Enterprises." },
+      { title: "Admin Portal — Real Dreams Enterprises Limited" },
+      { name: "description", content: "Management console for Real Dreams Enterprises Limited." },
     ],
   }),
   component: AdminLayout,
@@ -206,9 +206,8 @@ function AdminLayout() {
       {/* Sidebar Navigation */}
       <aside
         data-lenis-prevent
-        className={`fixed inset-y-0 left-0 z-50 w-68 h-screen max-h-screen bg-card/95 border-r border-border/80 flex flex-col overflow-hidden transition-transform duration-300 ease-in-out md:sticky md:top-0 md:h-screen md:translate-x-0 shrink-0 ${
-          sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
-        }`}
+        className={`fixed inset-y-0 left-0 z-50 w-68 h-screen max-h-screen bg-card/95 border-r border-border/80 flex flex-col overflow-hidden transition-transform duration-300 ease-in-out md:sticky md:top-0 md:h-screen md:translate-x-0 shrink-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+          }`}
       >
         {/* Sidebar Brand Header */}
         <div className="px-5 py-4 border-b border-border/60 flex items-center justify-between shrink-0">
@@ -220,12 +219,12 @@ function AdminLayout() {
             <div className="relative">
               <img
                 src="/logo/logo.png"
-                alt="Real Dreams Enterprises"
+                alt="Real Dreams Enterprises Limited"
                 className="h-9 w-auto object-contain transition-transform group-hover:scale-105 dark:hidden"
               />
               <img
                 src="/logo/logo-dark-mode.png"
-                alt="Real Dreams Enterprises"
+                alt="Real Dreams Enterprises Limited"
                 className="h-9 w-auto object-contain transition-transform group-hover:scale-105 hidden dark:block"
               />
             </div>
@@ -266,11 +265,10 @@ function AdminLayout() {
                 key={item.to}
                 to={item.to}
                 onClick={() => setSidebarOpen(false)}
-                className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-semibold tracking-wide transition-all ${
-                  isActive
+                className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-semibold tracking-wide transition-all ${isActive
                     ? "bg-ember/15 text-ember border border-ember/30 shadow-xs"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted/50 border border-transparent"
-                }`}
+                  }`}
               >
                 <div className="flex items-center gap-3">
                   <Icon className={`h-4 w-4 ${isActive ? "text-ember" : "text-muted-foreground"}`} />
@@ -278,11 +276,10 @@ function AdminLayout() {
                 </div>
                 {item.badge ? (
                   <span
-                    className={`text-[9px] font-bold px-2 py-0.5 rounded-full ${
-                      isActive
+                    className={`text-[9px] font-bold px-2 py-0.5 rounded-full ${isActive
                         ? "bg-ember text-white"
                         : "bg-muted text-muted-foreground"
-                    }`}
+                      }`}
                   >
                     {item.badge}
                   </span>

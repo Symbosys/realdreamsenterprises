@@ -9,13 +9,13 @@ import { Maximize2, X, Sparkles, Tag, ImageIcon } from "lucide-react";
 export const Route = createFileRoute("/gallery")({
   head: () => ({
     meta: [
-      { title: "Media Gallery & Project Showcase — Real Dreams Enterprises" },
+      { title: "Media Gallery & Project Showcase — Real Dreams Enterprises Limited" },
       {
         name: "description",
         content:
           "Take a visual tour of our Ranchi steel stockyards, heavy structural logistics, and state highway infrastructure projects across Jharkhand.",
       },
-      { property: "og:title", content: "Media Gallery & Project Showcase — Real Dreams Enterprises" },
+      { property: "og:title", content: "Media Gallery & Project Showcase — Real Dreams Enterprises Limited" },
       {
         property: "og:description",
         content: "Browse our Rashmi TMT steel yards, delivery fleets, and Jharkhand infrastructure sites.",
@@ -77,11 +77,10 @@ function GalleryPage() {
               <button
                 type="button"
                 onClick={() => setSelectedCategory("ALL")}
-                className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                  selectedCategory === "ALL"
+                className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${selectedCategory === "ALL"
                     ? "bg-ember text-white shadow-md shadow-ember/20 scale-105"
                     : "border border-border/80 bg-card/60 text-muted-foreground hover:text-foreground hover:border-border"
-                }`}
+                  }`}
               >
                 All Photos ({galleryImages.length})
               </button>
@@ -92,11 +91,10 @@ function GalleryPage() {
                     key={cat}
                     type="button"
                     onClick={() => setSelectedCategory(cat)}
-                    className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                      selectedCategory === cat
+                    className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${selectedCategory === cat
                         ? "bg-ember text-white shadow-md shadow-ember/20 scale-105"
                         : "border border-border/80 bg-card/60 text-muted-foreground hover:text-foreground hover:border-border"
-                    }`}
+                      }`}
                   >
                     {cat} ({count})
                   </button>

@@ -26,7 +26,7 @@ export function ExclusiveJharkhandExporter() {
             Sole Supplier & Exporter of <span className="text-ember-gradient">Rashmi TMT Bars</span> Across All {activeCount || 24} Districts of Jharkhand
           </h2>
           <p className="text-muted-foreground text-sm md:text-base leading-relaxed">
-            Real Dreams Enterprises is the only authorized supplier and exporter for Rashmi TMT & SME-TMT Bars in Jharkhand. We guarantee direct mill pricing, 100% government SOR letter certification, and site delivery to active districts across the state.
+            Real Dreams Enterprises Limited is the only authorized supplier and exporter for Rashmi TMT & SME-TMT Bars in Jharkhand. We guarantee direct mill pricing, 100% government SOR letter certification, and site delivery to active districts across the state.
           </p>
         </div>
 
@@ -78,7 +78,7 @@ export function ExclusiveJharkhandExporter() {
         {/* 24 Districts Interactive Coverage Banner */}
         <div className="mt-16 rounded-2xl border border-border/80 bg-card/60 p-8 md:p-10 backdrop-blur-xl shadow-xl relative overflow-hidden">
           <div className="absolute top-0 right-0 -mr-16 -mt-16 h-64 w-64 rounded-full bg-ember/10 blur-3xl pointer-events-none" />
-          
+
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-border/60">
             <div>
               <div className="flex items-center gap-2 text-ember text-xs font-bold uppercase tracking-wider">

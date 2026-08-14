@@ -25,13 +25,13 @@ import {
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact & FAQ — Real Dreams Enterprises" },
+      { title: "Contact & FAQ — Real Dreams Enterprises Limited" },
       {
         name: "description",
         content:
-          "Contact Real Dreams Enterprises: call 651-3511561 or email steelcrafttrading@gmail.com. Submit project enquiries for Rashmi TMT steel rates and SOR letters.",
+          "Contact Real Dreams Enterprises Limited: call 651-3511561 or email steelcrafttrading@gmail.com. Submit project enquiries for Rashmi TMT steel rates and SOR letters.",
       },
-      { property: "og:title", content: "Contact & FAQ — Real Dreams Enterprises" },
+      { property: "og:title", content: "Contact & FAQ — Real Dreams Enterprises Limited" },
       {
         property: "og:description",
         content:
