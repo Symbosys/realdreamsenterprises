@@ -82,7 +82,7 @@ export function SiteFooter() {
               <span className="relative inline-flex h-2 w-2 rounded-full bg-ember"></span>
             </span>
             <span className="text-muted-foreground text-[10px] font-bold tracking-[0.25em] uppercase">
-              Real Dreams Enterprises Limited Limited
+              Real Dreams Enterprises Limited
             </span>
           </motion.div>
 
