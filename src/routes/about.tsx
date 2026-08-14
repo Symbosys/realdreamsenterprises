@@ -70,7 +70,7 @@ function AboutPage() {
           <div className="absolute inset-0">
             <img
               src="/images/tmt_steel_manufacturing.png"
-              alt="Stambh Steel Plant Headquarters"
+              alt="Real Dreams Enterprises Plant Headquarters"
               className="h-full w-full object-cover opacity-30 scale-102 transition-transform duration-1000"
             />
             <div className="absolute inset-0 bg-linear-to-t from-background via-background/60 to-background/30" />

@@ -25,10 +25,16 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content:
-          "HSole authorized supplier of SME-TMT and Rashmi TMT Bars across all 24 districts of Jharkhand. Government-authorized, SOR letter certified, and most affordable.",
+          "Sole authorized supplier of SME-TMT and Rashmi TMT Bars across all 24 districts of Jharkhand. Government-authorized, SOR letter certified, and most affordable.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Rashmi TMT & SME-TMT Bars — Exclusive Supplier in Jharkhand | Real Dreams Enterprises Limited" },
+      {
+        name: "twitter:description",
+        content:
+          "Sole authorized supplier of SME-TMT and Rashmi TMT Bars across all 24 districts of Jharkhand. Government-authorized, SOR letter certified, and most affordable.",
+      },
     ],
   }),
   component: Index,

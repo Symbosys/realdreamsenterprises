@@ -101,23 +101,22 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Rashmi TMT Bar — Cinematic 3D Construction Materials Experience" },
+      { title: "Rashmi TMT & SME-TMT Bars — Exclusive Supplier in Jharkhand | Real Dreams Enterprises Limited" },
       {
         name: "description",
         content:
-          "An immersive 3D showroom for TMT bars, structural steel and engineering solutions — cinematic construction storytelling, interactive product models and smart-city visualisation.",
+          "Sole authorized supplier of SME-TMT and Rashmi TMT Bars across all 24 districts of Jharkhand. Government-authorized, SOR letter certified, and most affordable.",
       },
-      { name: "author", content: "Rashmi TMT Bar" },
-      { property: "og:title", content: "Rashmi TMT Bar — Cinematic 3D Construction Materials Experience" },
+      { name: "author", content: "Real Dreams Enterprises Limited" },
+      { property: "og:title", content: "Rashmi TMT & SME-TMT Bars — Exclusive Supplier in Jharkhand | Real Dreams Enterprises Limited" },
       {
         property: "og:description",
-        content: "An immersive 3D showroom for TMT bars, structural steel and engineering solutions — cinematic construction storytelling, interactive product models and smart-city visualisation.",
+        content: "Sole authorized supplier of SME-TMT and Rashmi TMT Bars across all 24 districts of Jharkhand. Government-authorized, SOR letter certified, and most affordable.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "Rashmi TMT Bar — Cinematic 3D Construction Materials Experience" },
-      { name: "twitter:description", content: "An immersive 3D showroom for TMT bars, structural steel and engineering solutions — cinematic construction storytelling, interactive product models and smart-city visualisation." },
+      { name: "twitter:title", content: "Rashmi TMT & SME-TMT Bars — Exclusive Supplier in Jharkhand | Real Dreams Enterprises Limited" },
+      { name: "twitter:description", content: "Sole authorized supplier of SME-TMT and Rashmi TMT Bars across all 24 districts of Jharkhand. Government-authorized, SOR letter certified, and most affordable." },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },

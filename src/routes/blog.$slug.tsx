@@ -14,12 +14,12 @@ export const Route = createFileRoute("/blog/$slug")({
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
-      return { meta: [{ title: "Article unavailable — Stambh Steel" }, { name: "robots", content: "noindex" }] };
+      return { meta: [{ title: "Article unavailable — Real Dreams Enterprises" }, { name: "robots", content: "noindex" }] };
     }
     const { post } = loaderData;
     return {
       meta: [
-        { title: `${post.title} | Stambh Steel Insights` },
+        { title: `${post.title} | Real Dreams Enterprises Insights` },
         { name: "description", content: post.excerpt.slice(0, 155) },
         { property: "og:title", content: post.title },
         { property: "og:description", content: post.excerpt.slice(0, 155) },

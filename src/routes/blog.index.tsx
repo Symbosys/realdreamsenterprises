@@ -10,8 +10,8 @@ const BlueprintScene = lazy(() => import("@/components/three/BlueprintScene"));
 export const Route = createFileRoute("/blog/")({
   head: () => ({
     meta: [
-      { title: "Insights — Steel Engineering Knowledge Hub | Stambh Steel" },
-      { name: "description", content: "Field notes on metallurgy, structural detailing, sustainability and site practice from the Stambh Steel engineering team." },
+      { title: "Insights — Steel Engineering Knowledge Hub | Real Dreams Enterprises" },
+      { name: "description", content: "Field notes on metallurgy, structural detailing, sustainability and site practice from the Real Dreams Enterprises engineering team." },
       { property: "og:title", content: "Insights — Steel Engineering Knowledge Hub" },
       { property: "og:description", content: "Metallurgy, detailing and site practice, written by engineers." },
       { property: "og:type", content: "website" },
