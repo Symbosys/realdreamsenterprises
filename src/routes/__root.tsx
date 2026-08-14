@@ -101,14 +101,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Stambh Steel — Cinematic 3D Construction Materials Experience" },
+      { title: "Rashmi TMT Bar — Cinematic 3D Construction Materials Experience" },
       {
         name: "description",
         content:
           "An immersive 3D showroom for TMT bars, structural steel and engineering solutions — cinematic construction storytelling, interactive product models and smart-city visualisation.",
       },
-      { name: "author", content: "Stambh Steel" },
-      { property: "og:title", content: "Stambh Steel — Cinematic 3D Construction Materials Experience" },
+      { name: "author", content: "Rashmi TMT Bar" },
+      { property: "og:title", content: "Rashmi TMT Bar — Cinematic 3D Construction Materials Experience" },
       {
         property: "og:description",
         content: "An immersive 3D showroom for TMT bars, structural steel and engineering solutions — cinematic construction storytelling, interactive product models and smart-city visualisation.",
@@ -116,7 +116,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "Stambh Steel — Cinematic 3D Construction Materials Experience" },
+      { name: "twitter:title", content: "Rashmi TMT Bar — Cinematic 3D Construction Materials Experience" },
       { name: "twitter:description", content: "An immersive 3D showroom for TMT bars, structural steel and engineering solutions — cinematic construction storytelling, interactive product models and smart-city visualisation." },
     ],
     links: [
