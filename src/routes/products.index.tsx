@@ -3,7 +3,8 @@ import { useState } from "react";
 import { PageHero, Glass, SectionHeading } from "@/components/site/Primitives";
 import { Reveal } from "@/components/site/Reveal";
 import { LivePricingSection } from "@/components/site/LivePricingSection";
-import { PRODUCTS } from "@/data/site";
+import { PRODUCTS, SITE_CONTACT } from "@/data/site";
+import { useGetWebConfig, getConfigValue } from "@/api/webconfig.api";
 import { useGetActiveLocations, ServingLocationData } from "@/api/location.api";
 import {
   ShieldCheck,
@@ -47,6 +48,10 @@ function ProductsPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
   const { data: locations = [] } = useGetActiveLocations();
+  const { data: webConfig } = useGetWebConfig();
+
+  const phone = getConfigValue(webConfig, "contact.phone", SITE_CONTACT.phone || "651-3511561");
+  const phoneRaw = getConfigValue(webConfig, "contact.phoneRaw", SITE_CONTACT.phoneRaw || "6513511561");
 
   const filteredProducts = PRODUCTS.filter((p) => {
     const matchesCategory = selectedCategory === "All" || p.category === selectedCategory;
@@ -193,7 +198,7 @@ function ProductsPage() {
                       Get Best Quote
                     </Link>
                     <a
-                      href={`https://wa.me/916513511561?text=Hi,%20I%20want%20price%20quote%20for%20${encodeURIComponent(
+                      href={`https://wa.me/91${phoneRaw || "6513511561"}?text=Hi,%20I%20want%20price%20quote%20for%20${encodeURIComponent(
                         p.name
                       )}`}
                       target="_blank"
@@ -294,10 +299,10 @@ function ProductsPage() {
               Request Project Quote
             </Link>
             <a
-              href="tel:6513511561"
+              href={`tel:${phoneRaw || phone.replace(/\D/g, "")}`}
               className="border border-border bg-background hover:bg-accent px-6 py-3.5 rounded-xl font-display font-bold text-xs uppercase tracking-wider transition-colors inline-flex items-center gap-2"
             >
-              <PhoneCall className="h-4 w-4 text-ember" /> Call 651-3511561
+              <PhoneCall className="h-4 w-4 text-ember" /> Call {phone}
             </a>
           </div>
         </div>

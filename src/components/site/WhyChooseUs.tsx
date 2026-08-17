@@ -1,18 +1,14 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { useGsapReveal } from "@/hooks/use-gsap-reveal";
+import { useGetWebConfig, getConfigValue } from "@/api/webconfig.api";
+import { SITE_CONTACT } from "@/data/site";
 
 const PROMISES = [
   "We Have Professional Workers",
   "On Time In Progress",
   "Friendly To Serve Customers",
   "Give The Best & Fair",
-];
-
-const CONTACT = [
-  { k: "Head office", v: "2nd Floor, Reena Tower, Behind Rajdhani Manya Tower, Piska More, Ranchi" },
-  { k: "Working hours", v: "Mon - Fri : 9:00 am - 5:00 pm" },
-  { k: "Call us", v: "0651-3511561" },
 ];
 
 const SKILLS = [
@@ -87,6 +83,34 @@ function SkillBar({ label, value }: { label: string; value: number }) {
 }
 
 export function WhyChooseUs() {
+  const { data: webConfig } = useGetWebConfig();
+  const address = getConfigValue(
+    webConfig,
+    "contact.address",
+    "2nd Floor, Reena Tower, Behind Rajdhani Manya Tower, Piska More, Ranchi"
+  );
+  const hours = getConfigValue(
+    webConfig,
+    "contact.hours",
+    "Mon - Fri : 9:00 am - 5:00 pm"
+  );
+  const phone = getConfigValue(
+    webConfig,
+    "contact.phone",
+    SITE_CONTACT.phone || "0651-3511561"
+  );
+  const phoneRaw = getConfigValue(
+    webConfig,
+    "contact.phoneRaw",
+    SITE_CONTACT.phoneRaw || "06513511561"
+  );
+
+  const contactList = [
+    { k: "Head office", v: address },
+    { k: "Working hours", v: hours },
+    { k: "Call us", v: phone, href: `tel:${phoneRaw || phone.replace(/\D/g, "")}` },
+  ];
+
   const root = useGsapReveal<HTMLElement>((tl) => {
     tl.from("[data-w='head'] > *", { y: 32, opacity: 0, duration: 0.8, stagger: 0.1 })
       .from("[data-w='promise']", { y: 26, opacity: 0, duration: 0.7, stagger: 0.09 }, "<0.2")
@@ -133,12 +157,21 @@ export function WhyChooseUs() {
         </div>
 
         <div className="border-border/70 bg-card/45 space-y-6 rounded-sm border p-8 backdrop-blur-xl">
-          {CONTACT.map((c) => (
+          {contactList.map((c) => (
             <div key={c.k} data-w="info">
               <div className="text-muted-foreground text-[11px] tracking-[0.28em] uppercase">
                 {c.k}
               </div>
-              <p className="mt-2 text-sm font-semibold">{c.v}</p>
+              {c.href ? (
+                <a
+                  href={c.href}
+                  className="mt-2 text-sm font-semibold block hover:text-ember transition-colors"
+                >
+                  {c.v}
+                </a>
+              ) : (
+                <p className="mt-2 text-sm font-semibold">{c.v}</p>
+              )}
             </div>
           ))}
         </div>
