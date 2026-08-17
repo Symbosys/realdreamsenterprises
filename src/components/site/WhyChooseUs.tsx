@@ -89,6 +89,11 @@ export function WhyChooseUs() {
     "contact.address",
     "2nd Floor, Reena Tower, Behind Rajdhani Manya Tower, Piska More, Ranchi"
   );
+  const stateAddress = getConfigValue(
+    webConfig,
+    "contact.stateAddress",
+    SITE_CONTACT.stateAddress || "5th Floor, Mangal Tower, Kantatoli, Ranchi - 834001"
+  );
   const hours = getConfigValue(
     webConfig,
     "contact.hours",
@@ -107,6 +112,7 @@ export function WhyChooseUs() {
 
   const contactList = [
     { k: "Head office", v: address },
+    { k: "State office", v: stateAddress },
     { k: "Working hours", v: hours },
     { k: "Call us", v: phone, href: `tel:${phoneRaw || phone.replace(/\D/g, "")}` },
   ];
