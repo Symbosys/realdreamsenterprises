@@ -35,6 +35,7 @@ const CATEGORIES = [
   "Delivery & Logistics",
   "Factory & Machinery",
   "Certificates & Testing",
+  "Event Photo",
 ];
 
 function AdminGalleryPage() {
@@ -441,8 +442,12 @@ function AdminGalleryPage() {
                 <label className="block text-xs font-semibold text-muted-foreground">Upload Image (Cloudinary) *</label>
 
                 {imageUrl && (
-                  <div className="relative aspect-16/9 w-full overflow-hidden rounded-xl border border-border bg-muted">
-                    <img src={imageUrl} alt="Preview" className="h-full w-full object-cover" />
+                  <div className="relative w-full max-h-80 overflow-hidden rounded-xl border border-border bg-muted/40 p-2 flex items-center justify-center">
+                    <img
+                      src={imageUrl}
+                      alt="Preview"
+                      className="max-h-72 w-auto max-w-full object-contain rounded-lg shadow-sm"
+                    />
                   </div>
                 )}
 

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { Glass, SectionHeading } from "./Primitives";
 import { Reveal } from "./Reveal";
@@ -9,6 +10,27 @@ export function GallerySection() {
   const { data: galleryImages = [], isLoading } = useGetActiveGallery();
   const [selectedCategory, setSelectedCategory] = useState<string>("ALL");
   const [activeLightbox, setActiveLightbox] = useState<GalleryImageData | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setActiveLightbox(null);
+    };
+    if (activeLightbox) {
+      document.body.style.overflow = "hidden";
+      window.addEventListener("keydown", handleKeyDown);
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [activeLightbox]);
 
   // Extract unique active categories
   const categories = Array.from(new Set(galleryImages.map((item) => item.category)));
@@ -83,14 +105,14 @@ export function GallerySection() {
                   <Glass
                     className="group relative overflow-hidden rounded-2xl border border-border/70 p-2 transition-all duration-300 hover:border-ember/60 hover:shadow-2xl cursor-pointer"
                   >
-                  <div className="relative aspect-4/3 w-full overflow-hidden rounded-xl bg-muted">
+                  <div className="relative aspect-4/3 w-full overflow-hidden rounded-xl bg-black/40 flex items-center justify-center">
                     <img
                       src={item.imageUrl}
                       alt={item.title}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-105"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-linear-to-t from-background/90 via-background/20 to-transparent opacity-60 group-hover:opacity-90 transition-opacity" />
+                    <div className="absolute inset-0 bg-linear-to-t from-background/90 via-background/20 to-transparent opacity-60 group-hover:opacity-90 transition-opacity pointer-events-none" />
 
                     <div className="absolute top-3 left-3">
                       <span className="inline-flex items-center gap-1 rounded-md border border-border/60 bg-background/80 px-2.5 py-1 text-[10px] font-bold text-foreground backdrop-blur-md">
@@ -123,54 +145,59 @@ export function GallerySection() {
         )}
       </div>
 
-      {/* Lightbox Zoom Modal */}
-      <AnimatePresence>
-        {activeLightbox && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setActiveLightbox(null)}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/90 backdrop-blur-md"
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-4xl overflow-hidden rounded-2xl border border-border bg-card shadow-2xl"
-            >
-              <button
-                type="button"
+      {/* Lightbox Zoom Modal (Portaled to document.body for true viewport centering) */}
+      {mounted &&
+        createPortal(
+          <AnimatePresence>
+            {activeLightbox && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 onClick={() => setActiveLightbox(null)}
-                className="absolute top-4 right-4 z-10 rounded-full bg-background/80 p-2 text-foreground hover:bg-muted backdrop-blur-md cursor-pointer transition-colors"
+                className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md"
               >
-                <X className="h-5 w-5" />
-              </button>
+                <motion.div
+                  initial={{ scale: 0.95, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.95, opacity: 0 }}
+                  onClick={(e) => e.stopPropagation()}
+                  className="relative w-full max-w-4xl max-h-[90vh] flex flex-col rounded-2xl border border-border/80 bg-card shadow-2xl overflow-hidden"
+                >
+                  <button
+                    type="button"
+                    onClick={() => setActiveLightbox(null)}
+                    className="absolute top-3 right-3 z-30 rounded-full bg-black/70 p-2 text-white hover:bg-black/90 backdrop-blur-md cursor-pointer transition-colors shadow-lg"
+                    title="Close (Esc)"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
 
-              <div className="relative aspect-16/9 w-full bg-black">
-                <img
-                  src={activeLightbox.imageUrl}
-                  alt={activeLightbox.title}
-                  className="h-full w-full object-contain"
-                />
-              </div>
+                  <div className="relative w-full flex-1 min-h-0 max-h-[65vh] bg-black/95 flex items-center justify-center overflow-hidden p-2">
+                    <img
+                      src={activeLightbox.imageUrl}
+                      alt={activeLightbox.title}
+                      className="max-h-[60vh] w-auto max-w-full object-contain mx-auto"
+                    />
+                  </div>
 
-              <div className="p-6 space-y-2 border-t border-border/60">
-                <div className="flex items-center gap-2">
-                  <span className="rounded-md border border-ember/30 bg-ember/10 px-2.5 py-0.5 text-[10px] font-bold text-ember uppercase tracking-wider">
-                    {activeLightbox.category}
-                  </span>
-                </div>
-                <h3 className="font-display text-xl font-extrabold text-foreground">{activeLightbox.title}</h3>
-                {activeLightbox.caption && (
-                  <p className="text-xs text-muted-foreground leading-relaxed">{activeLightbox.caption}</p>
-                )}
-              </div>
-            </motion.div>
-          </motion.div>
+                  <div className="p-4 sm:p-5 space-y-1 border-t border-border/60 bg-card shrink-0">
+                    <div className="flex items-center gap-2">
+                      <span className="rounded-md border border-ember/30 bg-ember/10 px-2.5 py-0.5 text-[10px] font-bold text-ember uppercase tracking-wider">
+                        {activeLightbox.category}
+                      </span>
+                    </div>
+                    <h3 className="font-display text-base sm:text-lg font-extrabold text-foreground">{activeLightbox.title}</h3>
+                    {activeLightbox.caption && (
+                      <p className="text-xs text-muted-foreground leading-relaxed">{activeLightbox.caption}</p>
+                    )}
+                  </div>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body
         )}
-      </AnimatePresence>
     </section>
   );
 }
