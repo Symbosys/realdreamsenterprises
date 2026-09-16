@@ -155,7 +155,7 @@ export function GallerySection() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={() => setActiveLightbox(null)}
-                className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md"
+                className="fixed inset-0 z-99999 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md"
               >
                 <motion.div
                   initial={{ scale: 0.95, opacity: 0 }}
