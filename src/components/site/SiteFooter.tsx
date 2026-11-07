@@ -391,7 +391,7 @@ export function SiteFooter() {
             ) : null}
 
             {/* Developed by Symbosys link */}
-            <a
+            {/* <a
               href="https://www.symbosys.com/"
               target="_blank"
               rel="noopener noreferrer"
@@ -399,7 +399,7 @@ export function SiteFooter() {
             >
               <span>Developed by <span className="font-bold text-foreground group-hover:text-ember transition-colors">Symbosys</span></span>
               <ArrowUpRight className="h-3.5 w-3.5 opacity-70 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </a>
+            </a> */}
           </div>
         </div>
       </div>
